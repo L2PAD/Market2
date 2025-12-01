@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Star } from 'lucide-react';
+import { ShoppingCart, Star, Heart } from 'lucide-react';
 import { Button } from './ui/button';
 import { useCart } from '../contexts/CartContext';
+import { useFavorites } from '../contexts/FavoritesContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -21,6 +23,17 @@ const ProductCard = ({ product }) => {
     }
     
     addToCart(product.id);
+  };
+
+  const handleToggleFavorite = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (isFavorite(product.id)) {
+      removeFromFavorites(product.id);
+    } else {
+      addToFavorites(product);
+    }
   };
 
   const discount = product.compare_price
