@@ -59,9 +59,30 @@ const ProductCard = ({ product }) => {
             <span className="text-4xl">📦</span>
           </div>
         )}
+        
+        {/* Favorite Button */}
+        <button
+          onClick={handleToggleFavorite}
+          className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-sm transition-all ${
+            isFavorite(product.id)
+              ? 'bg-red-500 text-white'
+              : 'bg-white/80 text-gray-600 hover:bg-white'
+          }`}
+          title={isFavorite(product.id) ? 'Удалить из избранного' : 'Добавить в избранное'}
+        >
+          <Heart
+            className={`w-5 h-5 ${isFavorite(product.id) ? 'fill-current' : ''}`}
+          />
+        </button>
+        
         {discount > 0 && (
           <div data-testid="discount-badge" className="absolute top-3 left-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
             -{discount}%
+          </div>
+        )}
+        {product.installment_available && (
+          <div className="absolute bottom-3 left-3 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+            Кредит 0%
           </div>
         )}
         {product.stock_level === 0 && (
