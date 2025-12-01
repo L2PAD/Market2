@@ -131,37 +131,46 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Content */}
-      <div className="space-y-3">
-        <h3 data-testid="product-title" className="font-semibold text-lg text-[#121212] line-clamp-2 group-hover:text-[#0071E3]">
+      <div className="flex flex-col flex-1">
+        {/* Title - Fixed height */}
+        <h3 data-testid="product-title" className="font-semibold text-lg text-[#121212] line-clamp-2 group-hover:text-[#0071E3] mb-2 min-h-[3.5rem]">
           {product.title}
         </h3>
 
-        {product.short_description && (
-          <p className="text-sm text-gray-600 line-clamp-2">
-            {product.short_description}
-          </p>
-        )}
+        {/* Description - Fixed height */}
+        <div className="mb-3 min-h-[2.5rem]">
+          {product.short_description && (
+            <p className="text-sm text-gray-600 line-clamp-2">
+              {product.short_description}
+            </p>
+          )}
+        </div>
 
         {/* Rating */}
-        {product.rating > 0 && (
-          <div className="flex items-center gap-1">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-4 h-4 ${
-                  i < Math.floor(product.rating)
-                    ? 'fill-yellow-400 text-yellow-400'
-                    : 'text-gray-300'
-                }`}
-              />
-            ))}
-            <span className="text-sm text-gray-600 ml-1">({product.reviews_count})</span>
-          </div>
-        )}
+        <div className="mb-3 min-h-[1.5rem]">
+          {product.rating > 0 && (
+            <div className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`w-4 h-4 ${
+                    i < Math.floor(product.rating)
+                      ? 'fill-yellow-400 text-yellow-400'
+                      : 'text-gray-300'
+                  }`}
+                />
+              ))}
+              <span className="text-sm text-gray-600 ml-1">({product.reviews_count})</span>
+            </div>
+          )}
+        </div>
 
-        {/* Price */}
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
+        {/* Spacer to push price and button to bottom */}
+        <div className="flex-1"></div>
+
+        {/* Price - Always at the same position */}
+        <div className="mb-3">
+          <div className="flex items-center gap-2 mb-1">
             <span data-testid="product-price" className="text-2xl font-bold text-[#121212]">
               ${product.price.toFixed(2)}
             </span>
@@ -180,11 +189,11 @@ const ProductCard = ({ product }) => {
           )}
         </div>
 
-        {/* Add to Cart Button */}
+        {/* Add to Cart Button - Always at bottom */}
         <Button
           data-testid={`add-to-cart-${product.id}`}
           onClick={handleAddToCart}
-          className="w-full"
+          className="w-full mt-auto"
           disabled={product.stock_level === 0}
         >
           <ShoppingCart className="w-4 h-4 mr-2" />
