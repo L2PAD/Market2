@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Star, Heart } from 'lucide-react';
+import { ShoppingCart, Star, Heart, Scale } from 'lucide-react';
 import { Button } from './ui/button';
 import { useCart } from '../contexts/CartContext';
 import { useFavorites } from '../contexts/FavoritesContext';
+import { useComparison } from '../contexts/ComparisonContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  const { addToComparison, removeFromComparison, isInComparison, canAddMore } = useComparison();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -31,8 +34,27 @@ const ProductCard = ({ product }) => {
     
     if (isFavorite(product.id)) {
       removeFromFavorites(product.id);
+      toast.success('Удалено из избранного');
     } else {
       addToFavorites(product);
+      toast.success('Добавлено в избранное');
+    }
+  };
+
+  const handleToggleComparison = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (isInComparison(product.id)) {
+      removeFromComparison(product.id);
+      toast.success('Удалено из сравнения');
+    } else {
+      if (!canAddMore()) {
+        toast.error('Можно сравнивать максимум 4 товара');
+        return;
+      }
+      addToComparison(product);
+      toast.success('Добавлено к сравнению');
     }
   };
 
