@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import SupportWidget from './components/SupportWidget';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
