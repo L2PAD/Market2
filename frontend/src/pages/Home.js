@@ -156,16 +156,19 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <TestimonialsSection />
+
       {/* CTA Section */}
       <section className="py-20 bg-[#0071E3] text-white">
         <div className="container-main text-center space-y-6">
-          <h2 data-testid="cta-title" className="text-4xl font-bold">Ready to Start Selling?</h2>
+          <h2 data-testid="cta-title" className="text-4xl font-bold">{t('readyToStartSelling')}</h2>
           <p data-testid="cta-description" className="text-xl opacity-90 max-w-2xl mx-auto">
-            Join thousands of successful sellers on our platform. Create your store and start earning today.
+            {t('ctaDescription')}
           </p>
           <Link to="/register?role=seller">
             <Button data-testid="cta-button" size="lg" variant="secondary" className="text-lg px-8">
-              Get Started Now
+              {t('getStartedNow')}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </Link>
