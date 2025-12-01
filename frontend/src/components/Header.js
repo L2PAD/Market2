@@ -63,6 +63,9 @@ const Header = () => {
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+            
             {/* Cart */}
             {isAuthenticated && (
               <Link data-testid="cart-link" to="/cart" className="relative p-2 hover:bg-gray-100 rounded-lg">
