@@ -48,13 +48,13 @@ const Home = () => {
             <div className="flex flex-wrap justify-center gap-4 pt-4">
               <Link to="/products">
                 <Button data-testid="browse-products-button" size="lg" className="text-lg px-8">
-                  Browse Products
+                  {t('browseProducts')}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </Link>
               <Link to="/register?role=seller">
                 <Button data-testid="become-seller-button" size="lg" variant="outline" className="text-lg px-8">
-                  Become a Seller
+                  {t('becomeSeller')}
                 </Button>
               </Link>
             </div>
