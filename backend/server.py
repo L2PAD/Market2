@@ -99,6 +99,9 @@ class Product(BaseModel):
     status: str = "published"
     rating: float = 0.0
     reviews_count: int = 0
+    installment_months: Optional[int] = None
+    installment_available: bool = False
+    views_count: int = 0
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
