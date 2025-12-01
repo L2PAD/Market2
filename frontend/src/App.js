@@ -29,31 +29,36 @@ function App() {
     <BrowserRouter>
       <LanguageProvider>
         <AuthProvider>
-          <FavoritesProvider>
-            <CartProvider>
-              <div data-testid="app" className="App">
-                <Toaster position="top-right" />
-                <Header />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/products/:id" element={<ProductDetail />} />
-                  <Route path="/favorites" element={<Favorites />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/checkout" element={<Checkout />} />
-                  <Route path="/checkout/success" element={<CheckoutSuccess />} />
-                  <Route path="/checkout/cancel" element={<Navigate to="/cart" />} />
-                  <Route path="/seller/dashboard" element={<SellerDashboard />} />
-                  <Route path="/admin" element={<AdminPanel />} />
-                  <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
-                <Footer />
-                <SupportWidget />
-              </div>
-            </CartProvider>
-          </FavoritesProvider>
+          <NotificationsProvider>
+            <ComparisonProvider>
+              <FavoritesProvider>
+                <CartProvider>
+                  <div data-testid="app" className="App">
+                    <Toaster position="top-right" />
+                    <Header />
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
+                      <Route path="/products" element={<Products />} />
+                      <Route path="/products/:id" element={<ProductDetail />} />
+                      <Route path="/favorites" element={<Favorites />} />
+                      <Route path="/comparison" element={<Comparison />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/checkout" element={<Checkout />} />
+                      <Route path="/checkout/success" element={<CheckoutSuccess />} />
+                      <Route path="/checkout/cancel" element={<Navigate to="/cart" />} />
+                      <Route path="/seller/dashboard" element={<SellerDashboard />} />
+                      <Route path="/admin" element={<AdminPanel />} />
+                      <Route path="*" element={<Navigate to="/" />} />
+                    </Routes>
+                    <Footer />
+                    <SupportWidget />
+                  </div>
+                </CartProvider>
+              </FavoritesProvider>
+            </ComparisonProvider>
+          </NotificationsProvider>
         </AuthProvider>
       </LanguageProvider>
     </BrowserRouter>
