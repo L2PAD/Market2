@@ -14,6 +14,8 @@ import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import CheckoutSuccess from './pages/CheckoutSuccess';
+import SellerDashboard from './pages/SellerDashboard';
+import AdminPanel from './pages/AdminPanel';
 import './App.css';
 
 function App() {
