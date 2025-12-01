@@ -7,6 +7,7 @@ import { Button } from '../components/ui/button';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Home = () => {
+  const { t } = useLanguage();
   const [categories, setCategories] = useState([]);
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
