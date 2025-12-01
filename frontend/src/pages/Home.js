@@ -5,6 +5,7 @@ import { categoriesAPI, productsAPI } from '../utils/api';
 import ProductCard from '../components/ProductCard';
 import { Button } from '../components/ui/button';
 import { useLanguage } from '../contexts/LanguageContext';
+import TestimonialsSection from '../components/TestimonialsSection';
 
 const Home = () => {
   const { t } = useLanguage();
