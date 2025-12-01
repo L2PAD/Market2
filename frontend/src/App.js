@@ -37,6 +37,8 @@ function App() {
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/checkout/success" element={<CheckoutSuccess />} />
                 <Route path="/checkout/cancel" element={<Navigate to="/cart" />} />
+                <Route path="/seller/dashboard" element={<SellerDashboard />} />
+                <Route path="/admin" element={<AdminPanel />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
               <Footer />
