@@ -39,6 +39,10 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (productId, quantity = 1) => {
     try {
       await cartAPI.addItem({ product_id: productId, quantity });
+      
+      // Small delay to ensure MongoDB write is completed
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
       await fetchCart();
       toast.success('Added to cart');
       return { success: true };
