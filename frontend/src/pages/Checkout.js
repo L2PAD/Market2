@@ -218,7 +218,9 @@ const Checkout = () => {
       const order = await response.json();
 
       // If online payment, process payment with RozetkaPay (Hosted Checkout)
+      console.log('Payment method selected:', paymentMethod);
       if (paymentMethod === 'online') {
+        console.log('Processing RozetkaPay payment...');
         try {
           const paymentData = {
             external_id: orderNumber,
