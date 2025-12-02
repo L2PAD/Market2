@@ -183,9 +183,9 @@ backend:
 
   - task: "RozetkaPay Payment Integration"
     implemented: true
-    working: true
-    file: "/app/backend/server.py, /app/backend/rozetkapay_service.py"
-    stuck_count: 2
+    working: false
+    file: "/app/backend/server.py, /app/backend/rozetkapay_service.py, /app/frontend/src/pages/Checkout.js"
+    stuck_count: 3
     priority: "high"
     needs_retesting: false
     status_history:
@@ -198,6 +198,9 @@ backend:
       - working: true
         agent: "testing"
         comment: "FIXED: RozetkaPay backend integration issue resolved. The problem was in rozetkapay_service.py line 123 where 'result.get(\"details\", {}).get(\"status\")' failed because details was None. Fixed by adding proper None check: 'result.get(\"details\", {}).get(\"status\") if result.get(\"details\") is not None else None'. Backend logs now show successful RozetkaPay API calls with correct redirect URLs to buy.rozetkapay.com. However, E2E testing blocked by authentication requirements - checkout requires login and cart doesn't persist without authentication."
+      - working: false
+        agent: "testing"
+        comment: "COMPREHENSIVE E2E TESTING COMPLETED: Backend RozetkaPay integration is working (confirmed by backend logs showing successful 200 OK responses to /api/payment/rozetkapay/create). However, frontend checkout form validation is preventing order submission. Issues found: 1) Authentication working - testuser2@example.com login successful 2) Cart functionality working - products successfully added 3) Checkout page loads correctly with RozetkaPay option visible 4) CRITICAL ISSUE: Form validation requires city and address fields even when self-pickup delivery is selected 5) Frontend form validation logic prevents order submission, blocking redirect to buy.rozetkapay.com. The RozetkaPay payment option is properly implemented and selectable, but form validation bugs prevent E2E completion."
 
 metadata:
   created_by: "testing_agent"
