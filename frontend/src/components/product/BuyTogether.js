@@ -26,7 +26,8 @@ const BuyTogether = ({ product }) => {
       });
       
       // Filter out current product and select 1-2 random complementary products
-      const filtered = response.data
+      const products = Array.isArray(response.data) ? response.data : response;
+      const filtered = products
         .filter(p => p.id !== product.id && p.stock_level > 0)
         .slice(0, 2);
       
