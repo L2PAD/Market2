@@ -165,17 +165,29 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
         {/* Price Section */}
         <div className="mt-auto">
           <div className="mb-2">
-            {/* Current Price */}
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-bold text-gray-900">
-                ${finalPrice.toFixed(2)}
-              </span>
-              {product.compare_price && (
-                <span className="text-sm text-gray-400 line-through">
-                  ${product.compare_price.toFixed(2)}
+            {product.compare_price ? (
+              // With discount
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl font-bold text-red-600">
+                    ${finalPrice.toFixed(2)}
+                  </span>
+                  <span className="text-sm text-gray-400 line-through">
+                    ${product.compare_price.toFixed(2)}
+                  </span>
+                </div>
+                <div className="text-xs text-green-600 font-medium">
+                  Экономия ${(product.compare_price - finalPrice).toFixed(2)}
+                </div>
+              </div>
+            ) : (
+              // Regular price
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-bold text-gray-900">
+                  ${finalPrice.toFixed(2)}
                 </span>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Installment Price */}
             {installmentPrice && (
