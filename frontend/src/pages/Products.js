@@ -7,8 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Slider } from '../components/ui/slider';
 import { Label } from '../components/ui/label';
 import { Filter, X, Grid, List, ArrowUpDown, ChevronDown, ChevronRight, Search } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Products = () => {
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
