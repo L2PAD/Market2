@@ -247,30 +247,6 @@ const Products = () => {
             <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  {/* Price Display Toggle */}
-                  <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
-                    <button
-                      onClick={() => setPriceDisplay('full')}
-                      className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
-                        priceDisplay === 'full'
-                          ? 'bg-green-500 text-white'
-                          : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                    >
-                      Повна ціна
-                    </button>
-                    <button
-                      onClick={() => setPriceDisplay('monthly')}
-                      className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
-                        priceDisplay === 'monthly'
-                          ? 'bg-green-500 text-white'
-                          : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                    >
-                      Ціна в місяць
-                    </button>
-                  </div>
-
                   {/* Sort */}
                   <Select value={sortBy} onValueChange={handleSortChange}>
                     <SelectTrigger className="w-[200px]">
