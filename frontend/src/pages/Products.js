@@ -160,13 +160,13 @@ const Products = () => {
               {/* Categories Filter */}
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-bold text-lg">Розділ</h3>
+                  <h3 className="font-bold text-lg">{t('section')}</h3>
                   {categoryId && (
                     <button
                       onClick={() => handleCategoryChange('')}
                       className="text-sm text-blue-600 hover:text-blue-700"
                     >
-                      Скинути
+                      {t('reset')}
                     </button>
                   )}
                 </div>
@@ -178,7 +178,7 @@ const Products = () => {
                     type="text"
                     value={categorySearch}
                     onChange={(e) => setCategorySearch(e.target.value)}
-                    placeholder="Пошук"
+                    placeholder={t('search')}
                     className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg"
                   />
                 </div>
