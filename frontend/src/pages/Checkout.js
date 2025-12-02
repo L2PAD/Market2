@@ -5,7 +5,6 @@ import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/ui/button';
 import { MapPin, CreditCard, Building2, User, Phone, Mail, ChevronRight, AlertCircle, Package, Truck, Home } from 'lucide-react';
 import { toast } from 'sonner';
-import RozetkaPayWidget from '../components/RozetkaPayWidget';
 
 const Checkout = () => {
   const navigate = useNavigate();
