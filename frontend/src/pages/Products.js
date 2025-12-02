@@ -231,7 +231,7 @@ const Products = () => {
                       {expandedCategories.includes(category.id) && (
                         <div className="ml-6 mt-1 space-y-1">
                           <div className="text-xs text-gray-500 p-2">
-                            Підкатегорії будуть тут
+                            {t('subcategories')}
                           </div>
                         </div>
                       )}
