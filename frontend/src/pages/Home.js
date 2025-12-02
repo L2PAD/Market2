@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { categoriesAPI, productsAPI } from '../utils/api';
-import ProductCard from '../components/ProductCard';
+import ProductCardCompact from '../components/ProductCardCompact';
 import CategorySidebar from '../components/CategorySidebar';
 import HeroBanner from '../components/HeroBanner';
 import TestimonialsSection from '../components/TestimonialsSection';
