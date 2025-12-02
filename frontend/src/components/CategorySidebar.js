@@ -32,8 +32,53 @@ const CategorySidebar = ({ categories, selectedCategory, onCategoryClick }) => {
   const [categoriesData, setCategoriesData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Структура категорий с подкатегориями
-  const categoryStructure = [
+  // Fetch categories from API
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      setLoading(true);
+      const response = await categoriesAPI.getAll();
+      
+      // Organize categories with subcategories
+      const organized = organizeCategories(response.data);
+      setCategoriesData(organized);
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const organizeCategories = (categories) => {
+    // Get parent categories
+    const parents = categories.filter(cat => !cat.parent_id);
+    
+    // Map subcategories to parents
+    return parents.map(parent => ({
+      ...parent,
+      subcategories: categories.filter(cat => cat.parent_id === parent.id)
+    }));
+  };
+
+  // Icon mapping for categories
+  const iconMap = {
+    'electronics': Laptop,
+    'smartphones-tv': Smartphone,
+    'gaming': Gamepad2,
+    'appliances': WashingMachine,
+    'fashion': Shirt,
+    'home-garden': Sofa,
+    'sports': Dumbbell,
+    'beauty': Sparkles,
+    'kids': Baby,
+    'pets': Dog
+  };
+
+  // Fallback hardcoded structure (in case API fails)
+  const categoryStructure = loading ? [] : categoriesData.length > 0 ? categoriesData : [
     {
       id: 'electronics',
       name: 'Ноутбуки та комп\'ютери',
