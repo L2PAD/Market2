@@ -62,11 +62,15 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
       className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col h-full"
     >
       {/* Image Container */}
-      <div className="relative bg-gray-50 aspect-square overflow-hidden">
+      <div 
+        className="relative bg-gray-50 aspect-square overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         {/* Discount Badge */}
         {discount > 0 && (
           <div className="absolute top-2 left-2 z-10">
-            <div className="bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold">
+            <div className="bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold shadow-lg">
               -{discount}%
             </div>
           </div>
@@ -95,10 +99,31 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
 
         {/* Product Image */}
         <img
-          src={product.images?.[0] || 'https://via.placeholder.com/300'}
+          src={images[currentImageIndex]}
           alt={product.title || product.name}
           className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
         />
+
+        {/* Image Thumbnails on Hover */}
+        {images.length > 1 && isHovered && (
+          <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1 z-10">
+            {images.slice(0, 4).map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setCurrentImageIndex(index);
+                }}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  currentImageIndex === index 
+                    ? 'bg-blue-500 w-4' 
+                    : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Product Info */}
