@@ -49,7 +49,7 @@ const Footer = () => {
           <div className="flex items-start gap-3">
             <MapPin className="w-6 h-6 text-[#0071E3] flex-shrink-0 mt-1" />
             <div>
-              <h3 className="font-bold text-lg text-[#121212] mb-1">Marketplace</h3>
+              <h3 className="font-bold text-lg text-[#121212] mb-1">Bazaar</h3>
               <p className="text-gray-700 text-sm mb-2">
                 ул. Крещатик, 36<br />
                 Киев, Украина, 01001
