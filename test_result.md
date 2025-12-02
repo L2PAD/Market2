@@ -165,6 +165,18 @@ frontend:
         agent: "testing"
         comment: "RozetkaPay payment option is visible and selectable. Green security info block appears when selected. UI components working correctly."
 
+  - task: "Buy Together Feature on Product Detail Page"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/product/BuyTogether.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Initial testing task created for Buy Together feature. Need to test main product display with blue border, complementary products with green borders, checkboxes, total price calculation, and add all to cart functionality."
+
 backend:
   - task: "Orders API Endpoint"
     implemented: true
