@@ -344,15 +344,11 @@ async def get_products(
 ):
     query = {"status": "published"}
     
+    # Build filter query
     if category_id:
         query["category_id"] = category_id
     if seller_id:
         query["seller_id"] = seller_id
-    if search:
-        query["$or"] = [
-            {"title": {"$regex": search, "$options": "i"}},
-            {"description": {"$regex": search, "$options": "i"}}
-        ]
     if min_price is not None or max_price is not None:
         query["price"] = {}
         if min_price is not None:
@@ -360,20 +356,47 @@ async def get_products(
         if max_price is not None:
             query["price"]["$lte"] = max_price
     
-    # Determine sort order
-    sort_field = [("created_at", -1)]  # Default: newest first
-    if sort_by == "popularity":
-        sort_field = [("views_count", -1), ("rating", -1)]
-    elif sort_by == "newest":
-        sort_field = [("created_at", -1)]
-    elif sort_by == "price_asc":
-        sort_field = [("price", 1)]
-    elif sort_by == "price_desc":
-        sort_field = [("price", -1)]
-    elif sort_by == "rating":
-        sort_field = [("rating", -1), ("reviews_count", -1)]
-    
-    products = await db.products.find(query, {"_id": 0}).sort(sort_field).skip(skip).limit(limit).to_list(limit)
+    # Use MongoDB text search for better relevance
+    if search:
+        query["$text"] = {"$search": search}
+        # Add text score for sorting by relevance
+        projection = {"_id": 0, "score": {"$meta": "textScore"}}
+        
+        # Default sort by relevance when searching
+        sort_field = [("score", {"$meta": "textScore"})]
+        
+        # Override sort if explicitly requested
+        if sort_by == "popularity":
+            sort_field = [("views_count", -1), ("rating", -1)]
+        elif sort_by == "newest":
+            sort_field = [("created_at", -1)]
+        elif sort_by == "price_asc":
+            sort_field = [("price", 1)]
+        elif sort_by == "price_desc":
+            sort_field = [("price", -1)]
+        elif sort_by == "rating":
+            sort_field = [("rating", -1), ("reviews_count", -1)]
+        
+        products = await db.products.find(query, projection).sort(sort_field).skip(skip).limit(limit).to_list(limit)
+        
+        # Remove score from response
+        for prod in products:
+            prod.pop("score", None)
+    else:
+        # No search query - use standard sorting
+        sort_field = [("created_at", -1)]  # Default: newest first
+        if sort_by == "popularity":
+            sort_field = [("views_count", -1), ("rating", -1)]
+        elif sort_by == "newest":
+            sort_field = [("created_at", -1)]
+        elif sort_by == "price_asc":
+            sort_field = [("price", 1)]
+        elif sort_by == "price_desc":
+            sort_field = [("price", -1)]
+        elif sort_by == "rating":
+            sort_field = [("rating", -1), ("reviews_count", -1)]
+        
+        products = await db.products.find(query, {"_id": 0}).sort(sort_field).skip(skip).limit(limit).to_list(limit)
     for prod in products:
         if isinstance(prod.get("created_at"), str):
             prod["created_at"] = datetime.fromisoformat(prod["created_at"])
