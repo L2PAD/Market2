@@ -46,6 +46,14 @@ const RozetkaPayWidget = ({
     if (!widgetKey || scriptLoadedRef.current) return;
 
     const loadScript = () => {
+      // Check if script already exists
+      const existingScript = document.querySelector('script[src="https://cdn.rozetkapay.com/widget.js"]');
+      if (existingScript) {
+        scriptLoadedRef.current = true;
+        setIsLoading(false);
+        return;
+      }
+
       const script = document.createElement('script');
       script.src = 'https://cdn.rozetkapay.com/widget.js';
       script.async = true;
@@ -56,10 +64,19 @@ const RozetkaPayWidget = ({
       };
       script.onerror = () => {
         console.error('Failed to load RozetkaPay widget script');
-        toast.error('Не вдалося завантажити платіжну форму');
+        toast.error('Не вдалося завантажити платіжну форму. Спробуйте інший метод оплати.');
         if (onError) onError(new Error('Script load failed'));
         setIsLoading(false);
       };
+      
+      // Add error handler to catch any runtime errors
+      window.addEventListener('error', (event) => {
+        if (event.filename && event.filename.includes('rozetkapay')) {
+          console.error('RozetkaPay widget error:', event.message);
+          event.preventDefault(); // Prevent default error display
+        }
+      }, true);
+
       document.body.appendChild(script);
     };
 
