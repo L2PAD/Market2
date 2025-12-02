@@ -39,23 +39,6 @@ const ProductCard = ({ product }) => {
     }
   };
 
-  const handleToggleComparison = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (isInComparison(product.id)) {
-      removeFromComparison(product.id);
-      toast.success('Удалено из сравнения');
-    } else {
-      if (!canAddMore()) {
-        toast.error('Можно сравнивать максимум 4 товара');
-        return;
-      }
-      addToComparison(product);
-      toast.success('Добавлено к сравнению');
-    }
-  };
-
   const discount = product.compare_price
     ? Math.round(((product.compare_price - product.price) / product.compare_price) * 100)
     : 0;
