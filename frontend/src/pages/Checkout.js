@@ -27,8 +27,6 @@ const Checkout = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [cardToken, setCardToken] = useState(null);
-  const [showPaymentWidget, setShowPaymentWidget] = useState(false);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   useEffect(() => {
