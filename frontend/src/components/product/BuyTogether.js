@@ -165,7 +165,7 @@ const BuyTogether = ({ product }) => {
                       onChange={() => {}}
                       className="w-4 h-4 text-green-600 rounded border-gray-300 focus:ring-green-500"
                     />
-                    <span className="text-sm text-gray-700">Додати цей товар</span>
+                    <span className="text-sm text-gray-700">{t('addThisProduct')}</span>
                   </label>
                 </div>
               </div>
