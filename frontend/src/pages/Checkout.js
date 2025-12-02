@@ -135,19 +135,125 @@ const Checkout = () => {
     }
   };
 
+  const handleTokenReceived = (tokenData) => {
+    console.log('Card token received:', tokenData);
+    setCardToken(tokenData);
+    toast.success('Дані карти успішно збережено');
+  };
+
   const handlePlaceOrder = async () => {
     if (!validateForm()) {
       toast.error('Будь ласка, заповніть всі обов\'язкові поля');
       return;
     }
 
+    // If online payment selected, show payment widget
+    if (paymentMethod === 'online' && !cardToken) {
+      setShowPaymentWidget(true);
+      toast.info('Будь ласка, введіть дані карти для оплати');
+      return;
+    }
+
     try {
-      // Here would be the actual order placement logic
+      setIsProcessingPayment(true);
+
+      // Create order
+      const orderNumber = `ORDER-${Date.now()}`;
+      const orderData = {
+        order_number: orderNumber,
+        buyer_id: user?.id || 'guest',
+        items: cart.map(item => ({
+          product_id: item.id,
+          title: item.title,
+          quantity: item.quantity,
+          price: item.price,
+          seller_id: item.seller_id || 'unknown'
+        })),
+        total_amount: totalWithDelivery,
+        currency: 'UAH',
+        shipping_address: {
+          street: recipientData.address,
+          city: recipientData.city,
+          state: '',
+          postal_code: '',
+          country: 'UA'
+        },
+        status: 'pending',
+        payment_status: 'pending',
+        payment_method: paymentMethod
+      };
+
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
+
+      const order = await response.json();
+
+      // If online payment, process payment with RozetkaPay
+      if (paymentMethod === 'online' && cardToken) {
+        const paymentData = {
+          external_id: orderNumber,
+          amount: totalWithDelivery,
+          currency: 'UAH',
+          card_token: cardToken.token,
+          customer: {
+            email: recipientData.email,
+            first_name: recipientData.firstName,
+            last_name: recipientData.lastName,
+            phone: recipientData.phone
+          },
+          description: `Оплата замовлення ${orderNumber}`
+        };
+
+        const paymentResponse = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/payment/rozetkapay/create`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(paymentData)
+          }
+        );
+
+        if (!paymentResponse.ok) {
+          throw new Error('Failed to process payment');
+        }
+
+        const paymentResult = await paymentResponse.json();
+
+        if (paymentResult.success) {
+          // Check if 3DS verification is required
+          if (paymentResult.action_required && paymentResult.action) {
+            // Redirect to 3DS page
+            window.location.href = paymentResult.action.value;
+            return;
+          }
+
+          toast.success('Оплата успішно проведена!');
+        } else {
+          throw new Error(paymentResult.error || 'Payment failed');
+        }
+      }
+
       toast.success('Замовлення успішно оформлено!');
       clearCart();
-      navigate('/checkout/success');
+      navigate('/checkout/success', { state: { orderNumber } });
     } catch (error) {
-      toast.error('Помилка при оформленні замовлення');
+      console.error('Error placing order:', error);
+      toast.error(`Помилка при оформленні замовлення: ${error.message}`);
+    } finally {
+      setIsProcessingPayment(false);
     }
   };
 
