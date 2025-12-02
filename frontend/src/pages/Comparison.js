@@ -179,14 +179,14 @@ const Comparison = () => {
                 {/* Action Row */}
                 <tr className="bg-white">
                   <td className="p-4 font-medium text-gray-700 sticky left-0 z-10">
-                    Действия
+                    {t('actions')}
                   </td>
                   {comparisonItems.map((product) => (
                     <td key={product.id} className="p-4">
                       <div className="flex flex-col gap-2">
                         <Link to={`/products/${product.id}`}>
                           <Button variant="outline" className="w-full" size="sm">
-                            Подробнее
+                            {t('details')}
                           </Button>
                         </Link>
                         <Button
@@ -196,7 +196,7 @@ const Comparison = () => {
                           disabled={product.stock_level === 0}
                         >
                           <ShoppingCart className="w-4 h-4 mr-2" />
-                          {product.stock_level === 0 ? 'Нет в наличии' : 'В корзину'}
+                          {product.stock_level === 0 ? t('notAvailable') : t('addToCart')}
                         </Button>
                       </div>
                     </td>
