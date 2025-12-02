@@ -36,11 +36,11 @@ const ProductCardCompact = ({ product }) => {
     }
   };
 
-  const discount = product.sale_price
-    ? Math.round(((product.price - product.sale_price) / product.price) * 100)
+  const discount = product.compare_price
+    ? Math.round(((product.compare_price - product.price) / product.compare_price) * 100)
     : 0;
 
-  const finalPrice = product.sale_price || product.price;
+  const finalPrice = product.price;
   const installmentPrice = product.installment_months
     ? (finalPrice / product.installment_months).toFixed(2)
     : null;
