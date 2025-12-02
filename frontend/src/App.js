@@ -24,6 +24,12 @@ import Checkout from './pages/Checkout';
 import CheckoutSuccess from './pages/CheckoutSuccess';
 import SellerDashboard from './pages/SellerDashboard';
 import AdminPanel from './pages/AdminPanel';
+import ContactInfo from './pages/ContactInfo';
+import DeliveryPayment from './pages/DeliveryPayment';
+import ExchangeReturn from './pages/ExchangeReturn';
+import AboutUs from './pages/AboutUs';
+import Terms from './pages/Terms';
+import Blog from './pages/Blog';
 import './App.css';
 
 function App() {
