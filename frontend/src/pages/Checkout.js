@@ -534,11 +534,6 @@ const Checkout = () => {
                         onChange={() => {
                           if (option.disabled) return;
                           setPaymentMethod(option.id);
-                          if (option.id === 'online') {
-                            setShowPaymentWidget(true);
-                          } else {
-                            setShowPaymentWidget(false);
-                          }
                         }}
                         className="mt-1 w-5 h-5"
                       />
