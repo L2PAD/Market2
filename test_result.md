@@ -213,3 +213,5 @@ test_plan:
 agent_communication:
   - agent: "testing"
     message: "E2E checkout flow testing completed. Cash on Delivery working perfectly. RozetkaPay UI working but backend integration failing. Order creation successful but payment processing returns None instead of expected response. Need to investigate RozetkaPay service response handling."
+  - agent: "testing"
+    message: "CRITICAL ROZETKAPAY INTEGRATION FAILURE: Comprehensive testing reveals multiple critical issues: 1) Backend rozetkapay_service.create_payment() returns None instead of dictionary, causing 'NoneType' object has no attribute 'get' error 2) Frontend cannot complete checkout flow due to authentication/cart issues 3) RozetkaPay API never called during testing 4) Payment selection UI not accessible. This is a complete integration failure requiring immediate main agent attention. The service logs show 'Payment created successfully' but function returns None - suggests code structure issue in rozetkapay_service.py."
