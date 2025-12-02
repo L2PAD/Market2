@@ -1,47 +1,83 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { generateProductRecommendations } from '../services/openaiService';
 
-const AIRecommendations = ({ productId }) => {
+const AIRecommendations = ({ product }) => {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchRecommendations();
-  }, [productId]);
+    if (product) {
+      fetchRecommendations();
+    }
+  }, [product]);
 
   const fetchRecommendations = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/api/ai/recommendations?product_id=${productId}&limit=4`
-      );
-      const data = await response.json();
       
-      if (data.success && data.data.recommendations) {
-        // Fetch full product details for each recommendation
-        const productPromises = data.data.recommendations.map(async (rec) => {
-          try {
-            const prodResponse = await fetch(
-              `${process.env.REACT_APP_BACKEND_URL}/api/products/${rec.product_id}`
-            );
-            const prodData = await prodResponse.json();
-            return {
-              ...prodData,
-              aiReason: rec.reason
-            };
-          } catch (error) {
+      // First, fetch available products
+      const productsResponse = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/products?limit=20`
+      );
+      const availableProducts = await productsResponse.json();
+      
+      // Filter out current product
+      const otherProducts = availableProducts.filter(p => p.id !== product.id);
+      
+      if (otherProducts.length === 0) {
+        setRecommendations([]);
+        setLoading(false);
+        return;
+      }
+
+      // Get AI recommendations using OpenAI (TEST VERSION)
+      const aiResponse = await generateProductRecommendations({
+        productName: product.title,
+        category: product.category_id,
+        price: product.price,
+        availableProducts: otherProducts.slice(0, 10) // Send max 10 products for context
+      });
+
+      if (aiResponse.success && aiResponse.recommendations.length > 0) {
+        // Map AI recommendations to full product data
+        const recommendedProducts = aiResponse.recommendations
+          .map(rec => {
+            const prod = otherProducts.find(p => p.id === rec.productId);
+            if (prod) {
+              return {
+                ...prod,
+                aiReason: rec.reason
+              };
+            }
             return null;
-          }
-        });
-        
-        const products = await Promise.all(productPromises);
-        setRecommendations(products.filter(p => p !== null));
+          })
+          .filter(p => p !== null)
+          .slice(0, 4);
+
+        setRecommendations(recommendedProducts);
+      } else {
+        // Fallback: show random products from same category
+        const sameCategoryProducts = otherProducts
+          .filter(p => p.category_id === product.category_id)
+          .slice(0, 4);
+        setRecommendations(sameCategoryProducts);
       }
     } catch (error) {
-      console.error('Error fetching recommendations:', error);
+      console.error('Error fetching AI recommendations:', error);
+      // Fallback: show any products
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/products?limit=4`
+        );
+        const data = await response.json();
+        setRecommendations(data.filter(p => p.id !== product?.id));
+      } catch (e) {
+        console.error('Fallback failed:', e);
+      }
     } finally {
       setLoading(false);
     }
