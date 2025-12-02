@@ -120,7 +120,7 @@ class RozetkaPayService:
                 "action_required": result.get("action_required", False),
                 "action": result.get("action"),  # This should contain checkout URL for hosted mode
                 "details": result.get("details"),
-                "status": result.get("details", {}).get("status") if result.get("details") else None,
+                "status": result.get("details", {}).get("status") if result.get("details") is not None else None,
                 "raw_response": result
             }
         
