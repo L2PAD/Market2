@@ -111,7 +111,7 @@ const ContactInfo = () => {
 
           <div className="flex gap-4">
             <a 
-              href="viber://chat?number=%2B380688886671"
+              href="viber://chat?number=%2B380502474161"
               className="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
