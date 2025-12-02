@@ -333,11 +333,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Comprehensive E2E Marketplace Testing Completed"
+    - "Buy Together Feature on Product Detail Page"
   stuck_tasks:
     - "RozetkaPay Payment Integration"
-  test_all: true
-  test_priority: "comprehensive_e2e_completed"
+  test_all: false
+  test_priority: "high_first"
 
 agent_communication:
   - agent: "testing"
