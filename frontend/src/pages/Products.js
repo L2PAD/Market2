@@ -291,7 +291,7 @@ const Products = () => {
 
               {/* Results count */}
               <div className="mt-3 text-sm text-gray-600">
-                Знайдено товарів: <span className="font-semibold">{products.length}</span>
+                {t('foundProducts')}: <span className="font-semibold">{products.length}</span>
               </div>
             </div>
 
@@ -302,7 +302,7 @@ const Products = () => {
               </div>
             ) : products.length === 0 ? (
               <div className="text-center py-20 bg-white rounded-2xl">
-                <p className="text-gray-600 text-lg">Товари не знайдено</p>
+                <p className="text-gray-600 text-lg">{t('noProductsFound')}</p>
               </div>
             ) : (
               <div className={viewMode === 'grid' 
