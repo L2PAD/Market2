@@ -638,25 +638,28 @@ const Checkout = () => {
 
               {/* Products */}
               <div className="space-y-4 mb-6 max-h-[400px] overflow-y-auto">
-                {cart.map((item) => (
-                  <div key={item.id} className="flex gap-3 pb-4 border-b border-gray-100">
-                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0">
-                      {item.images?.[0] && (
-                        <img
-                          src={item.images[0]}
-                          alt={item.title}
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                      )}
+                {cart.map((item) => {
+                  const product = products[item.product_id];
+                  return (
+                    <div key={item.product_id} className="flex gap-3 pb-4 border-b border-gray-100">
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex-shrink-0">
+                        {product?.images?.[0] && (
+                          <img
+                            src={product.images[0]}
+                            alt={product.title}
+                            className="w-full h-full object-cover rounded-lg"
+                          />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium line-clamp-2">{product?.title || 'Loading...'}</p>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {item.quantity} × ${item.price.toFixed(2)}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium line-clamp-2">{item.title}</p>
-                      <p className="text-sm text-gray-600 mt-1">
-                        {item.quantity} × ${item.price.toFixed(2)}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Totals */}
