@@ -199,13 +199,16 @@ const EnhancedProductDetail = () => {
             <div className="bg-white rounded-2xl p-8 border border-gray-200">
               {/* Title & Code */}
               <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.title}</h1>
-                <div className="flex items-center gap-4 text-sm text-gray-600">
-                  <span>Код: {product.id.substring(0, 8)}</span>
+                <h1 className="text-3xl font-bold text-gray-900 mb-3">{product.title}</h1>
+                <div className="flex items-center gap-6 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">Код:</span>
+                    <span className="font-semibold text-gray-900">{product.id.substring(0, 8).toLowerCase()}</span>
+                  </div>
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    <span>{product.rating || 0}</span>
-                    <span>({product.reviews_count || 0} відгуків)</span>
+                    <span className="font-semibold">{product.rating || 5}</span>
+                    <span className="text-gray-500">({product.reviews_count || 0} {t('language') === 'ru' ? 'отзывов' : 'відгуків'})</span>
                   </div>
                 </div>
               </div>
