@@ -50,7 +50,7 @@ const Header = () => {
           {/* Logo */}
           <Link data-testid="logo-link" to="/" className="flex items-center gap-2 text-xl font-bold text-[#121212]">
             <Package className="w-7 h-7 text-[#0071E3]" />
-            <span>Marketplace</span>
+            <span>Bazaar</span>
           </Link>
 
           {/* Search Bar - Desktop */}
