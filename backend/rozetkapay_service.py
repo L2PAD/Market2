@@ -94,13 +94,15 @@ class RozetkaPayService:
             result = response.json()
             
             logger.info(f"Payment created successfully: {external_id}")
+            logger.info(f"RozetkaPay API Response: {result}")
+            
             return {
                 "success": True,
                 "payment_id": result.get("id"),
                 "external_id": result.get("external_id"),
                 "is_success": result.get("is_success"),
                 "action_required": result.get("action_required", False),
-                "action": result.get("action"),  # URL for 3DS if needed
+                "action": result.get("action"),  # This should contain checkout URL for hosted mode
                 "details": result.get("details"),
                 "status": result.get("details", {}).get("status"),
                 "raw_response": result
