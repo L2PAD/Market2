@@ -9,6 +9,7 @@ import { ComparisonProvider } from './contexts/ComparisonContext';
 import { NotificationsProvider } from './contexts/NotificationsContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import AIChatbot from './components/AIChatbot';
 import SupportWidget from './components/SupportWidget';
 import Home from './pages/Home';
 import Login from './pages/Login';
