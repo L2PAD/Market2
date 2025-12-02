@@ -103,6 +103,15 @@ class RozetkaPayService:
             logger.info(f"Payment created successfully: {external_id}")
             logger.info(f"RozetkaPay API Response: {result}")
             
+            # Ensure result is not None
+            if result is None:
+                logger.error("API returned None result")
+                return {
+                    "success": False,
+                    "error": "API returned None",
+                    "external_id": external_id
+                }
+            
             return {
                 "success": True,
                 "payment_id": result.get("id"),
@@ -111,7 +120,7 @@ class RozetkaPayService:
                 "action_required": result.get("action_required", False),
                 "action": result.get("action"),  # This should contain checkout URL for hosted mode
                 "details": result.get("details"),
-                "status": result.get("details", {}).get("status"),
+                "status": result.get("details", {}).get("status") if result.get("details") else None,
                 "raw_response": result
             }
         
