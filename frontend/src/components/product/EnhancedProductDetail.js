@@ -252,14 +252,18 @@ const EnhancedProductDetail = () => {
               {/* Availability */}
               <div className="mb-6">
                 {product.stock_level > 0 ? (
-                  <div className="flex items-center gap-2 text-green-600">
-                    <CheckCircle className="w-5 h-5" />
-                    <span className="font-semibold">Є в наявності ({product.stock_level} шт)</span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                    <span className="font-semibold text-green-600">
+                      {t('language') === 'ru' ? 'Есть в наличии' : 'Є в наявності'} ({product.stock_level} {t('language') === 'ru' ? 'шт' : 'шт'})
+                    </span>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-2 text-red-600">
-                    <Info className="w-5 h-5" />
-                    <span className="font-semibold">Немає в наявності</span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 rounded-lg">
+                    <Info className="w-5 h-5 text-red-600" />
+                    <span className="font-semibold text-red-600">
+                      {t('language') === 'ru' ? 'Нет в наличии' : 'Немає в наявності'}
+                    </span>
                   </div>
                 )}
               </div>
