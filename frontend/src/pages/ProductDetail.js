@@ -300,7 +300,7 @@ const ProductDetail = () => {
                 <p className="text-sm text-gray-600">Secure Payment</p>
               </div>
               <div className="text-center space-y-2">
-                <TruckIcon className="w-8 h-8 mx-auto text-[#0071E3]" />
+                <Truck className="w-8 h-8 mx-auto text-[#0071E3]" />
                 <p className="text-sm text-gray-600">Fast Delivery</p>
               </div>
             </div>
