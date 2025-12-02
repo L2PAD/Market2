@@ -277,8 +277,8 @@ const NewHeader = () => {
             <div className="border-t border-gray-200 pt-2 mt-2">
               <div className="px-4 py-2 text-sm text-gray-600">
                 <p className="font-medium mb-2">Контакти:</p>
-                <a href="tel:+380688886671" className="block hover:text-blue-600">068-888-66-71</a>
-                <a href="tel:+380668886671" className="block hover:text-blue-600">066-888-66-71</a>
+                <a href="tel:+380502474161" className="block hover:text-blue-600">050-247-41-61</a>
+                <a href="tel:+380637247703" className="block hover:text-blue-600">063-724-77-03</a>
                 <p className="mt-2 text-xs text-gray-500">{t('workingHours')}</p>
                 <p className="text-xs text-gray-500">{t('weekends')}</p>
               </div>
