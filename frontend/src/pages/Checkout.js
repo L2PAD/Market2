@@ -660,9 +660,17 @@ const Checkout = () => {
               {/* Place Order Button */}
               <Button
                 onClick={handlePlaceOrder}
-                className="w-full mt-6 bg-green-600 hover:bg-green-700 text-lg py-6"
+                disabled={isProcessingPayment}
+                className="w-full mt-6 bg-green-600 hover:bg-green-700 text-lg py-6 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Підтвердити замовлення
+                {isProcessingPayment ? (
+                  <div className="flex items-center gap-2">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Обробка...</span>
+                  </div>
+                ) : (
+                  'Підтвердити замовлення'
+                )}
               </Button>
 
               <p className="text-xs text-gray-500 text-center mt-4">
