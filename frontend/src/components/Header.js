@@ -179,19 +179,10 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Search Bar - Mobile */}
-        <form onSubmit={handleSearch} className="md:hidden mt-4">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={t('search')}
-              className="w-full pl-12 pr-4 py-3 bg-[#F7F7F7] rounded-full focus:outline-none focus:ring-2 focus:ring-[#0071E3]/20 focus:bg-white"
-            />
-          </div>
-        </form>
+        {/* Search Bar - Mobile with Autocomplete */}
+        <div className="md:hidden mt-4">
+          <SearchBar className="w-full" />
+        </div>
       </div>
     </header>
   );
