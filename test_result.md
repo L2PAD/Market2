@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Протестуйте повний E2E checkout flow з RozetkaPay інтеграцією"
+user_problem_statement: "Провести комплексное E2E тестирование всего маркетплейса: критический flow покупателя, категории, аналитика админа, payouts для продавцов, интеграции (Nova Poshta API, AI рекомендации)"
 
 frontend:
   - task: "User Registration and Authentication"
