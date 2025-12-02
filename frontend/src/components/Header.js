@@ -111,9 +111,9 @@ const Header = () => {
             {/* Cart */}
             {isAuthenticated && (
               <Link data-testid="cart-link" to="/cart" className="relative p-2 hover:bg-gray-100 rounded-lg">
-                <ShoppingCart className="w-6 h-6 text-[#121212]" />
+                <ShoppingCart className="w-5 h-5 lg:w-6 lg:h-6 text-[#121212]" />
                 {cartItemsCount > 0 && (
-                  <span data-testid="cart-count" className="cart-badge">
+                  <span data-testid="cart-count" className="absolute -top-1 -right-1 bg-green-500 text-white text-xs font-bold rounded-full w-4 h-4 lg:w-5 lg:h-5 flex items-center justify-center text-[10px]">
                     {cartItemsCount}
                   </span>
                 )}
@@ -124,8 +124,8 @@ const Header = () => {
             {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button data-testid="user-menu-trigger" variant="ghost" className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-[#0071E3] rounded-full flex items-center justify-center text-white font-medium">
+                  <Button data-testid="user-menu-trigger" variant="ghost" className="flex items-center gap-1 md:gap-2 p-1 md:p-2">
+                    <div className="w-7 h-7 md:w-8 md:h-8 bg-[#0071E3] rounded-full flex items-center justify-center text-white font-medium text-sm md:text-base">
                       {user?.full_name?.[0]?.toUpperCase() || 'U'}
                     </div>
                   </Button>
