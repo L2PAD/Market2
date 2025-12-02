@@ -123,6 +123,13 @@ class RozetkaPayService:
                 "error_detail": error_detail,
                 "external_id": external_id
             }
+        except Exception as e:
+            logger.error(f"Unexpected error creating payment {external_id}: {str(e)}")
+            return {
+                "success": False,
+                "error": f"Unexpected error: {str(e)}",
+                "external_id": external_id
+            }
     
     def get_payment_info(self, payment_id: str) -> Dict[str, Any]:
         """
