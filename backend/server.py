@@ -943,6 +943,34 @@ async def get_admin_stats(current_user: User = Depends(get_current_admin)):
         "total_revenue": total_revenue
     }
 
+# ============= NOVA POSHTA INTEGRATION =============
+
+from novaposhta_service import novaposhta_service
+
+@api_router.get("/novaposhta/cities")
+async def search_novaposhta_cities(query: str, limit: int = 10):
+    """
+    Search for cities in Nova Poshta system
+    """
+    try:
+        result = novaposhta_service.search_cities(query, limit)
+        return result
+    except Exception as e:
+        logger.error(f"Error searching cities: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/novaposhta/warehouses")
+async def get_novaposhta_warehouses(city_ref: str, number: Optional[str] = None):
+    """
+    Get Nova Poshta warehouses/branches by city and optional warehouse number
+    """
+    try:
+        result = novaposhta_service.get_warehouses(city_ref, number)
+        return result
+    except Exception as e:
+        logger.error(f"Error getting warehouses: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 # ============= ROZETKAPAY PAYMENT INTEGRATION =============
 
 from rozetkapay_service import rozetkapay_service
