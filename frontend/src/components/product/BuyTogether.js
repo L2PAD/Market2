@@ -193,7 +193,7 @@ const BuyTogether = ({ product }) => {
               </span>
               {(product.compare_price || selectedProducts.some(p => p.compare_price)) && (
                 <span className="text-sm text-green-600 font-medium">
-                  ({t('language') === 'ru' ? 'Выгода' : 'Вигода'} $
+                  ({t('savings')} $
                   {((product.compare_price || product.price) + 
                     selectedProducts.reduce((sum, p) => sum + (p.compare_price || p.price), 0) - 
                     calculateTotalPrice()).toFixed(2)})
