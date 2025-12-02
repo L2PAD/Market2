@@ -336,7 +336,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Buy Together Feature on Product Detail Page"
+    - "Buy Together Feature Testing Completed Successfully"
   stuck_tasks:
     - "RozetkaPay Payment Integration"
   test_all: false
