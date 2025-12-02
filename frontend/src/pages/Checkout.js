@@ -32,6 +32,7 @@ const Checkout = () => {
 
   const [errors, setErrors] = useState({});
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [novaPoshtaData, setNovaPoshtaData] = useState(null);
 
   useEffect(() => {
     if (cart.length === 0) {
