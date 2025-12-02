@@ -101,3 +101,112 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Протестуйте повний E2E checkout flow з RozetkaPay інтеграцією"
+
+frontend:
+  - task: "User Registration and Authentication"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Login.js, /app/frontend/src/pages/Register.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "User registration and login working perfectly. Users can register with email/password and login successfully."
+
+  - task: "Product Addition to Cart"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/contexts/CartContext.js, /app/frontend/src/components/ProductCard.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Add to cart functionality working correctly. Products are successfully added to cart with toast notifications."
+
+  - task: "Shopping Cart Functionality"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Cart.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Cart page displays items correctly, shows totals, and proceed to checkout button works."
+
+  - task: "Cash on Delivery Checkout"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Checkout.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "Cash on Delivery checkout working perfectly. Form validation, order creation, and redirect to success page all working. Order successfully created in backend and cart cleared."
+
+  - task: "RozetkaPay Online Payment UI"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/Checkout.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "RozetkaPay payment option is visible and selectable. Green security info block appears when selected. UI components working correctly."
+
+backend:
+  - task: "Orders API Endpoint"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "Missing POST /api/orders endpoint causing 405 Method Not Allowed errors."
+      - working: true
+        agent: "testing"
+        comment: "Added POST /api/orders endpoint. Order creation now working successfully with proper validation and cart clearing."
+
+  - task: "RozetkaPay Payment Integration"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py, /app/backend/rozetkapay_service.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "RozetkaPay integration failing with 500 Internal Server Error. Order creation works but payment processing fails with 'NoneType' object has no attribute 'get' error. RozetkaPay service logs show 'Payment created successfully' but returns None instead of expected dictionary response."
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: true
+
+test_plan:
+  current_focus:
+    - "RozetkaPay Payment Integration"
+  stuck_tasks:
+    - "RozetkaPay Payment Integration"
+  test_all: false
+  test_priority: "stuck_first"
+
+agent_communication:
+  - agent: "testing"
+    message: "E2E checkout flow testing completed. Cash on Delivery working perfectly. RozetkaPay UI working but backend integration failing. Order creation successful but payment processing returns None instead of expected response. Need to investigate RozetkaPay service response handling."
