@@ -145,13 +145,23 @@ const Checkout = () => {
       newErrors.email = 'Невірний формат email';
     }
 
-    // Address validation only for delivery methods that need it
-    if (deliveryMethod === 'courier' || deliveryMethod === 'nova-poshta') {
+    // Address validation for standard delivery methods
+    if (deliveryMethod === 'courier' || deliveryMethod === 'ukrposhta') {
       if (!recipientData.city.trim()) {
         newErrors.city = 'Введіть місто';
       }
       if (!recipientData.address.trim()) {
         newErrors.address = 'Введіть адресу';
+      }
+    }
+
+    // Nova Poshta validation
+    if (deliveryMethod === 'nova-poshta') {
+      if (!novaPoshtaData || !novaPoshtaData.city) {
+        newErrors.city = 'Оберіть місто';
+      }
+      if (!novaPoshtaData || !novaPoshtaData.warehouse) {
+        newErrors.warehouse = 'Оберіть відділення Нової Пошти';
       }
     }
 
