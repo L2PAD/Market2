@@ -1085,6 +1085,30 @@ async def generate_product_description(
     request: AIGenerateDescriptionRequest,
     current_user: User = Depends(get_current_user)
 ):
+    """
+    Generate AI product description
+    Requires seller or admin role
+    """
+    if current_user.role not in ['seller', 'admin']:
+        raise HTTPException(status_code=403, detail="Only sellers and admins can generate descriptions")
+    
+    try:
+        existing_info = {}
+        if request.price:
+            existing_info['price'] = request.price
+        if request.features:
+            existing_info['features'] = request.features
+        
+        result = await ai_service.generate_product_description(
+            product_name=request.product_name,
+            category=request.category,
+            existing_info=existing_info if existing_info else None
+        )
+        
+        return result
+    except Exception as e:
+        logger.error(f"Error in generate_product_description: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ============= PAYOUTS =============
 
