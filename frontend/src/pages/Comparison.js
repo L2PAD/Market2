@@ -31,14 +31,14 @@ const Comparison = () => {
             <div className="bg-gray-100 rounded-full p-8 mb-6">
               <Scale className="w-16 h-16 text-gray-400" />
             </div>
-            <h2 className="text-3xl font-bold mb-4">Список сравнения пуст</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('comparisonEmpty')}</h2>
             <p className="text-gray-600 mb-8 max-w-md">
-              Вы еще не добавили товары для сравнения. Добавьте минимум 2 товара, чтобы сравнить их характеристики.
+              {t('comparisonEmptyDesc')}
             </p>
             <Link to="/products">
               <Button size="lg" className="gap-2">
                 <ShoppingBag className="w-5 h-5" />
-                Перейти к покупкам
+                {t('goToShopping')}
               </Button>
             </Link>
           </div>
@@ -49,16 +49,16 @@ const Comparison = () => {
 
   // Define comparison attributes
   const attributes = [
-    { key: 'images', label: 'Изображение', type: 'image' },
-    { key: 'title', label: 'Название', type: 'text' },
-    { key: 'price', label: 'Цена', type: 'price' },
-    { key: 'compare_price', label: 'Старая цена', type: 'price' },
-    { key: 'rating', label: 'Рейтинг', type: 'rating' },
-    { key: 'reviews_count', label: 'Отзывов', type: 'number' },
-    { key: 'stock_level', label: 'В наличии', type: 'stock' },
-    { key: 'installment_available', label: 'Рассрочка', type: 'boolean' },
-    { key: 'installment_months', label: 'Срок рассрочки', type: 'months' },
-    { key: 'short_description', label: 'Описание', type: 'text' },
+    { key: 'images', label: t('image'), type: 'image' },
+    { key: 'title', label: t('name'), type: 'text' },
+    { key: 'price', label: t('price'), type: 'price' },
+    { key: 'compare_price', label: t('oldPrice'), type: 'price' },
+    { key: 'rating', label: t('rating'), type: 'rating' },
+    { key: 'reviews_count', label: t('reviewsCount'), type: 'number' },
+    { key: 'stock_level', label: t('inStock'), type: 'stock' },
+    { key: 'installment_available', label: t('installment'), type: 'boolean' },
+    { key: 'installment_months', label: t('installmentTerm'), type: 'months' },
+    { key: 'short_description', label: t('description'), type: 'text' },
   ];
 
   return (
@@ -67,8 +67,8 @@ const Comparison = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-4xl font-bold mb-2">Сравнение товаров</h1>
-            <p className="text-gray-600">{comparisonItems.length} товаров для сравнения</p>
+            <h1 className="text-4xl font-bold mb-2">{t('comparisonTitle')}</h1>
+            <p className="text-gray-600">{comparisonItems.length} {t('productsForComparison')}</p>
           </div>
           {comparisonItems.length > 0 && (
             <Button
@@ -76,7 +76,7 @@ const Comparison = () => {
               onClick={clearComparison}
               className="text-red-600 border-red-600 hover:bg-red-50"
             >
-              Очистить все
+              {t('clearAll')}
             </Button>
           )}
         </div>
