@@ -64,6 +64,8 @@ export const productsAPI = {
   create: (data) => api.post('/products', data),
   update: (id, data) => api.patch(`/products/${id}`, data),
   delete: (id) => api.delete(`/products/${id}`),
+  searchSuggestions: (q, limit = 5) => api.get('/products/search/suggestions', { params: { q, limit } }),
+  searchStats: (search) => api.get('/products/search/stats', { params: { search } }),
 };
 
 // Cart API
