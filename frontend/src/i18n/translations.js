@@ -216,6 +216,9 @@ export const translations = {
     noAvailable: 'Немає',
     pieces: 'шт',
     beFirst: 'Будьте першим!',
+    buyTogether: 'Купують разом',
+    addAllToCart: 'Додати все до кошика',
+    totalPrice: 'Загальна ціна',
     
     // Cart
     shoppingCart: 'Кошик покупок',
