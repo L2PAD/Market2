@@ -215,20 +215,36 @@ const EnhancedProductDetail = () => {
 
               {/* Price Section */}
               <div className="border-y border-gray-200 py-6 mb-6">
-                <div className="flex items-baseline gap-4 mb-2">
-                  <div className="text-4xl font-bold text-gray-900">
-                    ${product.price.toFixed(2)}
-                  </div>
-                  {product.compare_price && (
-                    <div className="text-xl text-gray-400 line-through">
-                      ${product.compare_price.toFixed(2)}
+                {product.compare_price ? (
+                  // With discount
+                  <div className="space-y-3">
+                    <div className="flex items-baseline gap-4">
+                      <div className="text-5xl font-bold text-black">
+                        ${product.price.toFixed(2)}
+                      </div>
+                      <div className="text-2xl text-gray-400 line-through">
+                        ${product.compare_price.toFixed(2)}
+                      </div>
                     </div>
-                  )}
-                </div>
-                {product.installment_available && (
-                  <div className="flex items-center gap-2 text-sm text-green-600">
-                    <CreditCard className="w-4 h-4" />
-                    <span>Оплата частинами від ${(product.price / 12).toFixed(2)}/міс</span>
+                    <div className="flex items-center gap-2 text-base">
+                      <CreditCard className="w-5 h-5 text-green-600" />
+                      <span className="text-green-600 font-medium">
+                        {t('language') === 'ru' ? 'Оплата частями от' : 'Оплата частинами від'} ${(product.price / 12).toFixed(2)}/{t('language') === 'ru' ? 'мес' : 'міс'}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  // Without discount
+                  <div className="space-y-3">
+                    <div className="text-5xl font-bold text-black">
+                      ${product.price.toFixed(2)}
+                    </div>
+                    <div className="flex items-center gap-2 text-base">
+                      <CreditCard className="w-5 h-5 text-green-600" />
+                      <span className="text-green-600 font-medium">
+                        {t('language') === 'ru' ? 'Оплата частями от' : 'Оплата частинами від'} ${(product.price / 12).toFixed(2)}/{t('language') === 'ru' ? 'мес' : 'міс'}
+                      </span>
+                    </div>
                   </div>
                 )}
               </div>
