@@ -88,7 +88,7 @@ const Comparison = () => {
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="bg-gray-50 p-4 text-left font-semibold sticky left-0 z-10 min-w-[200px]">
-                    Характеристики
+                    {t('characteristics')}
                   </th>
                   {comparisonItems.map((product) => (
                     <th key={product.id} className="bg-gray-50 p-4 min-w-[250px] relative">
