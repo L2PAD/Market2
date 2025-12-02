@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { productsAPI, categoriesAPI } from '../utils/api';
-import ProductCard from '../components/ProductCard';
+import ProductCardCompact from '../components/ProductCardCompact';
 import { Button } from '../components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Slider } from '../components/ui/slider';
