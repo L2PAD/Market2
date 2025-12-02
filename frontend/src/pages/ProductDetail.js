@@ -60,7 +60,10 @@ const ProductDetail = () => {
     }
     const result = await addToCart(product.id, quantity);
     if (result.success) {
-      navigate('/cart');
+      // Small delay to ensure cart state is fully updated before navigation
+      setTimeout(() => {
+        navigate('/cart');
+      }, 300);
     }
   };
 
