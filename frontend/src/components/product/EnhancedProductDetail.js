@@ -14,6 +14,7 @@ import { Button } from '../ui/button';
 import { toast } from 'sonner';
 import AIRecommendations from '../AIRecommendations';
 import ProductCardCompact from '../ProductCardCompact';
+import BuyTogether from './BuyTogether';
 
 const EnhancedProductDetail = () => {
   const { id } = useParams();
