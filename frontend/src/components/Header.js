@@ -49,7 +49,7 @@ const Header = () => {
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
           <Link data-testid="logo-link" to="/" className="flex items-center gap-2 text-xl font-bold text-[#121212]">
-            <Package className="w-7 h-7 text-[#0071E3]" />
+            <img src="/bazaar-logo.webp" alt="Bazaar" className="w-8 h-8 object-contain" />
             <span>Bazaar</span>
           </Link>
 
