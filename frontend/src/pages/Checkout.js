@@ -8,8 +8,10 @@ import { toast } from 'sonner';
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const { cart, cartTotal, clearCart } = useCart();
+  const { cart: cartData, cartTotal, clearCart } = useCart();
   const { isAuthenticated, user } = useAuth();
+  
+  const cart = cartData?.items || [];
 
   const [deliveryMethod, setDeliveryMethod] = useState('self-pickup');
   const [paymentMethod, setPaymentMethod] = useState('on-delivery');
