@@ -74,13 +74,13 @@ const NewHeader = () => {
             <div className="hidden lg:flex items-center gap-6">
               {/* Phone Numbers */}
               <div className="flex flex-col gap-1 text-sm">
-                <a href="tel:+380688886671" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                <a href="tel:+380502474161" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
                   <Phone className="w-4 h-4" />
-                  <span className="font-medium">068-888-66-71</span>
+                  <span className="font-medium">050-247-41-61</span>
                 </a>
-                <a href="tel:+380668886671" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
+                <a href="tel:+380637247703" className="flex items-center gap-2 hover:text-blue-600 transition-colors">
                   <Phone className="w-4 h-4" />
-                  <span className="font-medium">066-888-66-71</span>
+                  <span className="font-medium">063-724-77-03</span>
                 </a>
               </div>
 
