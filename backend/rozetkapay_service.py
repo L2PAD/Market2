@@ -87,6 +87,8 @@ class RozetkaPayService:
             headers = self._get_auth_headers()
             
             logger.info(f"Creating payment for order {external_id}")
+            logger.info(f"Payload: {payload}")
+            
             response = requests.post(
                 f"{self.api_url}/api/payments/v1/new",
                 json=payload,
@@ -94,9 +96,10 @@ class RozetkaPayService:
                 timeout=30
             )
             
+            logger.info(f"Response status: {response.status_code}")
             response.raise_for_status()
-            result = response.json()
             
+            result = response.json()
             logger.info(f"Payment created successfully: {external_id}")
             logger.info(f"RozetkaPay API Response: {result}")
             
