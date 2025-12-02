@@ -21,6 +21,7 @@ const BuyTogether = ({ product }) => {
     if (product?.category_id) {
       fetchComplementaryProducts();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   const fetchComplementaryProducts = async () => {
