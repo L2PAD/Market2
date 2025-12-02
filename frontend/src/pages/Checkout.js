@@ -515,11 +515,6 @@ const Checkout = () => {
                         return;
                       }
                       setPaymentMethod(option.id);
-                      if (option.id === 'online') {
-                        setShowPaymentWidget(true);
-                      } else {
-                        setShowPaymentWidget(false);
-                      }
                     }}
                     className={`p-4 border rounded-xl transition-all ${
                       option.disabled
