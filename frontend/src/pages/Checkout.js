@@ -149,7 +149,7 @@ const Checkout = () => {
         order_number: orderNumber,
         buyer_id: user?.id || 'guest',
         items: cart.map(item => ({
-          product_id: item.id,
+          product_id: item.product_id || item.id,
           title: item.title,
           quantity: item.quantity,
           price: item.price,
