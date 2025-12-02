@@ -141,9 +141,9 @@ const EnhancedProductDetail = () => {
       <div className="container-main">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-sm text-gray-600 mb-6">
-          <Link to="/" className="hover:text-blue-600">Главная</Link>
+          <Link to="/" className="hover:text-blue-600">{t('language') === 'ru' ? 'Главная' : 'Головна'}</Link>
           <ChevronRight className="w-4 h-4" />
-          <Link to="/products" className="hover:text-blue-600">Товары</Link>
+          <Link to="/products" className="hover:text-blue-600">{t('language') === 'ru' ? 'Товары' : 'Товари'}</Link>
           <ChevronRight className="w-4 h-4" />
           <span className="text-gray-900">{product.title}</span>
         </nav>
