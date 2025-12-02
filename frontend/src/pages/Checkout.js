@@ -503,7 +503,18 @@ const Checkout = () => {
                 })}
               </div>
 
-              {deliveryMethod !== 'self-pickup' && (
+              {/* Nova Poshta Delivery Form */}
+              {deliveryMethod === 'nova-poshta' && (
+                <div className="mt-4">
+                  <NovaPoshtaDelivery
+                    onAddressChange={(data) => setNovaPoshtaData(data)}
+                    initialCity={recipientData.city}
+                  />
+                </div>
+              )}
+
+              {/* Standard Address Form for Courier and Ukrposhta */}
+              {(deliveryMethod === 'courier' || deliveryMethod === 'ukrposhta') && (
                 <div className="mt-4 grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">
