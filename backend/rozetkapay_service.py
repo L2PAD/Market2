@@ -42,26 +42,24 @@ class RozetkaPayService:
         amount: float,
         currency: str,
         customer: Dict[str, Any],
-        card_token: str,
         callback_url: str,
         result_url: str,
         description: str = "Оплата заказа"
     ) -> Dict[str, Any]:
         """
-        Create a direct payment using card token from widget
+        Create a hosted checkout payment (with RozetkaPay payment page)
         
         Args:
             external_id: Unique order identifier
             amount: Payment amount in main currency units (e.g., 100.50 UAH)
             currency: Currency code (UAH, USD, EUR)
             customer: Customer information dict
-            card_token: Token from RozetkaPay widget
             callback_url: URL for payment status webhooks
             result_url: URL to redirect user after payment
             description: Payment description
             
         Returns:
-            Dict with payment response including action URL if 3DS required
+            Dict with payment response including checkout URL
         """
         try:
             # Amount should be in main currency units according to API docs
@@ -70,7 +68,7 @@ class RozetkaPayService:
                 "amount": amount,
                 "currency": currency,
                 "description": description,
-                "mode": "direct",
+                "mode": "hosted",
                 "confirm": True,
                 "callback_url": callback_url,
                 "result_url": result_url,
@@ -78,14 +76,7 @@ class RozetkaPayService:
                     "email": customer.get("email"),
                     "first_name": customer.get("first_name", ""),
                     "last_name": customer.get("last_name", ""),
-                    "phone": customer.get("phone", ""),
-                    "payment_method": {
-                        "type": "cc_token",
-                        "cc_token": {
-                            "token": card_token,
-                            "use_3ds_flow": True
-                        }
-                    }
+                    "phone": customer.get("phone", "")
                 }
             }
             
