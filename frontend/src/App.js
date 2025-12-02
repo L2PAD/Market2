@@ -7,7 +7,7 @@ import { CartProvider } from './contexts/CartContext';
 import { FavoritesProvider } from './contexts/FavoritesContext';
 import { ComparisonProvider } from './contexts/ComparisonContext';
 import { NotificationsProvider } from './contexts/NotificationsContext';
-import Header from './components/Header';
+import NewHeader from './components/NewHeader';
 import Footer from './components/Footer';
 import AIChatbot from './components/AIChatbot';
 import SupportWidget from './components/SupportWidget';
