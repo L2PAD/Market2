@@ -99,7 +99,7 @@ const Products = () => {
         <div className="container-main">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">
-              {search ? `Результати пошуку: "${search}"` : 'Каталог товарів'}
+              {search ? `${t('searchResults')}: "${search}"` : t('catalogTitle')}
             </h1>
             <Button
               variant="outline"
@@ -107,7 +107,7 @@ const Products = () => {
               className="lg:hidden"
             >
               <Filter className="w-4 h-4 mr-2" />
-              Фільтри
+              {t('filters')}
             </Button>
           </div>
         </div>
