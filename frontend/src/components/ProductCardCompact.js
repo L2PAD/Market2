@@ -194,8 +194,8 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
             {/* Installment Price */}
             {installmentPrice && (
               <p className="text-xs text-blue-600 mt-1">
-                або <span className="font-semibold">${installmentPrice}/міс</span> на{' '}
-                {product.installment_months} міс
+                {t('orMonthly')} <span className="font-semibold">${installmentPrice}/{t('perMonth')}</span> {t('onMonths')}{' '}
+                {product.installment_months} {t('months')}
               </p>
             )}
           </div>
