@@ -13,6 +13,8 @@ const Checkout = () => {
   const { isAuthenticated, user } = useAuth();
   
   const cart = cartData?.items || [];
+  const [products, setProducts] = useState({});
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   const [deliveryMethod, setDeliveryMethod] = useState('self-pickup');
   const [paymentMethod, setPaymentMethod] = useState('on-delivery');
