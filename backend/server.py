@@ -933,7 +933,7 @@ async def create_rozetkapay_payment(
     current_user: User = Depends(get_current_user)
 ):
     """
-    Create payment using RozetkaPay with card token from widget
+    Create payment using RozetkaPay Hosted Checkout
     """
     try:
         # Get callback and result URLs
@@ -949,7 +949,6 @@ async def create_rozetkapay_payment(
             amount=request.amount,
             currency=request.currency,
             customer=request.customer,
-            card_token=request.card_token,
             callback_url=callback_url,
             result_url=result_url,
             description=request.description
