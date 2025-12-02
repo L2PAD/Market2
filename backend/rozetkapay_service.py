@@ -1,6 +1,6 @@
 """
 RozetkaPay Payment Integration Service
-Implements Direct Checkout flow with card tokenization
+Implements Hosted Checkout flow with redirect to RozetkaPay payment page
 """
 
 import os
@@ -10,6 +10,10 @@ import hashlib
 import requests
 from typing import Dict, Any, Optional
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
