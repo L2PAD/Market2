@@ -77,15 +77,17 @@ const Header = () => {
           </form>
 
           {/* Right Section */}
-          <div className="flex items-center gap-2">
-            {/* Language Switcher */}
-            <LanguageSwitcher />
+          <div className="flex items-center gap-1 md:gap-2">
+            {/* Language Switcher - Hidden on mobile */}
+            <div className="hidden lg:block">
+              <LanguageSwitcher />
+            </div>
             
-            {/* Comparison */}
-            <Link to="/comparison" className="relative p-2 hover:bg-gray-100 rounded-lg" title="Порівняння">
-              <Scale className="w-6 h-6 text-[#121212]" />
+            {/* Comparison - Hidden on mobile */}
+            <Link to="/comparison" className="hidden md:flex relative p-2 hover:bg-gray-100 rounded-lg" title="Порівняння">
+              <Scale className="w-5 h-5 lg:w-6 lg:h-6 text-[#121212]" />
               {comparisonCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs font-bold rounded-full w-4 h-4 lg:w-5 lg:h-5 flex items-center justify-center text-[10px]">
                   {comparisonCount}
                 </span>
               )}
@@ -93,16 +95,18 @@ const Header = () => {
             
             {/* Favorites */}
             <Link to="/favorites" className="relative p-2 hover:bg-gray-100 rounded-lg" title="Обране">
-              <Heart className="w-6 h-6 text-[#121212]" />
+              <Heart className="w-5 h-5 lg:w-6 lg:h-6 text-[#121212]" />
               {favoritesCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 lg:w-5 lg:h-5 flex items-center justify-center text-[10px]">
                   {favoritesCount}
                 </span>
               )}
             </Link>
             
-            {/* Notifications */}
-            <NotificationsDropdown />
+            {/* Notifications - Hidden on small mobile */}
+            <div className="hidden sm:block">
+              <NotificationsDropdown />
+            </div>
             
             {/* Cart */}
             {isAuthenticated && (
