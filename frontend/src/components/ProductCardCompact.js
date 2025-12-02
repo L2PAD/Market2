@@ -132,7 +132,7 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
       <div className="p-3 flex flex-col flex-grow">
         {/* SKU / Article */}
         <div className="text-xs text-gray-500 mb-1">
-          Артикул: {sku}
+          {t('sku')}: {sku}
         </div>
 
         {/* Product Title */}
@@ -142,7 +142,7 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
 
         {/* Short Description */}
         <p className="text-xs text-gray-600 mb-2 line-clamp-1">
-          {product.short_description || 'Високоякісний товар для вас'}
+          {product.short_description || t('highQualityProduct')}
         </p>
 
         {/* Rating */}
