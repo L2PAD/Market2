@@ -21,6 +21,7 @@ const EnhancedProductDetail = () => {
   const { addToCart } = useCart();
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
   const { addToComparison, removeFromComparison, isInComparison } = useComparison();
+  const { t } = useLanguage();
   
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
