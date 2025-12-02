@@ -128,6 +128,11 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
 
       {/* Product Info */}
       <div className="p-3 flex flex-col flex-grow">
+        {/* SKU / Article */}
+        <div className="text-xs text-gray-500 mb-1">
+          Артикул: {sku}
+        </div>
+
         {/* Product Title */}
         <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2 min-h-[40px]">
           {product.title || product.name}
