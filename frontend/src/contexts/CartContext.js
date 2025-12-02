@@ -38,12 +38,16 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (productId, quantity = 1) => {
     try {
-      await cartAPI.addItem({ product_id: productId, quantity });
+      const response = await cartAPI.addItem({ product_id: productId, quantity });
       
-      // Small delay to ensure MongoDB write is completed
-      await new Promise(resolve => setTimeout(resolve, 200));
+      // Update cart immediately from the response
+      if (response.data && response.data.cart) {
+        setCart(response.data.cart);
+      }
       
+      // Also fetch fresh cart data to ensure sync
       await fetchCart();
+      
       toast.success('Added to cart');
       return { success: true };
     } catch (error) {
