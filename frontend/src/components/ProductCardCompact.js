@@ -179,7 +179,7 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
                   </span>
                 </div>
                 <div className="text-xs text-green-600 font-medium">
-                  Экономия ${(product.compare_price - finalPrice).toFixed(2)}
+                  {t('economy')} ${(product.compare_price - finalPrice).toFixed(2)}
                 </div>
               </div>
             ) : (
