@@ -404,6 +404,93 @@ async def get_products(
             prod["updated_at"] = datetime.fromisoformat(prod["updated_at"])
     return products
 
+@api_router.get("/products/search/suggestions")
+async def search_suggestions(q: str, limit: int = 5):
+    """
+    Get search suggestions based on product titles
+    Fast autocomplete endpoint
+    """
+    if not q or len(q) < 2:
+        return []
+    
+    # Use text search for suggestions
+    query = {
+        "$text": {"$search": q},
+        "status": "published"
+    }
+    
+    # Get products sorted by relevance
+    products = await db.products.find(
+        query,
+        {"_id": 0, "title": 1, "id": 1, "price": 1, "images": 1, "score": {"$meta": "textScore"}}
+    ).sort([("score", {"$meta": "textScore"})]).limit(limit).to_list(limit)
+    
+    return [
+        {
+            "title": p["title"],
+            "id": p["id"],
+            "price": p.get("price"),
+            "image": p["images"][0] if p.get("images") else None
+        }
+        for p in products
+    ]
+
+@api_router.get("/products/search/stats")
+async def search_stats(search: str):
+    """
+    Get search statistics - total results, price range, available categories
+    """
+    if not search:
+        return {"total": 0, "price_range": {}, "categories": []}
+    
+    query = {
+        "$text": {"$search": search},
+        "status": "published"
+    }
+    
+    # Get total count
+    total = await db.products.count_documents(query)
+    
+    # Get price range
+    price_pipeline = [
+        {"$match": query},
+        {"$group": {
+            "_id": None,
+            "min_price": {"$min": "$price"},
+            "max_price": {"$max": "$price"},
+            "avg_price": {"$avg": "$price"}
+        }}
+    ]
+    price_result = await db.products.aggregate(price_pipeline).to_list(1)
+    
+    # Get categories distribution
+    category_pipeline = [
+        {"$match": query},
+        {"$group": {"_id": "$category_id", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10}
+    ]
+    category_results = await db.products.aggregate(category_pipeline).to_list(10)
+    
+    # Enrich with category names
+    categories = []
+    for cat in category_results:
+        if cat["_id"]:
+            category = await db.categories.find_one({"id": cat["_id"]}, {"_id": 0, "name": 1})
+            if category:
+                categories.append({
+                    "id": cat["_id"],
+                    "name": category["name"],
+                    "count": cat["count"]
+                })
+    
+    return {
+        "total": total,
+        "price_range": price_result[0] if price_result else {},
+        "categories": categories
+    }
+
+
 @api_router.get("/products/{product_id}", response_model=Product)
 async def get_product(product_id: str):
     product = await db.products.find_one({"id": product_id}, {"_id": 0})
