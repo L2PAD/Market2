@@ -62,20 +62,10 @@ const Header = () => {
             <span className="hidden sm:inline">Bazaar</span>
           </Link>
 
-          {/* Search Bar - Desktop */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-2xl">
-            <div className="relative w-full">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                data-testid="search-input"
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for products..."
-                className="w-full pl-12 pr-4 py-3 bg-[#F7F7F7] rounded-full focus:outline-none focus:ring-2 focus:ring-[#0071E3]/20 focus:bg-white"
-              />
-            </div>
-          </form>
+          {/* Search Bar - Desktop with Autocomplete */}
+          <div className="hidden md:flex flex-1 max-w-2xl">
+            <SearchBar className="w-full" />
+          </div>
 
           {/* Right Section */}
           <div className="flex items-center gap-1 md:gap-2">
