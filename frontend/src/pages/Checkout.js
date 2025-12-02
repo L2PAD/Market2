@@ -35,8 +35,34 @@ const Checkout = () => {
   useEffect(() => {
     if (cart.length === 0) {
       navigate('/cart');
+    } else {
+      fetchCartProducts();
     }
   }, [cart, navigate]);
+
+  const fetchCartProducts = async () => {
+    try {
+      setLoadingProducts(true);
+      const productPromises = cart.map((item) =>
+        productsAPI.getById(item.product_id).catch(() => null)
+      );
+      
+      const productResults = await Promise.all(productPromises);
+      const productsMap = {};
+      
+      productResults.forEach((res, idx) => {
+        if (res) {
+          productsMap[cart[idx].product_id] = res.data;
+        }
+      });
+      
+      setProducts(productsMap);
+    } catch (error) {
+      console.error('Failed to fetch cart products:', error);
+    } finally {
+      setLoadingProducts(false);
+    }
+  };
 
   const deliveryOptions = [
     {
