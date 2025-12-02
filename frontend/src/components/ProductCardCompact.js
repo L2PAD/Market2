@@ -85,7 +85,7 @@ const ProductCardCompact = ({ product }) => {
         {/* Product Image */}
         <img
           src={product.images?.[0] || 'https://via.placeholder.com/300'}
-          alt={product.name}
+          alt={product.title || product.name}
           className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
         />
       </div>
@@ -94,7 +94,7 @@ const ProductCardCompact = ({ product }) => {
       <div className="p-3 flex flex-col flex-grow">
         {/* Product Title */}
         <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2 min-h-[40px]">
-          {product.name}
+          {product.title || product.name}
         </h3>
 
         {/* Short Description */}
