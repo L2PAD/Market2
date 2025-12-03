@@ -3,10 +3,9 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Globe, Cookie } from 'lucide-react';
 
 const WelcomeModal = () => {
-  const { language, changeLanguage } = useLanguage();
+  const { changeLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('ua');
-  const [contentKey, setContentKey] = useState(0);
 
   useEffect(() => {
     // Check if user has already completed welcome flow
@@ -23,8 +22,6 @@ const WelcomeModal = () => {
   const handleLanguageSelect = (lang) => {
     setSelectedLang(lang);
     changeLanguage(lang);
-    // Force re-render of content
-    setContentKey(prev => prev + 1);
   };
 
   const handleAccept = () => {
@@ -35,31 +32,6 @@ const WelcomeModal = () => {
   };
 
   if (!isOpen) return null;
-
-  // Get content dynamically based on selected language
-  const getContent = () => {
-    const content = {
-      ua: {
-        welcome: 'Ласкаво просимо!',
-        selectLanguage: 'Оберіть мову',
-        cookieTitle: 'Ми використовуємо файли cookie',
-        cookieText: 'Для покращення вашого досвіду та персоналізації контенту',
-        accept: 'Прийняти та продовжити',
-        privacyLink: 'Політика конфіденційності',
-      },
-      ru: {
-        welcome: 'Добро пожаловать!',
-        selectLanguage: 'Выберите язык',
-        cookieTitle: 'Мы используем файлы cookie',
-        cookieText: 'Для улучшения вашего опыта и персонализации контента',
-        accept: 'Принять и продолжить',
-        privacyLink: 'Политика конфиденциальности',
-      },
-    };
-    return content[selectedLang] || content.ua;
-  };
-
-  const currentContent = getContent();
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
