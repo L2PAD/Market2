@@ -89,20 +89,25 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
-                  <p>ул. Крещатик, 36</p>
-                  <p>Киев, Украина, 01001</p>
+                  <p>проспект Миколи Бажана, 24/1</p>
+                  <p>Київ, Україна, 02149</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 flex-shrink-0" />
-                <a href="tel:+380501234567" className="hover:text-[#0071E3]">
-                  +380 (50) 123-45-67
-                </a>
+                <div className="flex flex-col gap-1">
+                  <a href="tel:+380502474161" className="hover:text-[#0071E3]">
+                    +380 (50) 247-41-61
+                  </a>
+                  <a href="tel:+380637247703" className="hover:text-[#0071E3]">
+                    +380 (63) 724-77-03
+                  </a>
+                </div>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 flex-shrink-0" />
-                <a href="mailto:info@marketplace.com" className="hover:text-[#0071E3]">
-                  info@marketplace.com
+                <a href="mailto:dynamo1402om@gmail.com" className="hover:text-[#0071E3]">
+                  dynamo1402om@gmail.com
                 </a>
               </div>
               
