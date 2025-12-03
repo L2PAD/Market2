@@ -165,7 +165,7 @@ const NewHeader = () => {
             {/* Right Side - Language and Login */}
             <div className="flex items-center gap-4">
               <button
-                onClick={toggleLanguage}
+                onClick={toggleLanguageDropdown}
                 className="flex items-center gap-1 hover:text-gray-300 transition-colors"
               >
                 🌐 {language === 'ru' ? 'RU' : 'UA'}
