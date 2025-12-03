@@ -176,7 +176,7 @@ const NovaPoshtaDelivery = ({ onAddressChange, initialCity, initialWarehouse }) 
         <div className="relative" ref={warehouseInputRef}>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             <Package className="inline w-4 h-4 mr-1" />
-            Номер відділення Нової Пошти
+            {t('warehouseNumberLabel')}
           </label>
           <div className="relative">
             <input
@@ -189,7 +189,7 @@ const NovaPoshtaDelivery = ({ onAddressChange, initialCity, initialWarehouse }) 
               onFocus={() => {
                 if (warehouses.length > 0) setShowWarehouseDropdown(true);
               }}
-              placeholder="Введіть номер відділення (напр., 1, 15, 240)..."
+              placeholder={t('enterWarehouseNumber')}
               className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             {loadingWarehouses && (
