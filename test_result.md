@@ -328,6 +328,30 @@ backend:
         agent: "testing"
         comment: "AI recommendations integration returns 500 error but this is acceptable for testing environment. The endpoint /api/ai/recommendations exists and is properly implemented but may require specific AI service configuration or data setup. This is not a critical failure for marketplace functionality."
 
+  - task: "Admin Panel Product Management"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/pages/AdminPanel.js, /app/frontend/src/components/admin/ProductManagement.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL ISSUE: Admin panel completely inaccessible due to JavaScript error in AdminPanel.js. Missing state variables (setCategories, showAddCategory, categoryForm) causing component crash and redirect from /admin to homepage. Authentication working correctly (admin@bazaar.com login successful, correct role stored), but admin panel component fails to load. PARTIALLY FIXED: Added missing state variables, but admin panel still not accessible after frontend restart. Requires main agent investigation of AuthContext or routing protection logic."
+
+  - task: "Admin Panel Category Management"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/pages/AdminPanel.js, /app/frontend/src/components/admin/CategoryManagement.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "Same issue as Product Management - admin panel not accessible due to component errors. Category management functionality cannot be tested until admin panel access is restored. The CategoryManagement component appears to be properly implemented with product assignment features, but cannot be reached due to AdminPanel component issues."
+
 metadata:
   created_by: "testing_agent"
   version: "2.0"
