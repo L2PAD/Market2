@@ -49,8 +49,8 @@ const Header = () => {
 
           {/* Logo */}
           <Link data-testid="logo-link" to="/" className="flex items-center gap-1 md:gap-2 text-lg md:text-xl font-bold text-[#121212]">
-            <img src="/logo.webp" alt="Bazaar" className="w-7 h-7 md:w-8 md:h-8 object-contain" />
-            <span className="hidden sm:inline">Bazaar</span>
+            <img src="/logo.webp" alt="Y-store" className="w-7 h-7 md:w-8 md:h-8 object-contain" />
+            <span className="hidden sm:inline">Y-store</span>
           </Link>
 
           {/* Search Bar - Desktop with Autocomplete */}
