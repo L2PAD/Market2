@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import RichTextEditor from './RichTextEditor';
 import ImageUploader from './ImageUploader';
+import SpecificationsEditor from './SpecificationsEditor';
 
 const ProductManagement = () => {
   const [products, setProducts] = useState([]);
