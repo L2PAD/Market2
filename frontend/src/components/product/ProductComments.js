@@ -1,38 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { ThumbsUp, MessageCircle, Send, Heart, Smile } from 'lucide-react';
+import { ThumbsUp, MessageCircle, Send, Heart } from 'lucide-react';
 import { Button } from '../ui/button';
 import { toast } from 'sonner';
 import { useLanguage } from '../../contexts/LanguageContext';
 
+/**
+ * Product Comments Component
+ * 
+ * Displays and manages product comments with reactions
+ * Features:
+ * - Add new comments (authenticated users only)
+ * - Like and heart reactions
+ * - User avatars with gradient
+ * - Timestamp display
+ * 
+ * @param {string} productId - Product ID
+ * @param {boolean} isAuthenticated - User authentication status
+ * @param {function} onLoginRequired - Callback when login is required
+ */
 const ProductComments = ({ productId, isAuthenticated, onLoginRequired }) => {
   const { t } = useLanguage();
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Mock data - в реальности загружать из API
   useEffect(() => {
+    // Mock data - in production, fetch from API
     setComments([
       {
         id: 1,
-        user_name: 'Олександр К.',
-        comment: 'Дуже якісний товар! Рекомендую всім!',
+        user_name: 'Oleksandr K.',
+        comment: 'Great quality product! Highly recommend!',
         created_at: new Date().toISOString(),
-        reactions: {
-          likes: 5,
-          hearts: 2
-        },
+        reactions: { likes: 5, hearts: 2 },
         user_reacted: false
       },
       {
         id: 2,
-        user_name: 'Марія С.',
-        comment: 'Швидка доставка, все супер. Дякую!',
+        user_name: 'Maria S.',
+        comment: 'Fast delivery, everything is perfect. Thank you!',
         created_at: new Date(Date.now() - 86400000).toISOString(),
-        reactions: {
-          likes: 3,
-          hearts: 1
-        },
+        reactions: { likes: 3, hearts: 1 },
         user_reacted: false
       }
     ]);
@@ -47,31 +55,29 @@ const ProductComments = ({ productId, isAuthenticated, onLoginRequired }) => {
     }
 
     if (!newComment.trim()) {
-      toast.error(t('language') === 'ru' ? 'Напишите комментарий' : 'Напишіть коментар');
+      toast.error(t('language') === 'ru' ? 'Напишите комментарий' : 'Write a comment');
       return;
     }
 
     try {
       setIsSubmitting(true);
-      // TODO: API call to submit comment
+      
+      // TODO: Replace with actual API call
       const mockNewComment = {
         id: Date.now(),
-        user_name: 'Вы',
+        user_name: 'You',
         comment: newComment.trim(),
         created_at: new Date().toISOString(),
-        reactions: {
-          likes: 0,
-          hearts: 0
-        },
+        reactions: { likes: 0, hearts: 0 },
         user_reacted: false
       };
       
       setComments([mockNewComment, ...comments]);
       setNewComment('');
-      toast.success(t('language') === 'ru' ? 'Комментарий добавлен!' : 'Коментар додано!');
+      toast.success(t('language') === 'ru' ? 'Комментарий добавлен!' : 'Comment added!');
     } catch (error) {
       console.error('Failed to submit comment:', error);
-      toast.error(t('language') === 'ru' ? 'Ошибка при добавлении' : 'Помилка при додаванні');
+      toast.error('Error adding comment');
     } finally {
       setIsSubmitting(false);
     }
@@ -104,7 +110,7 @@ const ProductComments = ({ productId, isAuthenticated, onLoginRequired }) => {
       <div className="flex items-center gap-3 mb-6">
         <MessageCircle className="w-6 h-6 text-blue-600" />
         <h3 className="text-2xl font-bold text-gray-900">
-          {t('language') === 'ru' ? 'Комментарии' : 'Коментарі'} ({comments.length})
+          {t('language') === 'ru' ? 'Комментарии' : 'Comments'} ({comments.length})
         </h3>
       </div>
 
@@ -117,20 +123,13 @@ const ProductComments = ({ productId, isAuthenticated, onLoginRequired }) => {
               onChange={(e) => setNewComment(e.target.value)}
               rows={3}
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              placeholder={
-                t('language') === 'ru'
-                  ? 'Поделитесь своим мнением о товаре...'
-                  : 'Поділіться своєю думкою про товар...'
-              }
+              placeholder={t('language') === 'ru' ? 'Поделитесь своим мнением о товаре...' : 'Share your thoughts about this product...'}
               disabled={!isAuthenticated}
             />
             {!isAuthenticated && (
               <div className="absolute inset-0 bg-gray-50/80 rounded-xl flex items-center justify-center backdrop-blur-sm">
                 <p className="text-sm text-gray-600">
-                  {t('language') === 'ru' 
-                    ? 'Войдите, чтобы оставить комментарий'
-                    : 'Увійдіть, щоб залишити коментар'
-                  }
+                  {t('language') === 'ru' ? 'Войдите, чтобы оставить комментарий' : 'Login to leave a comment'}
                 </p>
               </div>
             )}
@@ -142,10 +141,7 @@ const ProductComments = ({ productId, isAuthenticated, onLoginRequired }) => {
               className="flex items-center gap-2"
             >
               <Send className="w-4 h-4" />
-              {isSubmitting
-                ? (t('language') === 'ru' ? 'Отправка...' : 'Відправка...')
-                : (t('language') === 'ru' ? 'Отправить' : 'Надіслати')
-              }
+              {isSubmitting ? 'Sending...' : 'Send'}
             </Button>
           </div>
         </form>
@@ -169,7 +165,7 @@ const ProductComments = ({ productId, isAuthenticated, onLoginRequired }) => {
                   <div className="mb-2">
                     <p className="font-semibold text-gray-900">{comment.user_name}</p>
                     <p className="text-xs text-gray-500">
-                      {new Date(comment.created_at).toLocaleDateString('uk-UA', {
+                      {new Date(comment.created_at).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',
@@ -214,10 +210,7 @@ const ProductComments = ({ productId, isAuthenticated, onLoginRequired }) => {
           <div className="text-center py-12">
             <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
             <p className="text-gray-500">
-              {t('language') === 'ru' 
-                ? 'Пока нет комментариев. Будьте первым!'
-                : 'Поки немає коментарів. Будьте першим!'
-              }
+              {t('language') === 'ru' ? 'Пока нет комментариев. Будьте первым!' : 'No comments yet. Be the first!'}
             </p>
           </div>
         )}

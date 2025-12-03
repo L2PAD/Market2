@@ -2,7 +2,26 @@ import React, { useMemo } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const RichTextEditor = ({ value, onChange, placeholder = 'Введите описание товара...' }) => {
+/**
+ * Rich Text Editor Component
+ * 
+ * A comprehensive text editor with support for:
+ * - Text formatting (bold, italic, underline, etc.)
+ * - Headers (H1-H6)
+ * - Lists (ordered and unordered)
+ * - Images and videos
+ * - Links
+ * - Code blocks and quotes
+ * 
+ * @param {string} value - Current HTML content
+ * @param {function} onChange - Callback when content changes
+ * @param {string} placeholder - Placeholder text
+ */
+const RichTextEditor = ({ 
+  value, 
+  onChange, 
+  placeholder = 'Enter product description...' 
+}) => {
   
   const modules = useMemo(() => ({
     toolbar: [
