@@ -228,7 +228,7 @@ const ProductCard = ({ product }) => {
           disabled={product.stock_level === 0}
         >
           <ShoppingCart className="w-4 h-4 mr-2" />
-          {product.stock_level === 0 ? 'Out of Stock' : 'Add to Cart'}
+          {product.stock_level === 0 ? t('outOfStock') : t('addToCart')}
         </Button>
       </div>
     </Link>
