@@ -74,9 +74,9 @@ const WelcomeModal = () => {
 
         {/* Language Selection */}
         <div className="p-6 pb-4">
-          <h3 key={`lang-${contentKey}`} className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+          <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
             <Globe className="w-4 h-4 text-blue-600" />
-            {currentContent.selectLanguage}
+            {selectedLang === 'ua' ? 'Оберіть мову' : 'Выберите язык'}
           </h3>
           <div className="flex gap-3">
             {/* Ukrainian Button */}
