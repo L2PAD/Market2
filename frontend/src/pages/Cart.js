@@ -134,7 +134,7 @@ const Cart = () => {
                             {product.title}
                           </h3>
                         </Link>
-                        <p className="text-sm text-gray-600 mt-1">Quantity: {item.quantity}</p>
+                        <p className="text-sm text-gray-600 mt-1">{t('quantity')}: {item.quantity}</p>
                       </div>
                       <div className="flex items-center justify-between mt-4">
                         <span data-testid={`item-price-${item.product_id}`} className="text-2xl font-bold">
