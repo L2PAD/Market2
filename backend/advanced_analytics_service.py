@@ -16,44 +16,107 @@ class AdvancedAnalyticsService:
     
     async def get_site_visits(self, days: int = 30) -> Dict[str, Any]:
         """
-        Get site visit statistics
+        Get site visit statistics with time metrics
         """
         try:
             start_date = datetime.now(timezone.utc) - timedelta(days=days)
+            
+            # Get page views
+            page_views = await self.db.analytics_events.count_documents({
+                "event_type": "page_view",
+                "created_at": {"$gte": start_date.isoformat()}
+            })
             
             # Get unique visitors
             pipeline = [
                 {
                     "$match": {
+                        "event_type": "page_view",
+                        "created_at": {"$gte": start_date.isoformat()}
+                    }
+                },
+                {
+                    "$group": {
+                        "_id": "$user_id"
+                    }
+                },
+                {"$count": "unique_visitors"}
+            ]
+            
+            unique_result = await self.db.analytics_events.aggregate(pipeline).to_list(1)
+            unique_visitors = unique_result[0]["unique_visitors"] if unique_result else 0
+            
+            # Get average session duration
+            session_pipeline = [
+                {
+                    "$match": {
+                        "event_type": "session_end",
                         "created_at": {"$gte": start_date.isoformat()}
                     }
                 },
                 {
                     "$group": {
                         "_id": None,
-                        "unique_visitors": {"$addToSet": "$user_id"},
-                        "total_visits": {"$sum": 1}
+                        "avg_duration": {"$avg": "$session_duration"},
+                        "total_sessions": {"$sum": 1}
                     }
                 }
             ]
             
-            result = await self.db.analytics_events.aggregate(pipeline).to_list(1)
+            session_result = await self.db.analytics_events.aggregate(session_pipeline).to_list(1)
             
-            if result:
-                return {
-                    "unique_visitors": len(result[0].get("unique_visitors", [])),
-                    "total_visits": result[0].get("total_visits", 0),
-                    "period_days": days
+            avg_session_duration = 0
+            total_sessions = 0
+            if session_result:
+                avg_session_duration = session_result[0].get("avg_duration", 0) / 1000  # Convert to seconds
+                total_sessions = session_result[0].get("total_sessions", 0)
+            
+            # Get bounce rate (sessions with only 1 page view)
+            bounce_pipeline = [
+                {
+                    "$match": {
+                        "event_type": "session_end",
+                        "created_at": {"$gte": start_date.isoformat()}
+                    }
+                },
+                {
+                    "$group": {
+                        "_id": None,
+                        "bounced": {
+                            "$sum": {
+                                "$cond": [{"$lte": ["$pages_viewed", 1]}, 1, 0]
+                            }
+                        },
+                        "total": {"$sum": 1}
+                    }
                 }
+            ]
+            
+            bounce_result = await self.db.analytics_events.aggregate(bounce_pipeline).to_list(1)
+            bounce_rate = 0
+            if bounce_result and bounce_result[0]["total"] > 0:
+                bounce_rate = (bounce_result[0]["bounced"] / bounce_result[0]["total"]) * 100
             
             return {
-                "unique_visitors": 0,
-                "total_visits": 0,
+                "unique_visitors": unique_visitors,
+                "total_page_views": page_views,
+                "total_sessions": total_sessions,
+                "avg_session_duration": round(avg_session_duration, 2),
+                "bounce_rate": round(bounce_rate, 2),
+                "pages_per_session": round(page_views / total_sessions, 2) if total_sessions > 0 else 0,
                 "period_days": days
             }
         except Exception as e:
             logger.error(f"Error getting site visits: {str(e)}")
-            return {"unique_visitors": 0, "total_visits": 0, "period_days": days}
+            return {
+                "unique_visitors": 0, 
+                "total_page_views": 0,
+                "total_sessions": 0,
+                "avg_session_duration": 0,
+                "bounce_rate": 0,
+                "pages_per_session": 0,
+                "period_days": days
+            }
     
     async def get_abandoned_carts(self) -> Dict[str, Any]:
         """
