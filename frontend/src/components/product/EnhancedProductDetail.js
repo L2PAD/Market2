@@ -443,6 +443,15 @@ const EnhancedProductDetail = () => {
               </div>
             )}
           </div>
+
+          {/* Comments Section - Below tabs */}
+          {activeTab === 'description' && (
+            <ProductComments 
+              productId={product.id}
+              isAuthenticated={isAuthenticated}
+              onLoginRequired={() => navigate('/login')}
+            />
+          )}
         </div>
 
         {/* Important Information Block */}
