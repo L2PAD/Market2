@@ -64,7 +64,8 @@ const ProductManagement = () => {
       category_name: product.category_name || '',
       stock_level: product.stock_level || '',
       images: product.images && product.images.length > 0 ? product.images : [''],
-      videos: product.videos && product.videos.length > 0 ? product.videos : ['']
+      videos: product.videos && product.videos.length > 0 ? product.videos : [''],
+      specifications: product.specifications || []
     });
   };
 
