@@ -1363,6 +1363,7 @@ async def get_all_users(current_user: User = Depends(get_current_admin)):
     return users
 
 from analytics_service import init_analytics
+from advanced_analytics_service import get_advanced_analytics_service
 
 # Initialize analytics service
 analytics_svc = init_analytics(db)
