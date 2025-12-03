@@ -135,6 +135,8 @@ const EnhancedProductDetail = () => {
   const images = product.images && product.images.length > 0 
     ? product.images 
     : ['https://via.placeholder.com/600'];
+  
+  const videos = product.videos || [];
 
   const discount = product.compare_price 
     ? Math.round(((product.compare_price - product.price) / product.compare_price) * 100)
