@@ -164,9 +164,16 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
 
       {/* Product Info */}
       <div className="p-3 flex flex-col flex-grow">
-        {/* SKU / Article */}
-        <div className="text-xs text-gray-500 mb-1">
-          {t('sku')}: {sku}
+        {/* Category and SKU */}
+        <div className="flex items-center justify-between mb-1">
+          {product.category_name && (
+            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+              {product.category_name}
+            </span>
+          )}
+          <div className="text-xs text-gray-400">
+            {sku}
+          </div>
         </div>
 
         {/* Product Title */}
