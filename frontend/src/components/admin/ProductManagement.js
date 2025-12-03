@@ -104,14 +104,33 @@ const ProductManagement = () => {
     e.preventDefault();
     
     try {
+      // Validate required fields
+      if (!formData.title || !formData.category_id || !formData.price || !formData.stock_level) {
+        toast.error('Please fill all required fields');
+        return;
+      }
+
+      // Prepare product data
       const productData = {
-        ...formData,
+        title: formData.title.trim(),
+        description: formData.description || '',
+        description_html: formData.description_html || '',
         price: parseFloat(formData.price),
         compare_price: formData.compare_price ? parseFloat(formData.compare_price) : null,
+        category_id: formData.category_id,
+        category_name: formData.category_name,
         stock_level: parseInt(formData.stock_level),
-        images: formData.images.filter(img => img.trim() !== ''),
-        videos: formData.videos.filter(vid => vid.trim() !== '')
+        images: formData.images.filter(img => img && img.trim() !== ''),
+        videos: formData.videos ? formData.videos.filter(vid => vid && vid.trim() !== '') : []
       };
+
+      // Ensure at least one image
+      if (productData.images.length === 0) {
+        toast.error('Please add at least one product image');
+        return;
+      }
+
+      console.log('Saving product:', productData);
 
       if (editingProduct) {
         await productsAPI.update(editingProduct.id, productData);
@@ -125,7 +144,7 @@ const ProductManagement = () => {
       handleCancel();
     } catch (error) {
       console.error('Failed to save product:', error);
-      toast.error('Error saving product');
+      toast.error(`Error: ${error.message || 'Failed to save product'}`);
     }
   };
 
