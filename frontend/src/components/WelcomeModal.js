@@ -160,11 +160,10 @@ const WelcomeModal = () => {
         {/* Accept Button */}
         <div className="px-6 pb-6">
           <button
-            key={`btn-${contentKey}`}
             onClick={handleAccept}
             className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
           >
-            {currentContent.accept}
+            {selectedLang === 'ua' ? 'Прийняти та продовжити' : 'Принять и продолжить'}
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
