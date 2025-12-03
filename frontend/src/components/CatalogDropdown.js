@@ -191,8 +191,8 @@ const CatalogDropdown = () => {
               ) : (
                 <div className="p-8 flex items-center justify-center h-full">
                   <div className="text-center text-gray-400">
-                    <p className="text-lg mb-2">Наведіть на категорію</p>
-                    <p className="text-sm">щоб побачити підкатегорії</p>
+                    <p className="text-lg mb-2">{t('hoverCategory')}</p>
+                    <p className="text-sm">{t('toSeeSubcategories')}</p>
                   </div>
                 </div>
               )}
