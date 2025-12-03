@@ -6,6 +6,7 @@ const WelcomeModal = () => {
   const { language, changeLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('ua');
+  const [contentKey, setContentKey] = useState(0);
 
   useEffect(() => {
     // Check if user has already completed welcome flow
@@ -22,6 +23,8 @@ const WelcomeModal = () => {
   const handleLanguageSelect = (lang) => {
     setSelectedLang(lang);
     changeLanguage(lang);
+    // Force re-render of content
+    setContentKey(prev => prev + 1);
   };
 
   const handleAccept = () => {
