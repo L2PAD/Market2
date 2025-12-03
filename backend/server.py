@@ -1396,6 +1396,25 @@ async def get_category_performance(current_user: User = Depends(get_current_admi
     analytics = get_advanced_analytics_service(db)
     return await analytics.get_category_performance()
 
+@api_router.get("/admin/analytics/advanced/time-on-pages")
+async def get_time_on_pages(current_user: User = Depends(get_current_admin)):
+    """Get average time spent on different pages"""
+    analytics = get_advanced_analytics_service(db)
+    return await analytics.get_time_on_pages()
+
+@api_router.get("/admin/analytics/advanced/product-page-analytics")
+async def get_product_page_analytics(current_user: User = Depends(get_current_admin)):
+    """Get detailed analytics for product pages (time + conversion)"""
+    analytics = get_advanced_analytics_service(db)
+    return await analytics.get_product_page_analytics()
+
+@api_router.get("/admin/analytics/advanced/user-behavior-flow")
+async def get_user_behavior_flow(current_user: User = Depends(get_current_admin)):
+    """Get user behavior flow (page transitions)"""
+    analytics = get_advanced_analytics_service(db)
+    return await analytics.get_user_behavior_flow()
+
+
 # ============= ANALYTICS EVENT TRACKING =============
 
 class AnalyticsEvent(BaseModel):
