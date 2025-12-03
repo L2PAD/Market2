@@ -90,15 +90,6 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
           <Heart className={`w-4 h-4 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
         </button>
 
-        {/* Credit Badge */}
-        {installmentPrice && (
-          <div className="absolute bottom-2 left-2 z-10">
-            <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-              {t('creditZero')}
-            </div>
-          </div>
-        )}
-
         {/* Product Image */}
         <img
           src={images[currentImageIndex]}
