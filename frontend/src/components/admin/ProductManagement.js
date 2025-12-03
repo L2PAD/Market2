@@ -271,6 +271,18 @@ const ProductManagement = () => {
               />
             </div>
 
+            {/* Specifications with Images */}
+            <div>
+              <Label>Product Specifications (with Images)</Label>
+              <p className="text-sm text-gray-500 mb-2">
+                Add specifications with text descriptions and optional images
+              </p>
+              <SpecificationsEditor
+                specifications={formData.specifications}
+                onChange={(specs) => setFormData({ ...formData, specifications: specs })}
+              />
+            </div>
+
             <div className="flex gap-4 pt-4 border-t">
               <Button type="submit" className="flex items-center gap-2">
                 <Save className="w-4 h-4" />
