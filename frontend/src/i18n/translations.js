@@ -311,13 +311,23 @@ export const translations = {
     // Seller Payouts
     enterAmount: 'Введите сумму',
     
-    // Checkout Form Errors (Ukrainian hardcoded)
-    enterFirstNameUa: 'Введите имя',
-    enterLastNameUa: 'Введите фамилию',
-    enterPhoneUa: 'Введите номер мобильного телефона',
-    enterEmailUa: 'Введите email',
-    enterCityUa: 'Введите город',
-    enterAddressUa: 'Введите адрес',
+    // Footer sections  
+    deliveryPayment: 'Доставка и оплата',
+    deliveryInfo: 'Информация о доставке',
+    paymentMethods: 'Способы оплаты', 
+    shippingCosts: 'Стоимость доставки',
+    fastDelivery: 'Быстрая доставка',
+    exchangeReturn: 'Обмен и возврат',
+    returnPolicy: 'Политика возврата',
+    exchangeConditions: 'Условия обмена',
+    warrantyService: 'Гарантийное обслуживание',
+    refundProcess: 'Процедура возврата',
+    aboutCompany: 'О компании',
+    aboutUs: 'О нас',
+    contacts: 'Контакты',
+    privacyPolicy: 'Политика конфиденциальности',
+    agreement: 'Соглашение',
+    followUs: 'Мы в соцсетях',
   },
   ua: {
     // Header
