@@ -508,5 +508,165 @@ class AdvancedAnalyticsService:
             logger.error(f"Error getting category performance: {str(e)}")
             return []
 
+    async def get_time_on_pages(self) -> List[Dict[str, Any]]:
+        """
+        Get average time spent on different pages
+        """
+        try:
+            pipeline = [
+                {
+                    "$match": {
+                        "event_type": "page_leave",
+                        "time_spent": {"$exists": True, "$gt": 0}
+                    }
+                },
+                {
+                    "$group": {
+                        "_id": "$page_path",
+                        "avg_time": {"$avg": "$time_spent"},
+                        "total_visits": {"$sum": 1},
+                        "min_time": {"$min": "$time_spent"},
+                        "max_time": {"$max": "$time_spent"}
+                    }
+                },
+                {"$sort": {"total_visits": -1}},
+                {"$limit": 20}
+            ]
+            
+            results = await self.db.analytics_events.aggregate(pipeline).to_list(100)
+            
+            formatted_results = []
+            for item in results:
+                formatted_results.append({
+                    "page": item["_id"],
+                    "avg_time_seconds": round(item["avg_time"] / 1000, 2),
+                    "total_visits": item["total_visits"],
+                    "min_time_seconds": round(item["min_time"] / 1000, 2),
+                    "max_time_seconds": round(item["max_time"] / 1000, 2)
+                })
+            
+            return formatted_results
+        except Exception as e:
+            logger.error(f"Error getting time on pages: {str(e)}")
+            return []
+    
+    async def get_product_page_analytics(self) -> List[Dict[str, Any]]:
+        """
+        Get analytics for product pages (time spent, conversion)
+        """
+        try:
+            # Get time spent on product pages
+            pipeline = [
+                {
+                    "$match": {
+                        "event_type": "page_leave",
+                        "page_path": {"$regex": "^/product/"}
+                    }
+                },
+                {
+                    "$group": {
+                        "_id": "$page_path",
+                        "avg_time": {"$avg": "$time_spent"},
+                        "visits": {"$sum": 1}
+                    }
+                },
+                {"$sort": {"visits": -1}},
+                {"$limit": 50}
+            ]
+            
+            time_results = await self.db.analytics_events.aggregate(pipeline).to_list(100)
+            
+            # Get add to cart events
+            cart_pipeline = [
+                {"$match": {"event_type": "add_to_cart"}},
+                {
+                    "$group": {
+                        "_id": "$product_id",
+                        "cart_adds": {"$sum": 1}
+                    }
+                }
+            ]
+            
+            cart_results = await self.db.analytics_events.aggregate(cart_pipeline).to_list(1000)
+            cart_map = {item["_id"]: item["cart_adds"] for item in cart_results}
+            
+            formatted_results = []
+            for item in time_results:
+                product_id = item["_id"].split("/")[-1] if "/" in item["_id"] else None
+                
+                if product_id:
+                    # Get product details
+                    product = await self.db.products.find_one(
+                        {"id": product_id},
+                        {"_id": 0, "title": 1, "price": 1, "category_name": 1}
+                    )
+                    
+                    if product:
+                        cart_adds = cart_map.get(product_id, 0)
+                        conversion_rate = (cart_adds / item["visits"] * 100) if item["visits"] > 0 else 0
+                        
+                        formatted_results.append({
+                            "product_id": product_id,
+                            "product_name": product.get("title", "Unknown"),
+                            "category": product.get("category_name", "N/A"),
+                            "price": product.get("price", 0),
+                            "page_visits": item["visits"],
+                            "avg_time_seconds": round(item["avg_time"] / 1000, 2),
+                            "add_to_cart_count": cart_adds,
+                            "view_to_cart_rate": round(conversion_rate, 2)
+                        })
+            
+            return formatted_results
+        except Exception as e:
+            logger.error(f"Error getting product page analytics: {str(e)}")
+            return []
+    
+    async def get_user_behavior_flow(self) -> Dict[str, Any]:
+        """
+        Get user behavior flow (which pages they visit in sequence)
+        """
+        try:
+            # Get most common page sequences
+            pipeline = [
+                {"$match": {"event_type": "page_view"}},
+                {"$sort": {"session_id": 1, "created_at": 1}},
+                {
+                    "$group": {
+                        "_id": "$session_id",
+                        "pages": {"$push": "$page_path"}
+                    }
+                },
+                {"$limit": 1000}
+            ]
+            
+            sessions = await self.db.analytics_events.aggregate(pipeline).to_list(1000)
+            
+            # Count page transitions
+            transitions = {}
+            for session in sessions:
+                pages = session["pages"]
+                for i in range(len(pages) - 1):
+                    from_page = pages[i]
+                    to_page = pages[i + 1]
+                    key = f"{from_page} → {to_page}"
+                    transitions[key] = transitions.get(key, 0) + 1
+            
+            # Sort by frequency
+            sorted_transitions = sorted(
+                transitions.items(), 
+                key=lambda x: x[1], 
+                reverse=True
+            )[:20]
+            
+            return {
+                "top_transitions": [
+                    {"flow": k, "count": v} 
+                    for k, v in sorted_transitions
+                ]
+            }
+        except Exception as e:
+            logger.error(f"Error getting user behavior flow: {str(e)}")
+            return {"top_transitions": []}
+
 def get_advanced_analytics_service(db: AsyncIOMotorDatabase) -> AdvancedAnalyticsService:
     return AdvancedAnalyticsService(db)
