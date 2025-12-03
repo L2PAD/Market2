@@ -130,29 +130,29 @@ const Checkout = () => {
     const newErrors = {};
 
     if (!recipientData.firstName.trim()) {
-      newErrors.firstName = 'Введіть ім\'я';
+      newErrors.firstName = t('enterFirstName');
     }
     if (!recipientData.lastName.trim()) {
-      newErrors.lastName = 'Введіть прізвище';
+      newErrors.lastName = t('enterLastName');
     }
     if (!recipientData.phone.trim()) {
-      newErrors.phone = 'Введіть номер мобільного телефону';
+      newErrors.phone = t('enterPhone');
     } else if (!/^\+?38?0\d{9}$/.test(recipientData.phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Невірний формат телефону';
+      newErrors.phone = t('invalidPhoneFormat');
     }
     if (!recipientData.email.trim()) {
-      newErrors.email = 'Введіть email';
+      newErrors.email = t('enterEmail');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipientData.email)) {
-      newErrors.email = 'Невірний формат email';
+      newErrors.email = t('invalidEmailFormat');
     }
 
     // Address validation for standard delivery methods
     if (deliveryMethod === 'courier' || deliveryMethod === 'ukrposhta') {
       if (!recipientData.city.trim()) {
-        newErrors.city = 'Введіть місто';
+        newErrors.city = t('enterCity');
       }
       if (!recipientData.address.trim()) {
-        newErrors.address = 'Введіть адресу';
+        newErrors.address = t('enterAddress');
       }
     }
 
