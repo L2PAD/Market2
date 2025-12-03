@@ -369,84 +369,95 @@ const EnhancedProductDetail = () => {
             )}
 
             {activeTab === 'specifications' && (
-              <div className="space-y-6">
-                {/* Structured specifications - Rozetka Style */}
-                {product.specifications && product.specifications.length > 0 && (
-                  <div>
-                    <h3 className="font-bold text-2xl mb-6 text-gray-900">Характеристики</h3>
-                    
-                    {/* Check if new structured format */}
-                    {product.specifications[0]?.group_name ? (
-                      // New structured format
-                      <div className="space-y-6">
-                        {product.specifications.map((group, groupIndex) => (
-                          <div key={groupIndex} className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                            {/* Group Header */}
-                            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                              <h4 className="font-bold text-lg text-gray-900">{group.group_name}</h4>
+              <div className="space-y-4">
+                {/* Rozetka-style specifications */}
+                <div className="bg-white">
+                  <h3 className="text-xl font-bold mb-4 text-gray-900">Характеристики</h3>
+                  
+                  {/* Specifications Table - Rozetka exact style */}
+                  <div className="bg-gray-50 rounded-lg overflow-hidden">
+                    <div className="divide-y divide-gray-200">
+                      {product.specifications && product.specifications.length > 0 ? (
+                        product.specifications[0]?.group_name ? (
+                          // Flatten all groups into single table (Rozetka style)
+                          product.specifications.flatMap((group) => 
+                            group.fields || []
+                          ).map((field, index) => (
+                            <div 
+                              key={index}
+                              className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-gray-100 transition-colors"
+                            >
+                              <div className="text-sm text-gray-600">{field.key}</div>
+                              <div className="text-sm text-gray-900">{field.value}</div>
                             </div>
-                            
-                            {/* Group Fields */}
-                            <div className="divide-y divide-gray-100">
-                              {group.fields && group.fields.map((field, fieldIndex) => (
-                                <div 
-                                  key={fieldIndex} 
-                                  className="grid grid-cols-2 px-6 py-3 hover:bg-gray-50 transition-colors"
-                                >
-                                  <div className="text-gray-600 font-medium">{field.key}</div>
-                                  <div className="text-gray-900 font-semibold">{field.value}</div>
-                                </div>
-                              ))}
-                            </div>
+                          ))
+                        ) : (
+                          // Old format fallback
+                          <div className="px-4 py-3 text-sm text-gray-600">
+                            Характеристики у старому форматі. Оновіть товар в адмін-панелі.
                           </div>
-                        ))}
+                        )
+                      ) : (
+                        <div className="px-4 py-3 text-sm text-gray-600">
+                          Характеристики не вказані
+                        </div>
+                      )}
+                      
+                      {/* Add basic product info */}
+                      <div className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-gray-100 transition-colors">
+                        <div className="text-sm text-gray-600">Категорія</div>
+                        <div className="text-sm text-gray-900">{product.category_name || product.category_id}</div>
                       </div>
-                    ) : (
-                      // Old format fallback (for existing products)
-                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-                        <p className="text-sm text-yellow-800">
-                          <strong>Примечание:</strong> Этот товар использует старый формат характеристик. 
-                          Пожалуйста, обновите его в админ-панели для отображения в новом формате.
-                        </p>
+                      <div className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-gray-100 transition-colors">
+                        <div className="text-sm text-gray-600">Артикул</div>
+                        <div className="text-sm text-gray-900">{product.id.substring(0, 8)}</div>
                       </div>
-                    )}
+                      <div className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-gray-100 transition-colors">
+                        <div className="text-sm text-gray-600">Наявність</div>
+                        <div className="text-sm text-gray-900">
+                          {product.stock_level > 0 ? `${product.stock_level} шт` : 'Немає в наявності'}
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-gray-100 transition-colors">
+                        <div className="text-sm text-gray-600">Рейтинг</div>
+                        <div className="text-sm text-gray-900 flex items-center gap-1">
+                          <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                          {product.rating || 0} / 5
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-gray-100 transition-colors">
+                        <div className="text-sm text-gray-600">Ціна</div>
+                        <div className="text-sm text-gray-900 font-medium">
+                          ₴{product.price ? product.price.toLocaleString() : 0}
+                        </div>
+                      </div>
+                      {product.category_name && (
+                        <div className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-gray-100 transition-colors">
+                          <div className="text-sm text-gray-600">EAN</div>
+                          <div className="text-sm text-gray-900">{product.id.split('-').pop()}</div>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
 
-                {/* Basic product info - Always show */}
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                  <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                    <h4 className="font-bold text-lg text-gray-900">Основна інформація</h4>
-                  </div>
-                  <div className="divide-y divide-gray-100">
-                    <div className="grid grid-cols-2 px-6 py-3 hover:bg-gray-50 transition-colors">
-                      <div className="text-gray-600 font-medium">Категорія</div>
-                      <div className="text-gray-900 font-semibold">{product.category_name || product.category_id}</div>
+                  {/* Show/Hide button - Rozetka style */}
+                  {product.specifications && product.specifications.length > 0 && (
+                    <div className="mt-3">
+                      <button 
+                        onClick={() => {/* toggle collapse */}}
+                        className="text-sm text-green-600 hover:text-green-700 font-medium flex items-center gap-1"
+                      >
+                        <ChevronUp className="w-4 h-4" />
+                        Приховати ↑
+                      </button>
                     </div>
-                    <div className="grid grid-cols-2 px-6 py-3 hover:bg-gray-50 transition-colors">
-                      <div className="text-gray-600 font-medium">Артикул</div>
-                      <div className="text-gray-900 font-semibold">{product.id.substring(0, 8)}</div>
-                    </div>
-                    <div className="grid grid-cols-2 px-6 py-3 hover:bg-gray-50 transition-colors">
-                      <div className="text-gray-600 font-medium">Наявність</div>
-                      <div className="text-gray-900 font-semibold">
-                        {product.stock_level > 0 ? `${product.stock_level} шт` : 'Немає в наявності'}
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 px-6 py-3 hover:bg-gray-50 transition-colors">
-                      <div className="text-gray-600 font-medium">Рейтинг</div>
-                      <div className="text-gray-900 font-semibold flex items-center gap-1">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        {product.rating || 0} / 5
-                      </div>
-                    </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Videos section if available */}
                 {product.videos && product.videos.length > 0 && (
-                  <div>
-                    <h3 className="font-bold text-xl mb-4 text-gray-900">Відео огляди</h3>
+                  <div className="mt-6">
+                    <h3 className="text-xl font-bold mb-4 text-gray-900">Відео огляди</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {product.videos.map((videoUrl, index) => (
                         <div key={index} className="aspect-video">
