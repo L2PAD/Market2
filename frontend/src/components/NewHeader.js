@@ -11,13 +11,13 @@ import { useNotifications } from '../contexts/NotificationsContext';
 
 const NewHeader = () => {
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
-  const { cart } = useContext(CartContext);
-  const { favorites } = useContext(FavoritesContext);
-  const { comparison } = useContext(ComparisonContext);
-  const { setIsOpen } = useContext(CatalogContext);
-  const { language, setLanguage, t } = useContext(LanguageContext);
-  const { hasUnreadNotifications } = useContext(NotificationsContext);
+  const { user, logout } = useAuth();
+  const { cart } = useCart();
+  const { favorites } = useFavorites();
+  const { comparison } = useComparison();
+  const { setIsOpen } = useCatalog();
+  const { language, setLanguage, t } = useLanguage();
+  const { hasUnreadNotifications } = useNotifications();
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
