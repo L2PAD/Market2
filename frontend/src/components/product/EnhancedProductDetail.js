@@ -161,6 +161,7 @@ const EnhancedProductDetail = () => {
               images={images}
               videos={videos}
               productTitle={product.title}
+              discount={discount}
             />
           </div>
 
