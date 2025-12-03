@@ -159,6 +159,15 @@ const ProductCard = ({ product }) => {
 
       {/* Content */}
       <div className="flex flex-col flex-1">
+        {/* Category */}
+        {product.category_name && (
+          <div className="mb-2">
+            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
+              {product.category_name}
+            </span>
+          </div>
+        )}
+
         {/* Title - Fixed height */}
         <h3 data-testid="product-title" className="font-semibold text-lg text-[#121212] line-clamp-2 group-hover:text-[#0071E3] mb-2 min-h-[3.5rem]">
           {product.title}
