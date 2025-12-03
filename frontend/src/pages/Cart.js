@@ -160,39 +160,42 @@ const Cart = () => {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white border border-gray-200 rounded-2xl p-6 space-y-6 sticky top-24">
-              <h2 className="text-2xl font-bold">Order Summary</h2>
+              <h2 className="text-2xl font-bold">{t('orderSummary')}</h2>
               
               <div className="space-y-3 py-4 border-t border-b">
                 <div className="flex justify-between text-gray-600">
-                  <span>Subtotal ({cartItems.length} items)</span>
+                  <span>{t('subtotal')} ({cartItems.length} {t('items')})</span>
                   <span>${total.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Shipping</span>
-                  <span className="text-green-600 font-medium">Free</span>
+                  <span>{t('shipping')}</span>
+                  <span className="text-green-600 font-medium">{t('free')}</span>
                 </div>
               </div>
 
               <div className="flex justify-between text-xl font-bold">
-                <span>Total</span>
+                <span>{t('total')}</span>
                 <span data-testid="cart-total">${total.toFixed(2)}</span>
               </div>
 
-              <Button
-                data-testid="proceed-to-checkout-button"
-                onClick={handleCheckout}
-                size="lg"
-                className="w-full"
-              >
-                Proceed to Checkout
-              </Button>
-
-              <Link to="/products">
-                <Button data-testid="continue-shopping-link" variant="outline" className="w-full">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Continue Shopping
+              {/* Fixed Button Layout */}
+              <div className="space-y-3">
+                <Button
+                  data-testid="proceed-to-checkout-button"
+                  onClick={handleCheckout}
+                  size="lg"
+                  className="w-full"
+                >
+                  {t('proceedToCheckout')}
                 </Button>
-              </Link>
+
+                <Link to="/products" className="block">
+                  <Button data-testid="continue-shopping-link" variant="outline" className="w-full">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    {t('continueShopping')}
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
