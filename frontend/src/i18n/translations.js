@@ -340,6 +340,7 @@ export const translations = {
   },
   ua: {
     // Header
+    searchPlaceholder: 'Пошук товарів...',
     search: 'Пошук товарів...',
     login: 'Увійти',
     signup: 'Реєстрація',
