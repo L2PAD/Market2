@@ -112,16 +112,12 @@ const CategoryManagement = () => {
       
       // Add category to selected products
       selectedProducts.forEach(productId => {
-        const product = products.find(p => p.id === productId);
-        if (product) {
-          updatePromises.push(
-            productsAPI.update(productId, {
-              ...product,
-              category_id: categoryId,
-              category_name: formData.name
-            })
-          );
-        }
+        updatePromises.push(
+          productsAPI.update(productId, {
+            category_id: categoryId,
+            category_name: formData.name
+          })
+        );
       });
 
       // Remove category from unselected products that were in this category
@@ -131,8 +127,7 @@ const CategoryManagement = () => {
           .forEach(product => {
             updatePromises.push(
               productsAPI.update(product.id, {
-                ...product,
-                category_id: null,
+                category_id: '',
                 category_name: ''
               })
             );
