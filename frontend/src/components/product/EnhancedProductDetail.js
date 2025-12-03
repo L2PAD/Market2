@@ -15,6 +15,8 @@ import { toast } from 'sonner';
 import AIRecommendations from '../AIRecommendations';
 import ProductCardCompact from '../ProductCardCompact';
 import BuyTogether from './BuyTogether';
+import ProductImageGallery from './ProductImageGallery';
+import ReviewForm from './ReviewForm';
 
 const EnhancedProductDetail = () => {
   const { id } = useParams();
