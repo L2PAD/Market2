@@ -62,12 +62,12 @@ const Cart = () => {
       <div data-testid="empty-cart" className="min-h-[70vh] flex items-center justify-center">
         <div className="text-center space-y-6">
           <ShoppingBag className="w-24 h-24 mx-auto text-gray-300" />
-          <h2 className="text-3xl font-bold text-gray-400">Your cart is empty</h2>
-          <p className="text-gray-600">Add some products to get started!</p>
+          <h2 className="text-3xl font-bold text-gray-400">{t('yourCartIsEmpty')}</h2>
+          <p className="text-gray-600">{t('addSomeProducts')}</p>
           <Link to="/products">
             <Button data-testid="continue-shopping-button" size="lg">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Continue Shopping
+              {t('continueShopping')}
             </Button>
           </Link>
         </div>
