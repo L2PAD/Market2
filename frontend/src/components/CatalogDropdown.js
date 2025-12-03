@@ -8,6 +8,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 const CatalogDropdown = () => {
   const { isCatalogOpen, closeCatalog } = useCatalog();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [categories, setCategories] = useState([]);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [loading, setLoading] = useState(false);
