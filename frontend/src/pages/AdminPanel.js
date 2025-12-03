@@ -13,7 +13,7 @@ import ProductManagement from '../components/admin/ProductManagement';
 import CategoryManagement from '../components/admin/CategoryManagement';
 
 const AdminPanel = () => {
-  const { isAdmin } = useAuth();
+  const { isAdmin, loading } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('analytics');
   const [stats, setStats] = useState(null);
@@ -23,12 +23,15 @@ const AdminPanel = () => {
   const [categoryForm, setCategoryForm] = useState({ name: '', slug: '' });
 
   useEffect(() => {
+    // Wait for auth to load
+    if (loading) return;
+    
     if (!isAdmin) {
       navigate('/');
       return;
     }
     fetchData();
-  }, [isAdmin]);
+  }, [isAdmin, loading, navigate]);
 
   const fetchData = async () => {
     try {
