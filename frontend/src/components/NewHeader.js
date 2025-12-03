@@ -4,6 +4,7 @@ import { ShoppingCart, User, Search, Menu, X, ChevronDown, Phone } from 'lucide-
 import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useCatalog } from '../contexts/CatalogContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const NewHeader = () => {
