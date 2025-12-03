@@ -111,14 +111,18 @@ class Product(BaseModel):
 
 class ProductCreate(BaseModel):
     title: str
-    slug: str
+    slug: Optional[str] = None
     description: str
+    description_html: Optional[str] = None
     short_description: Optional[str] = None
     category_id: str
+    category_name: Optional[str] = None
     price: float
     compare_price: Optional[float] = None
     stock_level: int = 0
     images: List[str] = []
+    videos: Optional[List[str]] = []
+    specifications: Optional[List[Dict[str, Any]]] = []
     status: str = "published"
     installment_months: Optional[int] = None
     installment_available: bool = False
