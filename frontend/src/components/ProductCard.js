@@ -44,32 +44,100 @@ const ProductCard = ({ product }) => {
     ? Math.round(((product.compare_price - product.price) / product.compare_price) * 100)
     : 0;
 
+  // Get images array
+  const images = product.images && product.images.length > 0 
+    ? product.images 
+    : ['https://via.placeholder.com/400'];
+
+  // Check for new features
+  const hasVideos = product.videos && product.videos.length > 0;
+  const hasSpecs = product.specifications && product.specifications.length > 0;
+  const hasMultipleImages = images.length > 1;
+
+  const nextImage = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   return (
     <Link
       data-testid={`product-card-${product.id}`}
       to={`/products/${product.id}`}
       className="group card hover:shadow-xl flex flex-col h-full"
     >
-      {/* Image */}
+      {/* Image with Slider */}
       <div className="relative image-zoom rounded-xl overflow-hidden bg-[#F7F7F7] aspect-ratio-1-1 mb-4 flex-shrink-0">
-        {product.images && product.images.length > 0 ? (
-          <img
-            src={product.images[0]}
-            alt={product.title}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400">
-            <span className="text-4xl">📦</span>
-          </div>
+        <img
+          src={images[currentImageIndex]}
+          alt={product.title}
+          className="w-full h-full object-cover transition-opacity duration-300"
+        />
+        
+        {/* Image Navigation Arrows */}
+        {hasMultipleImages && (
+          <>
+            <button
+              onClick={prevImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronLeft className="w-4 h-4 text-gray-800" />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronRight className="w-4 h-4 text-gray-800" />
+            </button>
+            
+            {/* Image Dots Indicator */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
+              {images.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`w-1.5 h-1.5 rounded-full transition-all ${
+                    idx === currentImageIndex 
+                      ? 'bg-white w-4' 
+                      : 'bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
         )}
         
-        {/* Action Buttons */}
+        {/* Badges Container - Top Left */}
+        <div className="absolute top-3 left-3 flex flex-col gap-2">
+          {discount > 0 && (
+            <div data-testid="discount-badge" className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
+              -{discount}%
+            </div>
+          )}
+          {hasVideos && (
+            <div className="bg-purple-500 text-white px-2 py-1 rounded-full text-xs font-medium shadow-lg flex items-center gap-1">
+              <Video className="w-3 h-3" />
+              Відео
+            </div>
+          )}
+          {hasSpecs && (
+            <div className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-medium shadow-lg flex items-center gap-1">
+              <FileText className="w-3 h-3" />
+              Характеристики
+            </div>
+          )}
+        </div>
+
+        {/* Action Buttons - Top Right */}
         <div className="absolute top-3 right-3 flex flex-col gap-2">
-          {/* Favorite Button */}
           <button
             onClick={handleToggleFavorite}
-            className={`p-2 rounded-full backdrop-blur-sm transition-all ${
+            className={`p-2 rounded-full backdrop-blur-sm transition-all shadow-lg ${
               isFavorite(product.id)
                 ? 'bg-red-500 text-white'
                 : 'bg-white/80 text-gray-600 hover:bg-white'
@@ -82,14 +150,9 @@ const ProductCard = ({ product }) => {
           </button>
         </div>
         
-        {discount > 0 && (
-          <div data-testid="discount-badge" className="absolute top-3 left-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-            -{discount}%
-          </div>
-        )}
         {product.stock_level === 0 && (
           <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <span className="text-white font-semibold">Out of Stock</span>
+            <span className="text-white font-semibold">Немає в наявності</span>
           </div>
         )}
       </div>
