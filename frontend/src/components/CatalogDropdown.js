@@ -63,6 +63,13 @@ const CatalogDropdown = () => {
   const mainCategories = categories.filter(cat => !cat.parent_id);
   const hoveredCategoryData = hoveredCategory ? categories.find(c => c.id === hoveredCategory) : null;
   const subcategories = hoveredCategory ? getSubcategories(hoveredCategory) : [];
+  
+  // Debug logging
+  if (hoveredCategory && process.env.NODE_ENV === 'development') {
+    console.log('Hovered category:', hoveredCategory);
+    console.log('Hovered category data:', hoveredCategoryData);
+    console.log('Subcategories found:', subcategories.length);
+  }
 
   return (
     <>
