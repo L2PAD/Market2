@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Sparkles, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { generateProductRecommendations } from '../services/openaiService';
+import { generateProductRecommendations } from '../services/aiService';
 
 const AIRecommendations = ({ product }) => {
   const [recommendations, setRecommendations] = useState([]);
