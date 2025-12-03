@@ -911,6 +911,50 @@ async def get_orders(current_user: User = Depends(get_current_user)):
             order["updated_at"] = datetime.fromisoformat(order["updated_at"])
     return orders
 
+@api_router.get("/admin/orders")
+async def get_admin_orders(current_user: User = Depends(get_current_admin)):
+    """
+    Get all orders with detailed information for admin analytics
+    """
+    try:
+        # Get all orders
+        orders = await db.orders.find({}, {"_id": 0}).to_list(10000)
+        
+        # Enrich with customer information
+        for order in orders:
+            # Get customer info
+            customer = await db.users.find_one({"id": order.get("buyer_id")}, {"_id": 0})
+            if customer:
+                order["customer_name"] = customer.get("full_name", "N/A")
+                order["customer_email"] = customer.get("email", "N/A")
+            else:
+                order["customer_name"] = "Unknown"
+                order["customer_email"] = "N/A"
+            
+            # Enrich items with product details
+            for item in order.get("items", []):
+                product = await db.products.find_one({"id": item.get("product_id")}, {"_id": 0})
+                if product:
+                    item["product_name"] = product.get("title", "Unknown Product")
+                    item["category_name"] = product.get("category_name")
+                    item["price"] = item.get("price", product.get("price", 0))
+            
+            # Handle datetime serialization
+            if isinstance(order.get("created_at"), str):
+                order["created_at"] = order["created_at"]
+            elif hasattr(order.get("created_at"), 'isoformat'):
+                order["created_at"] = order["created_at"].isoformat()
+                
+            if isinstance(order.get("updated_at"), str):
+                order["updated_at"] = order["updated_at"]
+            elif hasattr(order.get("updated_at"), 'isoformat'):
+                order["updated_at"] = order["updated_at"].isoformat()
+        
+        return orders
+    except Exception as e:
+        logger.error(f"Error fetching admin orders: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
 @api_router.get("/orders/{order_id}", response_model=Order)
 async def get_order(order_id: str, current_user: User = Depends(get_current_user)):
     order = await db.orders.find_one({"id": order_id}, {"_id": 0})
