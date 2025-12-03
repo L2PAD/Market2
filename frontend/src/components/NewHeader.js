@@ -45,7 +45,7 @@ const NewHeader = () => {
 
   const selectLanguage = (lang) => {
     changeLanguage(lang);
-    setShowLanguageModal(false);
+    setShowLanguageDropdown(false);
   };
 
   return (
