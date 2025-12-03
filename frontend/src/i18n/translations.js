@@ -328,6 +328,14 @@ export const translations = {
     privacyPolicy: 'Политика конфиденциальности',
     agreement: 'Соглашение',
     followUs: 'Мы в соцсетях',
+    
+    // Checkout Form Errors (Russian)
+    enterFirstNameUa: 'Введите имя',
+    enterLastNameUa: 'Введите фамилию',
+    enterPhoneUa: 'Введите номер мобильного телефона',
+    enterEmailUa: 'Введите email',
+    enterCityUa: 'Введите город',
+    enterAddressUa: 'Введите адрес',
   },
   ua: {
     // Header
