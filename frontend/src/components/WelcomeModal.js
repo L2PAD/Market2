@@ -33,8 +33,6 @@ const WelcomeModal = () => {
 
   if (!isOpen) return null;
 
-  console.log('🔄 Rendering WelcomeModal, selectedLang:', selectedLang);
-
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 overflow-hidden animate-in zoom-in duration-500">
