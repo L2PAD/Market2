@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { cartAPI } from '../utils/api';
 import { useAuth } from './AuthContext';
+import { useLanguage } from './LanguageContext';
 import { toast } from 'sonner';
 
 const CartContext = createContext();
