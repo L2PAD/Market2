@@ -1,7 +1,21 @@
 export const translations = {
   ru: {
-    // Header
-    searchPlaceholder: 'Поиск товаров...',
+    // Cart
+    myCart: 'Моя корзина',
+    shoppingCart: 'Корзина покупок',
+    clearCart: 'Очистить корзину',
+    quantity: 'Количество',
+    orderSummary: 'Сводка заказа',
+    subtotal: 'Промежуточный итог',
+    items: 'товаров',
+    shipping: 'Доставка',
+    free: 'Бесплатно',
+    total: 'Итого',
+    proceedToCheckout: 'Перейти к оформлению',
+    continueShopping: 'Продолжить покупки',
+    // Empty Cart
+    yourCartIsEmpty: 'Ваша корзина пуста',
+    addSomeProducts: 'Добавьте товары чтобы начать!',
     search: 'Поиск товаров...',
     login: 'Войти',
     signup: 'Регистрация',
