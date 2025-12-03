@@ -39,8 +39,8 @@ const NewHeader = () => {
     navigate('/');
   };
 
-  const toggleLanguage = () => {
-    setShowLanguageModal(true);
+  const toggleLanguageDropdown = () => {
+    setShowLanguageDropdown(!showLanguageDropdown);
   };
 
   const selectLanguage = (lang) => {
