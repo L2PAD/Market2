@@ -79,7 +79,7 @@ const Cart = () => {
     <div data-testid="cart-page" className="min-h-screen py-12">
       <div className="container-main">
         <div className="flex items-center justify-between mb-8">
-          <h1 data-testid="cart-title" className="text-4xl font-bold">Shopping Cart</h1>
+          <h1 data-testid="cart-title" className="text-4xl font-bold">{t('shoppingCart')}</h1>
           <Button
             data-testid="clear-cart-button"
             variant="ghost"
@@ -87,7 +87,7 @@ const Cart = () => {
             className="text-red-600 hover:text-red-700"
           >
             <Trash2 className="w-4 h-4 mr-2" />
-            Clear Cart
+            {t('clearCart')}
           </Button>
         </div>
 
