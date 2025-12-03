@@ -158,46 +158,11 @@ const EnhancedProductDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
           {/* Left: Gallery */}
           <div className="lg:col-span-5">
-            <div className="sticky top-4">
-              {/* Main Image */}
-              <div className="bg-white rounded-2xl p-6 mb-4 border border-gray-200">
-                <div className="relative aspect-square">
-                  {discount > 0 && (
-                    <div className="absolute top-0 left-0 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold z-10">
-                      -{discount}%
-                    </div>
-                  )}
-                  <img
-                    src={images[selectedImage]}
-                    alt={product.title}
-                    className="w-full h-full object-contain cursor-zoom-in"
-                  />
-                </div>
-              </div>
-
-              {/* Thumbnail Gallery */}
-              {images.length > 1 && (
-                <div className="grid grid-cols-5 gap-2">
-                  {images.map((img, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setSelectedImage(index)}
-                      className={`aspect-square border-2 rounded-lg overflow-hidden transition-all ${
-                        selectedImage === index 
-                          ? 'border-blue-500 ring-2 ring-blue-200' 
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      <img
-                        src={img}
-                        alt={`${product.title} ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ProductImageGallery 
+              images={images}
+              videos={videos}
+              productTitle={product.title}
+            />
           </div>
 
           {/* Right: Product Info */}
