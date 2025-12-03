@@ -174,12 +174,10 @@ const Footer = () => {
               href="https://www.google.com/maps/dir//проспект+Миколи+Бажана,+24/1,+Київ,+02149"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-block"
+              className="mt-4 inline-flex items-center gap-2 px-4 py-2 border border-white text-white rounded-md hover:bg-white hover:text-black transition-colors text-sm"
             >
-              <Button variant="outline" size="sm" className="text-white border-white hover:bg-white hover:text-black">
-                <MapPin className="w-4 h-4 mr-2" />
-                {t('getDirections')}
-              </Button>
+              <MapPin className="w-4 h-4" />
+              {t('getDirections')}
             </a>
           </div>
 
