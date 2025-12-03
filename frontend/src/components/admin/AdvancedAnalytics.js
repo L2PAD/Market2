@@ -19,6 +19,9 @@ const AdvancedAnalytics = () => {
   const [timeBasedData, setTimeBasedData] = useState({ monthly_breakdown: [] });
   const [customerLTV, setCustomerLTV] = useState([]);
   const [categoryPerformance, setCategoryPerformance] = useState([]);
+  const [timeOnPages, setTimeOnPages] = useState([]);
+  const [productPageAnalytics, setProductPageAnalytics] = useState([]);
+  const [userBehaviorFlow, setUserBehaviorFlow] = useState({ top_transitions: [] });
 
   useEffect(() => {
     fetchAllAnalytics();
