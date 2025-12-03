@@ -615,5 +615,28 @@ export const translations = {
     readyToStartSelling: 'Готові почати продавати?',
     ctaDescription: 'Приєднуйтесь до тисяч успішних продавців на нашій платформі. Створіть свій магазин і почніть заробляти вже сьогодні.',
     getStartedNow: 'Почати зараз',
+    
+    // Nova Poshta
+    cityLabel: 'Місто',
+    startTypingCity: 'Почніть вводити назву міста...',
+    warehouseNumberLabel: 'Номер відділення Нової Пошти',
+    enterWarehouseNumber: 'Введіть номер відділення (напр., 1, 15, 240)...',
+    warehouseNo: 'Відділення №',
+    warehouseNotFound: 'Відділення не знайдено',
+    
+    // Reviews & Comments
+    shareYourOpinion: 'Поділіться своєю думкою про товар...',
+    shareYourExperience: 'Поділіться своїм досвідом використання цього товару...',
+    
+    // Seller Payouts
+    enterAmount: 'Введіть суму',
+    
+    // Checkout Form Errors (Ukrainian)
+    enterFirstNameUa: 'Введіть ім\'я',
+    enterLastNameUa: 'Введіть прізвище',
+    enterPhoneUa: 'Введіть номер мобільного телефону',
+    enterEmailUa: 'Введіть email',
+    enterCityUa: 'Введіть місто',
+    enterAddressUa: 'Введіть адресу',
   },
 };
