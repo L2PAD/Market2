@@ -121,12 +121,6 @@ const Checkout = () => {
       description: 'При оплаті онлайн Карткою Bazaar застосується знижка',
       badge: 'Discount',
       disabled: true
-    },
-    {
-      id: 'installment',
-      name: 'Кредит та оплата частинами',
-      description: 'Оформлення кредитів у банках партнерів',
-      disabled: true
     }
   ];
 
