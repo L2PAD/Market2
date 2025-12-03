@@ -295,6 +295,29 @@ export const translations = {
     readyToStartSelling: 'Готовы начать продавать?',
     ctaDescription: 'Присоединяйтесь к тысячам успешных продавцов на нашей платформе. Создайте свой магазин и начните зарабатывать уже сегодня.',
     getStartedNow: 'Начать сейчас',
+    
+    // Nova Poshta
+    cityLabel: 'Город',
+    startTypingCity: 'Начните вводить название города...',
+    warehouseNumberLabel: 'Номер отделения Новой Почты',
+    enterWarehouseNumber: 'Введите номер отделения (напр., 1, 15, 240)...',
+    warehouseNo: 'Отделение №',
+    warehouseNotFound: 'Отделение не найдено',
+    
+    // Reviews & Comments
+    shareYourOpinion: 'Поделитесь своим мнением о товаре...',
+    shareYourExperience: 'Поделитесь своим опытом использования этого товара...',
+    
+    // Seller Payouts
+    enterAmount: 'Введите сумму',
+    
+    // Checkout Form Errors (Ukrainian hardcoded)
+    enterFirstNameUa: 'Введите имя',
+    enterLastNameUa: 'Введите фамилию',
+    enterPhoneUa: 'Введите номер мобильного телефона',
+    enterEmailUa: 'Введите email',
+    enterCityUa: 'Введите город',
+    enterAddressUa: 'Введите адрес',
   },
   ua: {
     // Header
