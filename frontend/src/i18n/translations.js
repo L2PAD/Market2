@@ -509,6 +509,15 @@ export const translations = {
     workingHours: 'Будні: 09:00 – 19:00',
     weekends: 'Сб-Нд: 10:00 – 18:00',
     
+    // Catalog Dropdown
+    allProducts: 'Всі товари',
+    allProductsInCategory: 'Всі товари в категорії',
+    noSubcategories: 'Немає підкатегорій',
+    hoverCategory: 'Наведіть на категорію',
+    toSeeSubcategories: 'щоб побачити підкатегорії',
+    viewProducts: 'Переглянути товари',
+    showAll: 'Показати всі',
+    
     // Cart
     shoppingCart: 'Кошик покупок',
     clearCart: 'Очистити кошик',
