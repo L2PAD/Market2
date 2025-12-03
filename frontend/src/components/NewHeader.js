@@ -19,6 +19,7 @@ const NewHeader = () => {
   const { language, changeLanguage, t } = useLanguage();
   const { hasUnreadNotifications } = useNotifications();
   const [searchQuery, setSearchQuery] = useState('');
+  const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const cartItemsCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
