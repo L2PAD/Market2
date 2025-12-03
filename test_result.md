@@ -330,27 +330,33 @@ backend:
 
   - task: "Admin Panel Product Management"
     implemented: true
-    working: false
+    working: true
     file: "/app/frontend/src/pages/AdminPanel.js, /app/frontend/src/components/admin/ProductManagement.js"
     stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "testing"
         comment: "CRITICAL ISSUE: Admin panel completely inaccessible due to JavaScript error in AdminPanel.js. Missing state variables (setCategories, showAddCategory, categoryForm) causing component crash and redirect from /admin to homepage. Authentication working correctly (admin@bazaar.com login successful, correct role stored), but admin panel component fails to load. PARTIALLY FIXED: Added missing state variables, but admin panel still not accessible after frontend restart. Requires main agent investigation of AuthContext or routing protection logic."
+      - working: true
+        agent: "testing"
+        comment: "✅ ADMIN PANEL ACCESS RESTORED AND PRODUCT MANAGEMENT WORKING: Comprehensive testing completed successfully. 1) Admin login (admin@bazaar.com/admin123) working perfectly - authentication API returns valid token and correct admin role. 2) Admin panel fully accessible at /admin with all required tabs: Аналитика, Пользователи, Категории, Товары. 3) Product creation functionality working: 'Add Product' button accessible, form accepts all required fields (title: 'Test Product via UI', category selection, price: 999, stock: 20, image URL), form submission successful. 4) Product management interface fully functional with proper form validation and category selection. The previous access issues have been resolved - admin panel now loads correctly after successful authentication."
 
   - task: "Admin Panel Category Management"
     implemented: true
-    working: false
+    working: true
     file: "/app/frontend/src/pages/AdminPanel.js, /app/frontend/src/components/admin/CategoryManagement.js"
     stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "testing"
         comment: "Same issue as Product Management - admin panel not accessible due to component errors. Category management functionality cannot be tested until admin panel access is restored. The CategoryManagement component appears to be properly implemented with product assignment features, but cannot be reached due to AdminPanel component issues."
+      - working: true
+        agent: "testing"
+        comment: "✅ CATEGORY MANAGEMENT FULLY FUNCTIONAL: Comprehensive testing confirms all category management features working perfectly. 1) 'Add Category' button accessible from Categories tab. 2) Category creation form working: name field accepts input ('Test Category UI'), slug auto-generated, parent category selection available. 3) PRODUCT ASSIGNMENT FEATURE WORKING: Found product assignment section with search functionality, checkboxes for product selection, successfully selected 2 products for category assignment. 4) Category creation successful: 'Create Category' button works, success toast displayed, category appears in table with product count display ('2 products'). 5) Bidirectional product-category relationship working correctly. All requested functionality from test scenario working as expected."
 
 metadata:
   created_by: "testing_agent"
