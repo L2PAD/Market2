@@ -541,12 +541,12 @@ const Checkout = () => {
                 </div>
               )}
 
-              {/* Standard Address Form for Courier and Ukrposhta */}
-              {(deliveryMethod === 'courier' || deliveryMethod === 'ukrposhta') && (
+              {/* Address Form for Courier */}
+              {deliveryMethod === 'courier' && (
                 <div className="mt-4 grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      Місто <span className="text-red-500">*</span>
+                      {t('language') === 'ru' ? 'Город' : 'Місто'} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -555,7 +555,7 @@ const Checkout = () => {
                       className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                         errors.city ? 'border-red-500' : 'border-gray-300'
                       }`}
-                      placeholder="Київ"
+                      placeholder={t('language') === 'ru' ? 'Киев' : 'Київ'}
                     />
                     {errors.city && (
                       <p className="text-red-500 text-sm mt-1">{errors.city}</p>
@@ -563,7 +563,7 @@ const Checkout = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      Адреса <span className="text-red-500">*</span>
+                      {t('language') === 'ru' ? 'Адрес' : 'Адреса'} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -572,11 +572,87 @@ const Checkout = () => {
                       className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                         errors.address ? 'border-red-500' : 'border-gray-300'
                       }`}
-                      placeholder="вул. Хрещатик, 1"
+                      placeholder={t('language') === 'ru' ? 'ул. Крещатик, 1' : 'вул. Хрещатик, 1'}
                     />
                     {errors.address && (
                       <p className="text-red-500 text-sm mt-1">{errors.address}</p>
                     )}
+                  </div>
+                </div>
+              )}
+
+              {/* Address Form for Ukrposhta with Postal Code */}
+              {deliveryMethod === 'ukrposhta' && (
+                <div className="mt-4 space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        {t('language') === 'ru' ? 'Город' : 'Місто'} <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={recipientData.city}
+                        onChange={(e) => handleInputChange('city', e.target.value)}
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          errors.city ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        placeholder={t('language') === 'ru' ? 'Киев' : 'Київ'}
+                      />
+                      {errors.city && (
+                        <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        {t('language') === 'ru' ? 'Почтовый индекс' : 'Поштовий індекс'} <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={recipientData.postalCode}
+                        onChange={(e) => handleInputChange('postalCode', e.target.value)}
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          errors.postalCode ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        placeholder="01001"
+                        maxLength={5}
+                      />
+                      {errors.postalCode && (
+                        <p className="text-red-500 text-sm mt-1">{errors.postalCode}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {t('language') === 'ru' ? 'Адрес отделения Укрпочты' : 'Адреса відділення Укрпошти'} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={recipientData.address}
+                      onChange={(e) => handleInputChange('address', e.target.value)}
+                      className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        errors.address ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                      placeholder={t('language') === 'ru' ? 'ул. Крещатик, 1 (отделение №1)' : 'вул. Хрещатик, 1 (відділення №1)'}
+                    />
+                    {errors.address && (
+                      <p className="text-red-500 text-sm mt-1">{errors.address}</p>
+                    )}
+                  </div>
+                  <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                    <div className="flex">
+                      <AlertCircle className="w-5 h-5 text-blue-500 mt-0.5" />
+                      <div className="ml-3 text-sm text-blue-700">
+                        <p className="font-medium mb-1">
+                          {t('language') === 'ru' ? 'Информация о доставке Укрпочты:' : 'Інформація про доставку Укрпошти:'}
+                        </p>
+                        <p>
+                          {t('language') === 'ru' 
+                            ? 'Укажите индекс и адрес ближайшего отделения Укрпочты. Посылка будет доставлена в указанное отделение для самовывоза.'
+                            : 'Вкажіть індекс та адресу найближчого відділення Укрпошти. Посилка буде доставлена до вказаного відділення для самовивозу.'
+                          }
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
