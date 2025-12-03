@@ -127,7 +127,7 @@ const WelcomeModal = () => {
         </div>
 
         {/* Cookie Consent */}
-        <div className="px-6 py-4">
+        <div key={`cookie-${contentKey}`} className="px-6 py-4">
           <div className="flex items-start gap-3 mb-3">
             <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
               <Cookie className="w-5 h-5 text-orange-600" />
@@ -157,6 +157,7 @@ const WelcomeModal = () => {
         {/* Accept Button */}
         <div className="px-6 pb-6">
           <button
+            key={`btn-${contentKey}`}
             onClick={handleAccept}
             className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
           >
