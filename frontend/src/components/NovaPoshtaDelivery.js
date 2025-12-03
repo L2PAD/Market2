@@ -211,7 +211,7 @@ const NovaPoshtaDelivery = ({ onAddressChange, initialCity, initialWarehouse }) 
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="font-medium text-blue-600">
-                        Відділення №{warehouse.number}
+                        {t('warehouseNo')}{warehouse.number}
                       </div>
                       <div className="text-sm text-gray-700 mt-1">
                         {warehouse.short_address}
@@ -228,7 +228,7 @@ const NovaPoshtaDelivery = ({ onAddressChange, initialCity, initialWarehouse }) 
               
               {warehouses.length === 0 && !loadingWarehouses && warehouseNumber && (
                 <div className="px-4 py-3 text-gray-500 text-center">
-                  Відділення не знайдено
+                  {t('warehouseNotFound')}
                 </div>
               )}
             </div>
