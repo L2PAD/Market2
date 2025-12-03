@@ -291,13 +291,14 @@ const Checkout = () => {
       }
 
       // For cash on delivery, just create order
-      toast.success(
-        paymentMethod === 'online' 
-          ? 'Замовлення оформлено та оплачено!' 
-          : 'Замовлення успішно оформлено! Оплата при отриманні.'
-      );
+      toast.success('Замовлення успішно оформлено!');
       clearCart();
-      navigate('/checkout/success', { state: { orderNumber } });
+      navigate('/checkout/success', { 
+        state: { 
+          orderNumber, 
+          paymentMethod: paymentMethod 
+        } 
+      });
     } catch (error) {
       console.error('Error placing order:', error);
       toast.error(`Помилка при оформленні замовлення: ${error.message}`);
