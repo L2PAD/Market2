@@ -33,26 +33,30 @@ const WelcomeModal = () => {
 
   if (!isOpen) return null;
 
-  const content = {
-    ua: {
-      welcome: 'Ласкаво просимо!',
-      selectLanguage: 'Оберіть мову',
-      cookieTitle: 'Ми використовуємо файли cookie',
-      cookieText: 'Для покращення вашого досвіду та персоналізації контенту',
-      accept: 'Прийняти та продовжити',
-      privacyLink: 'Політика конфіденційності',
-    },
-    ru: {
-      welcome: 'Добро пожаловать!',
-      selectLanguage: 'Выберите язык',
-      cookieTitle: 'Мы используем файлы cookie',
-      cookieText: 'Для улучшения вашего опыта и персонализации контента',
-      accept: 'Принять и продолжить',
-      privacyLink: 'Политика конфиденциальности',
-    },
+  // Get content dynamically based on selected language
+  const getContent = () => {
+    const content = {
+      ua: {
+        welcome: 'Ласкаво просимо!',
+        selectLanguage: 'Оберіть мову',
+        cookieTitle: 'Ми використовуємо файли cookie',
+        cookieText: 'Для покращення вашого досвіду та персоналізації контенту',
+        accept: 'Прийняти та продовжити',
+        privacyLink: 'Політика конфіденційності',
+      },
+      ru: {
+        welcome: 'Добро пожаловать!',
+        selectLanguage: 'Выберите язык',
+        cookieTitle: 'Мы используем файлы cookie',
+        cookieText: 'Для улучшения вашего опыта и персонализации контента',
+        accept: 'Принять и продолжить',
+        privacyLink: 'Политика конфиденциальности',
+      },
+    };
+    return content[selectedLang] || content.ua;
   };
 
-  const currentContent = content[selectedLang] || content.ua;
+  const currentContent = getContent();
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
