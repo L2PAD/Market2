@@ -445,6 +445,8 @@ test_plan:
     - "Advanced Analytics User Behavior Tab"
   test_all: false
   test_priority: "high_first"
+  completed_tasks:
+    - "Website Branding Change from BAZAAR to Y-store"
 
 agent_communication:
   - agent: "testing"
