@@ -181,14 +181,6 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
                 </span>
               </div>
             )}
-
-            {/* Installment Price */}
-            {installmentPrice && (
-              <p className="text-xs text-blue-600 mt-1">
-                {t('orMonthly')} <span className="font-semibold">${installmentPrice}/{t('perMonth')}</span> {t('onMonths')}{' '}
-                {product.installment_months} {t('months')}
-              </p>
-            )}
           </div>
 
           {/* Add to Cart Button */}
