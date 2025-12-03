@@ -81,17 +81,27 @@ const ContactInfo = () => {
           <div className="space-y-3 text-lg">
             <div className="flex justify-between items-center py-2 border-b border-gray-200">
               <span className="font-medium">
-                {language === 'ru' ? 'Понедельник – Пятница' : 'Понеділок – П\'ятниця'}
+                {language === 'ru' ? 'Будни (Пн-Пт)' : 'Будні (Пн-Пт)'}
               </span>
-              <span>09:00 – 18:00</span>
+              <span>09:00 – 19:00</span>
             </div>
             <div className="flex justify-between items-center py-2 border-b border-gray-200">
               <span className="font-medium">
-                {language === 'ru' ? 'Суббота – Воскресенье' : 'Субота – Неділя'}
+                {language === 'ru' ? 'Суббота' : 'Субота'}
               </span>
-              <span className="text-red-600 font-medium">
-                {language === 'ru' ? 'Выходной' : 'Вихідний'}
+              <span>10:00 – 18:00</span>
+            </div>
+            <div className="flex justify-between items-center py-2 border-b border-gray-200">
+              <span className="font-medium">
+                {language === 'ru' ? 'Воскресенье' : 'Неділя'}
               </span>
+              <span>10:00 – 18:00</span>
+            </div>
+            <div className="flex justify-between items-center py-2 bg-green-50 rounded-lg px-3">
+              <span className="font-semibold text-green-700">
+                {language === 'ru' ? '🌐 Заказы онлайн' : '🌐 Замовлення онлайн'}
+              </span>
+              <span className="font-bold text-green-700">24/7</span>
             </div>
           </div>
         </div>
