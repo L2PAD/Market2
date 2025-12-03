@@ -13,9 +13,18 @@ export const translations = {
     total: 'Итого',
     proceedToCheckout: 'Перейти к оформлению',
     continueShopping: 'Продолжить покупки',
-    // Empty Cart
-    yourCartIsEmpty: 'Ваша корзина пуста',
-    addSomeProducts: 'Добавьте товары чтобы начать!',
+    // Product actions
+    addToCart: 'В корзину',
+    outOfStock: 'Нет в наличии',
+    addedToFavorites: 'Добавлено в избранное',
+    removedFromFavorites: 'Удалено из избранного',
+    // Toast messages
+    addedToCart: 'Добавлено в корзину',
+    removedFromCart: 'Удалено из корзины',
+    cartCleared: 'Корзина очищена',
+    failedToAddToCart: 'Не удалось добавить в корзину',
+    failedToRemoveFromCart: 'Не удалось удалить из корзины',
+    failedToClearCart: 'Не удалось очистить корзину',
     search: 'Поиск товаров...',
     login: 'Войти',
     signup: 'Регистрация',
