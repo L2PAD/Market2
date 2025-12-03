@@ -163,14 +163,14 @@ const NewHeader = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-3">
             {/* Catalog Button */}
-            <Link
-              to="/products"
+            <button
+              onClick={toggleCatalog}
               className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
             >
               <Menu className="w-4 h-4" />
               <span className="font-medium">{t('catalog')}</span>
               <ChevronDown className="w-4 h-4" />
-            </Link>
+            </button>
 
             {/* Navigation Links - Desktop */}
             <nav className="hidden lg:flex items-center gap-6">
