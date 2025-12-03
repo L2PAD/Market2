@@ -641,9 +641,27 @@ export const translations = {
     // Seller Payouts
     enterAmount: 'Введіть суму',
     
+    // Footer sections
+    deliveryPayment: 'Доставка і оплата',
+    deliveryInfo: 'Інформація про доставку',
+    paymentMethods: 'Способи оплати',
+    shippingCosts: 'Вартість доставки', 
+    fastDelivery: 'Швидка доставка',
+    exchangeReturn: 'Обмін і повернення',
+    returnPolicy: 'Політика повернення',
+    exchangeConditions: 'Умови обміну',
+    warrantyService: 'Гарантійне обслуговування',
+    refundProcess: 'Процедура повернення',
+    aboutCompany: 'Про компанію',
+    aboutUs: 'Про нас',
+    contacts: 'Контакти',
+    privacyPolicy: 'Політика конфіденційності',
+    agreement: 'Угода',
+    followUs: 'Ми в соцмережах',
+    
     // Checkout Form Errors (Ukrainian)
     enterFirstNameUa: 'Введіть ім\'я',
-    enterLastNameUa: 'Введіть прізвище',
+    enterLastNameUa: 'Введіть прізвище', 
     enterPhoneUa: 'Введіть номер мобільного телефону',
     enterEmailUa: 'Введіть email',
     enterCityUa: 'Введіть місто',
