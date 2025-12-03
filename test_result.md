@@ -406,6 +406,18 @@ backend:
         agent: "testing"
         comment: "✅ ADMIN ORDERS ANALYTICS DASHBOARD FULLY FUNCTIONAL: Comprehensive testing completed successfully. AUTHENTICATION: Admin login (admin@bazaar.com/admin123) working perfectly with proper JWT token and role verification. ORDERS ANALYTICS FEATURES: 1) ✅ Orders tab ('Заказы') accessible and clickable in admin panel 2) ✅ OrdersAnalytics component loads with header 'Детальная статистика заказов' 3) ✅ Summary stats cards working: Выручка ($2948.91), Заказов (8), Товаров продано (10), Покупателей (1) 4) ✅ Time filter dropdown with all options: 'Все время', 'Сегодня', 'Последняя неделя', 'Последний месяц' 5) ✅ Category filter dropdown with 58+ categories including 'Все категории' 6) ✅ 'Экспорт CSV' button present and functional 7) ✅ Category statistics table with headers: Категория, Заказов, Количество, Выручка 8) ✅ Detailed orders table with headers: Дата, Покупатель, Товары, Количество, Сумма, Статус 9) ✅ Filter functionality tested: time filters (today/week/month/all) and category filters working correctly 10) ✅ Real data integration: showing actual orders with Test Category UI (3 orders, $1499.95) and Без категории (5 orders, $1299.96). Professional admin dashboard UI with proper data visualization and filtering capabilities. All test scenario requirements met successfully."
 
+  - task: "Advanced Analytics User Behavior Tab"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/admin/AdvancedAnalytics.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ ADVANCED ANALYTICS USER BEHAVIOR TAB PARTIALLY FUNCTIONAL: Comprehensive testing reveals tab structure working but content not displaying. WORKING COMPONENTS: ✅ Admin authentication (admin@marketplace.com/admin123) successful ✅ Advanced Analytics tab ('Расширенная') accessible and clickable ✅ User Behavior tab ('⏱️ Поведение') exists and is clickable ✅ Tab navigation working between Overview and Behavior tabs ✅ Backend API integration confirmed - all analytics endpoints responding with 200 OK: /api/admin/analytics/advanced/time-on-pages, /api/admin/analytics/advanced/product-page-analytics, /api/admin/analytics/advanced/user-behavior-flow ✅ Analytics events confirmed in database (170 events). CRITICAL ISSUES: ❌ User Behavior tab content not rendering - the 4 required metric cards (Sessions, Average Time, Pages/Session, Bounce Rate) are not visible ❌ The 3 required sections (Time on Pages table, Product Analytics table, User Behavior Flow) are not displaying ❌ No time formatting (Xм Yс) elements found. The tab infrastructure works correctly but there appears to be a frontend rendering/state management issue in the AdvancedAnalytics.js component preventing the user-behavior tab content from displaying despite successful API responses. This suggests a component conditional rendering or data processing bug in the user-behavior tab section."
+
 metadata:
   created_by: "testing_agent"
   version: "2.0"
