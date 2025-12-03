@@ -74,6 +74,7 @@ function App() {
                     <SupportWidget />
                   </div>
                 </CartProvider>
+                </CatalogProvider>
               </FavoritesProvider>
             </ComparisonProvider>
           </NotificationsProvider>
