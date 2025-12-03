@@ -73,8 +73,8 @@ const CatalogDropdown = () => {
       {/* Dropdown Menu */}
       <div 
         ref={dropdownRef}
-        className="fixed left-0 right-0 bg-white shadow-2xl z-50 max-h-[80vh] overflow-hidden"
-        style={{ top: '150px' }} // Position below header
+        className="fixed left-0 right-0 bg-white shadow-2xl z-50 max-h-[600px] overflow-hidden"
+        style={{ top: '130px' }} // Position below header
       >
         <div className="container mx-auto">
           <div className="flex">
