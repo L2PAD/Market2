@@ -123,7 +123,7 @@ const ProductComments = ({ productId, isAuthenticated, onLoginRequired }) => {
               onChange={(e) => setNewComment(e.target.value)}
               rows={3}
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              placeholder={t('language') === 'ru' ? 'Поделитесь своим мнением о товаре...' : 'Share your thoughts about this product...'}
+              placeholder={t('shareYourOpinion')}
               disabled={!isAuthenticated}
             />
             {!isAuthenticated && (
