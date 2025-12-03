@@ -172,7 +172,7 @@ const ReviewsSection = ({ productId }) => {
                     onChange={(e) => setComment(e.target.value)}
                     required
                     rows={6}
-                    placeholder="Поделитесь своим опытом использования этого товара..."
+                    placeholder={t('shareYourExperience')}
                     className="resize-none"
                   />
                 </div>
