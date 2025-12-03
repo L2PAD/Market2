@@ -76,30 +76,30 @@ const Checkout = () => {
   const deliveryOptions = [
     {
       id: 'self-pickup',
-      name: 'Самовивіз з наших магазинів',
-      description: 'виберіть відповідне відділення',
+      name: t('selfPickup'),
+      description: t('selfPickupDesc'),
       price: 0,
       icon: Home
     },
     {
       id: 'courier',
-      name: 'Кур\'єр на вашу адресу',
-      description: 'Доставка протягом 1-2 днів',
+      name: t('courierDelivery'),
+      description: t('courierDesc'),
       price: 149,
       smartFree: true,
       icon: Truck
     },
     {
       id: 'nova-poshta',
-      name: 'Самовивіз з Нової Пошти',
-      description: 'Відділення або поштомат',
+      name: t('novaPoshtaPickup'),
+      description: t('novaPoshtaDesc'),
       price: 72,
       icon: Package
     },
     {
       id: 'ukrposhta',
-      name: 'Самовивіз з УКРПОШТИ',
-      description: 'Найближче відділення',
+      name: t('ukrposhtaPickup'),
+      description: t('ukrposhtaDesc'),
       price: 0,
       free: true,
       icon: Package
