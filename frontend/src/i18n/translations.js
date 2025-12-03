@@ -208,6 +208,15 @@ export const translations = {
     blog: 'Блог',
     myCart: 'Моя корзина',
     login: 'Вход',
+    
+    // Catalog Dropdown
+    allProducts: 'Все товары',
+    allProductsInCategory: 'Все товары в категории',
+    noSubcategories: 'Нет подкатегорий',
+    hoverCategory: 'Наведите на категорию',
+    toSeeSubcategories: 'чтобы увидеть подкатегории',
+    viewProducts: 'Посмотреть товары',
+    showAll: 'Показать все',
     searchProducts: 'поиск товаров',
     workingHours: 'Будни: 09:00 – 19:00',
     weekends: 'Сб-Нд: 10:00 – 18:00',
