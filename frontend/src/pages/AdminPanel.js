@@ -18,9 +18,6 @@ const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('analytics');
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [showAddCategory, setShowAddCategory] = useState(false);
-  const [categoryForm, setCategoryForm] = useState({ name: '', slug: '' });
 
   useEffect(() => {
     if (!isAdmin) {
