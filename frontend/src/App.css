@@ -186,3 +186,97 @@
 .stagger-4 { animation-delay: 0.4s; }
 .stagger-5 { animation-delay: 0.5s; }
 .stagger-6 { animation-delay: 0.6s; }
+/* Product Description Styles */
+.product-description h2,
+.product-description h3,
+.product-description h4 {
+  font-weight: 700;
+  color: #1f2937;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.product-description h2 {
+  font-size: 1.75rem;
+  line-height: 2rem;
+}
+
+.product-description h3 {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  color: #059669;
+}
+
+.product-description h4 {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+}
+
+.product-description p {
+  margin-bottom: 1.25rem;
+  color: #4b5563;
+  line-height: 1.8;
+}
+
+.product-description img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 2rem auto;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-description ul,
+.product-description ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+}
+
+.product-description li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.product-description strong {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.product-description a {
+  color: #059669;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.product-description a:hover {
+  color: #047857;
+}
+
+.product-description blockquote {
+  border-left: 4px solid #10b981;
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.product-description table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.product-description table th,
+.product-description table td {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.product-description table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #1f2937;
+}
