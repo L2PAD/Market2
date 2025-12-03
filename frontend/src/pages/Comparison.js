@@ -56,8 +56,6 @@ const Comparison = () => {
     { key: 'rating', label: t('rating'), type: 'rating' },
     { key: 'reviews_count', label: t('reviewsCount'), type: 'number' },
     { key: 'stock_level', label: t('inStock'), type: 'stock' },
-    { key: 'installment_available', label: t('installment'), type: 'boolean' },
-    { key: 'installment_months', label: t('installmentTerm'), type: 'months' },
     { key: 'short_description', label: t('description'), type: 'text' },
   ];
 
