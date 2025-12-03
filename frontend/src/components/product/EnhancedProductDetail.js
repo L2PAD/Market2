@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
-  Star, Heart, GitCompare, ShoppingCart, Share2, ChevronRight, 
+  Star, Heart, GitCompare, ShoppingCart, Share2, ChevronRight, ChevronUp,
   Truck, CreditCard, Shield, Clock, CheckCircle, Package, Info
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
