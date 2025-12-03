@@ -277,7 +277,10 @@ const RichTextEditor = ({
 
       {/* Help Text */}
       <div className="bg-gray-50 border-t border-gray-300 p-3 text-xs text-gray-600">
-        <strong>Tips:</strong> Use toolbar buttons to insert HTML tags. Click <Eye className="w-3 h-3 inline" /> to preview. Images will be styled automatically.
+        <strong>Tips:</strong> Use toolbar buttons to insert HTML tags. 
+        <span className="font-semibold text-blue-600 ml-2">
+          Image icon = Insert URL | Upload icon = Upload from computer
+        </span> | Click <Eye className="w-3 h-3 inline" /> to preview.
       </div>
 
       {/* Common HTML Examples */}
