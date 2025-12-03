@@ -215,7 +215,7 @@ const NewHeader = () => {
                 </button>
               </div>
               <button
-                onClick={() => setShowLanguageModal(false)}
+                onClick={() => setShowLanguageDropdown(false)}
                 className="w-full mt-4 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
               >
                 Отмена / Скасувати
