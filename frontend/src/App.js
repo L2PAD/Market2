@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
@@ -32,7 +32,24 @@ import ExchangeReturn from './pages/ExchangeReturn';
 import AboutUs from './pages/AboutUs';
 import Terms from './pages/Terms';
 import Blog from './pages/Blog';
+import analyticsTracker from './services/analyticsTracker';
 import './App.css';
+
+// Analytics Wrapper Component
+function AnalyticsWrapper({ children }) {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Track page view on route change
+    const pageTitle = document.title;
+    analyticsTracker.trackPageView(location.pathname, pageTitle, {
+      search: location.search,
+      hash: location.hash
+    });
+  }, [location]);
+
+  return children;
+}
 
 function App() {
   return (
