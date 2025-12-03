@@ -13,6 +13,8 @@ import Footer from './components/Footer';
 import AIChatbot from './components/AIChatbot';
 import CatalogDropdown from './components/CatalogDropdown';
 import SupportWidget from './components/SupportWidget';
+import LanguageSelectionModal from './components/LanguageSelectionModal';
+import CookieConsentModal from './components/CookieConsentModal';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
