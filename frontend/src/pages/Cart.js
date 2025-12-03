@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { productsAPI } from '../utils/api';
 import { Button } from '../components/ui/button';
 import { Trash2, ShoppingBag, ArrowLeft } from 'lucide-react';
@@ -8,6 +9,7 @@ import { useState } from 'react';
 
 const Cart = () => {
   const { cart, removeFromCart, clearCart, fetchCart } = useCart();
+  const { t } = useLanguage();
   const [products, setProducts] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
