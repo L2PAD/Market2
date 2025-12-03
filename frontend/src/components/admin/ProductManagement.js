@@ -116,15 +116,16 @@ const ProductManagement = () => {
       // Prepare product data
       const productData = {
         title: formData.title.trim(),
-        description: formData.description || '',
+        description: formData.description || formData.title.trim(),
         description_html: formData.description_html || '',
         price: parseFloat(formData.price),
-        compare_price: formData.compare_price ? parseFloat(formData.compare_price) : null,
+        compare_price: formData.compare_price ? parseFloat(formData.compare_price) : undefined,
         category_id: formData.category_id,
         category_name: formData.category_name,
         stock_level: parseInt(formData.stock_level),
         images: formData.images.filter(img => img && img.trim() !== ''),
-        videos: formData.videos ? formData.videos.filter(vid => vid && vid.trim() !== '') : []
+        videos: formData.videos ? formData.videos.filter(vid => vid && vid.trim() !== '') : [],
+        specifications: formData.specifications || []
       };
 
       // Ensure at least one image
