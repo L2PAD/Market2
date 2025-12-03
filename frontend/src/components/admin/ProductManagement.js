@@ -24,7 +24,8 @@ const ProductManagement = () => {
     category_name: '',
     stock_level: '',
     images: [''],
-    videos: ['']
+    videos: [''],
+    specifications: []
   });
 
   useEffect(() => {
