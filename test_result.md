@@ -343,6 +343,18 @@ backend:
         agent: "testing"
         comment: "✅ ADMIN PANEL ACCESS RESTORED AND PRODUCT MANAGEMENT WORKING: Comprehensive testing completed successfully. 1) Admin login (admin@bazaar.com/admin123) working perfectly - authentication API returns valid token and correct admin role. 2) Admin panel fully accessible at /admin with all required tabs: Аналитика, Пользователи, Категории, Товары. 3) Product creation functionality working: 'Add Product' button accessible, form accepts all required fields (title: 'Test Product via UI', category selection, price: 999, stock: 20, image URL), form submission successful. 4) Product management interface fully functional with proper form validation and category selection. The previous access issues have been resolved - admin panel now loads correctly after successful authentication."
 
+  - task: "StructuredSpecificationsEditor in Admin Panel"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/admin/StructuredSpecificationsEditor.js, /app/frontend/src/components/admin/ProductManagement.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ STRUCTURED SPECIFICATIONS EDITOR FULLY FUNCTIONAL: Comprehensive testing of the new StructuredSpecificationsEditor component completed successfully. ALL REQUESTED FEATURES WORKING: 1) ✅ Component is visible in admin panel product management form under 'Характеристики товара (структурированные)' section. 2) ✅ Template selector dropdown working with categories like 'Электроника и компьютеры', 'Одежда и обувь', 'Мебель', 'Бытовая техника', etc. 3) ✅ Template functionality working: clicking 'Основные характеристики' template button successfully adds new group with pre-filled field names (Производитель, Модель, Страна производства, Год выпуска, Гарантия). 4) ✅ Manual group addition working: 'Добавить группу характеристик' button creates new empty groups. 5) ✅ Custom field addition working: ability to add key-value pairs within groups, with 'Добавить поле' button for additional fields. 6) ✅ UI matches Rozetka style: blue template sections, green info sections, gray specification groups with proper styling. 7) ✅ All 8 category templates available (electronics, fashion, furniture, appliances, food, sports, beauty, kids). Component is production-ready and meets all test scenario requirements."
+
   - task: "Admin Panel Category Management"
     implemented: true
     working: true
