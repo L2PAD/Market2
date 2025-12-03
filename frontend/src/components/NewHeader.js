@@ -126,12 +126,12 @@ const NewHeader = () => {
       {/* Dark Navigation Bar - BLACK */}
       <div className="bg-black text-white">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-3">
-            {/* Left - Catalog */}
+          <div className="flex items-center justify-between py-4">
+            {/* Left - Catalog in oval button */}
             <div className="flex items-center">
               <button
                 onClick={openCatalog}
-                className="flex items-center gap-2 hover:text-gray-300 transition-colors"
+                className="flex items-center gap-2 bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100 transition-colors font-medium"
               >
                 <Menu className="w-4 h-4" />
                 <span>{t('catalog')}</span>
