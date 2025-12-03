@@ -172,7 +172,7 @@ const CatalogDropdown = () => {
                       onClick={() => handleCategoryClick(hoveredCategoryData.id)}
                       className="text-blue-600 hover:text-blue-700 font-semibold text-sm"
                     >
-                      {t('allProductsInCategory')} "{hoveredCategoryData.name}" →
+                      {t('allProductsInCategory')} &quot;{hoveredCategoryData.name}&quot; →
                     </button>
                   </div>
                 </div>
