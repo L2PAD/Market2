@@ -497,8 +497,8 @@ export const translations = {
     myCart: 'Мій кошик',
     login: 'Вхід',
     searchProducts: 'пошук товарів',
-    workingHours: 'Пн–Пт: 09:00 – 18:00',
-    weekends: 'Сб–Нд: Вихідні',
+    workingHours: 'Будні: 09:00 – 19:00',
+    weekends: 'Сб-Нд: 10:00 – 18:00',
     
     // Cart
     shoppingCart: 'Кошик покупок',
