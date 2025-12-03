@@ -1031,6 +1031,229 @@ Format your response as JSON with keys: "description" and "short_description"""
             short_description=lines[-1] if len(lines) > 1 else request.product_title[:160]
         )
 
+# ============= ADDITIONAL AI ENDPOINTS (SECURE PROXY) =============
+
+class AIRecommendationsRequest(BaseModel):
+    product_name: str
+    category: str
+    price: float
+    available_products: List[Dict[str, Any]]
+
+class AIRecommendationsResponse(BaseModel):
+    success: bool
+    recommendations: List[Dict[str, Any]] = []
+    error: Optional[str] = None
+
+@api_router.post("/ai/recommendations", response_model=AIRecommendationsResponse)
+async def generate_ai_recommendations(request: AIRecommendationsRequest):
+    """
+    Generate AI product recommendations (SECURE - Backend only)
+    """
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        api_key = os.environ.get('EMERGENT_LLM_KEY')
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"recommendations-{str(uuid.uuid4())}",
+            system_message="You are an AI assistant for e-commerce, specializing in personalized product recommendations. Analyze products and suggest the most relevant options."
+        )
+        
+        chat.with_model("openai", "gpt-4o")
+        
+        products_context = "\n".join([
+            f"ID: {p.get('id')}, Title: {p.get('title')}, Category: {p.get('category', 'N/A')}, Price: ${p.get('price', 0)}"
+            for p in request.available_products[:20]
+        ])
+        
+        prompt = f"""User is viewing product:
+Title: {request.product_name}
+Category: {request.category}
+Price: ${request.price}
+
+Available products for recommendation:
+{products_context}
+
+Task: Select 3-5 most suitable products for recommendation and explain why.
+
+Respond in JSON format:
+{{
+  "recommendations": [
+    {{
+      "productId": "product id",
+      "reason": "short reason (1 sentence)"
+    }}
+  ]
+}}"""
+        
+        user_message = UserMessage(text=prompt)
+        response = await chat.send_message(user_message)
+        
+        import json
+        response_text = response.strip()
+        if "```json" in response_text:
+            response_text = response_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_text:
+            response_text = response_text.split("```")[1].split("```")[0].strip()
+        
+        result = json.loads(response_text)
+        
+        return AIRecommendationsResponse(
+            success=True,
+            recommendations=result.get("recommendations", [])
+        )
+    except Exception as e:
+        logger.error(f"Error in AI recommendations: {str(e)}")
+        return AIRecommendationsResponse(
+            success=False,
+            recommendations=[],
+            error=str(e)
+        )
+
+class AIChatRequest(BaseModel):
+    messages: List[Dict[str, str]]
+    context: Optional[Dict[str, Any]] = {}
+
+class AIChatResponse(BaseModel):
+    success: bool
+    message: str
+    error: Optional[str] = None
+
+@api_router.post("/ai/chat", response_model=AIChatResponse)
+async def ai_chatbot(request: AIChatRequest):
+    """
+    AI Chatbot for customer support (SECURE - Backend only)
+    """
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage, AssistantMessage
+        
+        api_key = os.environ.get('EMERGENT_LLM_KEY')
+        
+        system_context = f"""You are a friendly AI assistant for a Ukrainian marketplace.
+
+Your capabilities:
+- Help with product selection
+- Answer questions about delivery, payment, returns
+- Product recommendations based on preferences
+- Help with order placement
+
+Rules:
+- Respond in Russian
+- Be polite and professional
+- If you don't know the answer, admit it honestly
+- Recommend contacting support for complex questions
+- Use emojis for friendliness
+
+{f"Cart items: {request.context.get('cartItems')}" if request.context.get('cartItems') else ''}
+{f"User name: {request.context.get('userName')}" if request.context.get('userName') else ''}"""
+        
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"chat-{str(uuid.uuid4())}",
+            system_message=system_context
+        )
+        
+        chat.with_model("openai", "gpt-4o")
+        
+        last_user_message = None
+        for msg in request.messages:
+            if msg.get('role') == 'user':
+                last_user_message = msg.get('content', '')
+        
+        if not last_user_message:
+            return AIChatResponse(
+                success=False,
+                message="No user message provided",
+                error="Invalid request"
+            )
+        
+        user_message = UserMessage(text=last_user_message)
+        response = await chat.send_message(user_message)
+        
+        return AIChatResponse(
+            success=True,
+            message=response
+        )
+    except Exception as e:
+        logger.error(f"Error in AI chat: {str(e)}")
+        return AIChatResponse(
+            success=False,
+            message="Извините, произошла ошибка. Попробуйте позже или свяжитесь с поддержкой.",
+            error=str(e)
+        )
+
+class AISEORequest(BaseModel):
+    product_name: str
+    category: str
+    features: List[str] = []
+
+class AISEOResponse(BaseModel):
+    success: bool
+    title: Optional[str] = None
+    metaDescription: Optional[str] = None
+    keywords: Optional[List[str]] = []
+    error: Optional[str] = None
+
+@api_router.post("/ai/seo", response_model=AISEOResponse)
+async def generate_seo(
+    request: AISEORequest,
+    current_user: User = Depends(get_current_seller)
+):
+    """
+    Generate SEO-optimized title and meta description (SECURE - Backend only)
+    """
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        api_key = os.environ.get('EMERGENT_LLM_KEY')
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"seo-{str(uuid.uuid4())}",
+            system_message="You are an SEO specialist. Create optimized titles and descriptions for products."
+        )
+        
+        chat.with_model("openai", "gpt-4o")
+        
+        features_text = ", ".join(request.features) if request.features else "No specific features"
+        
+        prompt = f"""Create SEO-optimized texts for product:
+
+Product Name: {request.product_name}
+Category: {request.category}
+Features: {features_text}
+
+Respond in JSON format:
+{{
+  "title": "SEO title (up to 60 characters)",
+  "metaDescription": "Meta description (up to 160 characters)",
+  "keywords": ["keyword1", "keyword2"]
+}}"""
+        
+        user_message = UserMessage(text=prompt)
+        response = await chat.send_message(user_message)
+        
+        import json
+        response_text = response.strip()
+        if "```json" in response_text:
+            response_text = response_text.split("```json")[1].split("```")[0].strip()
+        elif "```" in response_text:
+            response_text = response_text.split("```")[1].split("```")[0].strip()
+        
+        result = json.loads(response_text)
+        
+        return AISEOResponse(
+            success=True,
+            title=result.get("title"),
+            metaDescription=result.get("metaDescription"),
+            keywords=result.get("keywords", [])
+        )
+    except Exception as e:
+        logger.error(f"Error in SEO generation: {str(e)}")
+        return AISEOResponse(
+            success=False,
+            error=str(e)
+        )
+
 # ============= CONTACT & SUPPORT =============
 
 @api_router.post("/contact/callback")
