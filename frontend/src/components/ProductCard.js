@@ -143,13 +143,6 @@ const ProductCard = ({ product }) => {
               </span>
             )}
           </div>
-          {product.installment_available && product.installment_months && (
-            <div className="text-sm text-gray-600">
-              или <span className="font-semibold text-[#0071E3]">
-                ${(product.price / product.installment_months).toFixed(2)}/мес
-              </span> на {product.installment_months} мес
-            </div>
-          )}
         </div>
 
         {/* Add to Cart Button - Always at bottom */}
