@@ -206,9 +206,12 @@ const NewHeader = () => {
 
               {user ? (
                 <div className="flex items-center gap-4">
-                  <Link to="/seller/dashboard" className="hover:text-gray-300">
+                  <Link 
+                    to={user.role === 'admin' ? '/admin' : user.role === 'seller' ? '/seller/dashboard' : '/profile'} 
+                    className="hover:text-gray-300"
+                  >
                     <User className="w-4 h-4 inline mr-1" />
-                    {user.name || user.email}
+                    {user.full_name || user.email}
                   </Link>
                   <button onClick={handleLogout} className="hover:text-gray-300">
                     <LogOut className="w-4 h-4" />
