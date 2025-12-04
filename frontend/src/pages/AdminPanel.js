@@ -18,6 +18,7 @@ import AdvancedAnalytics from '../components/admin/AdvancedAnalytics';
 
 const AdminPanel = () => {
   const { isAdmin, loading } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('analytics');
   const [stats, setStats] = useState(null);
