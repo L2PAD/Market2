@@ -89,7 +89,7 @@ const SlidesManagement = () => {
           slideData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        toast.success('Слайд обновлен!');
+        toast.success('Слайд оновлено!');
       } else {
         // Create new slide
         await axios.post(
@@ -97,7 +97,7 @@ const SlidesManagement = () => {
           slideData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        toast.success('Слайд создан!');
+        toast.success('Слайд створено!');
       }
       
       setShowAddSlide(false);
@@ -106,12 +106,12 @@ const SlidesManagement = () => {
       fetchSlides();
     } catch (error) {
       console.error('Failed to save slide:', error);
-      toast.error('Ошибка сохранения слайда');
+      toast.error('Помилка збереження слайду');
     }
   };
 
   const handleDeleteSlide = async (slideId) => {
-    if (!window.confirm('Удалить этот слайд?')) return;
+    if (!window.confirm('Видалити цей слайд?')) return;
     
     try {
       const token = localStorage.getItem('token');
@@ -119,11 +119,11 @@ const SlidesManagement = () => {
         `${process.env.REACT_APP_BACKEND_URL}/api/admin/slides/${slideId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      toast.success('Слайд удален!');
+      toast.success('Слайд видалено!');
       fetchSlides();
     } catch (error) {
       console.error('Failed to delete slide:', error);
-      toast.error('Ошибка удаления слайда');
+      toast.error('Помилка видалення слайду');
     }
   };
 
@@ -135,11 +135,11 @@ const SlidesManagement = () => {
         { active: !slide.active },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      toast.success(slide.active ? 'Слайд скрыт' : 'Слайд активирован');
+      toast.success(slide.active ? 'Слайд приховано' : 'Слайд активовано');
       fetchSlides();
     } catch (error) {
       console.error('Failed to toggle slide:', error);
-      toast.error('Ошибка изменения статуса');
+      toast.error('Помилка зміни статусу');
     }
   };
 
