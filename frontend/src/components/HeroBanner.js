@@ -173,35 +173,35 @@ const HeroBanner = () => {
           <div className="flex items-center justify-center h-full text-white relative z-10">
             {/* Промо текст в углу */}
             {slide.promo_text && (
-              <div className="absolute top-6 right-6 bg-red-600 text-white px-6 py-3 rounded-lg font-bold text-xl shadow-2xl animate-pulse">
+              <div className="absolute top-3 right-3 md:top-6 md:right-6 bg-red-600 text-white px-3 py-1 md:px-6 md:py-3 rounded-lg font-bold text-sm md:text-lg lg:text-xl shadow-lg animate-pulse">
                 {slide.promo_text}
               </div>
             )}
 
             {/* Основной контент */}
-            <div className="text-center px-6 max-w-4xl">
+            <div className="text-center px-4 md:px-6 max-w-4xl">
               {/* Для товара показываем его изображение */}
               {slide.type === 'product' && slide.product_id && (
-                <div className="mb-6">
+                <div className="mb-4 md:mb-6">
                   {/* Здесь можно добавить изображение товара если нужно */}
                 </div>
               )}
               
-              <h2 className="text-5xl font-bold mb-3 drop-shadow-2xl">
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-3 drop-shadow-2xl px-2">
                 {slide.title}
               </h2>
               
               {slide.subtitle && (
-                <p className="text-3xl mb-4 opacity-90 drop-shadow-lg">{slide.subtitle}</p>
+                <p className="text-lg md:text-2xl lg:text-3xl mb-3 md:mb-4 opacity-90 drop-shadow-lg px-2">{slide.subtitle}</p>
               )}
               
               {slide.description && (
-                <p className="text-xl opacity-80 mb-6 drop-shadow-lg">{slide.description}</p>
+                <p className="text-sm md:text-lg lg:text-xl opacity-80 mb-4 md:mb-6 drop-shadow-lg px-2">{slide.description}</p>
               )}
 
               {/* Обратный отсчет */}
               {slide.countdown_enabled && slide.countdown_end_date && (
-                <div className="flex justify-center mb-6">
+                <div className="flex justify-center mb-4 md:mb-6">
                   <Countdown endDate={slide.countdown_end_date} />
                 </div>
               )}
@@ -209,7 +209,7 @@ const HeroBanner = () => {
               {/* Кнопка действия */}
               {slide.button_text && (
                 <button 
-                  className="bg-white text-gray-900 px-10 py-4 rounded-full font-bold text-xl hover:bg-gray-100 transition-all shadow-2xl hover:scale-105"
+                  className="bg-white text-gray-900 px-6 md:px-10 py-2 md:py-4 rounded-full font-bold text-base md:text-lg lg:text-xl hover:bg-gray-100 transition-all shadow-2xl hover:scale-105"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleSlideClick(slide);
