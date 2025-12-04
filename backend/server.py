@@ -2441,7 +2441,7 @@ async def get_tasks(
     if customer_id:
         query["customer_id"] = customer_id
     
-    tasks = await db.crm_tasks.find(query).sort("due_date", 1).to_list(1000)
+    tasks = await db.crm_tasks.find(query, {"_id": 0}).sort("due_date", 1).to_list(1000)
     return tasks
 
 @api_router.put("/crm/tasks/{task_id}")
