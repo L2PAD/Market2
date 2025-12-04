@@ -4,7 +4,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Card } from '../ui/card';
 import { toast } from 'sonner';
-import { Plus, Trash2, Edit, Eye, EyeOff, Image, Package, Calendar, ArrowUp, ArrowDown } from 'lucide-react';
+import { Plus, Trash2, Edit, Eye, EyeOff, Image, Package, Calendar, ArrowUp, ArrowDown, Clock } from 'lucide-react';
 import axios from 'axios';
 
 const SlidesManagement = () => {
