@@ -471,6 +471,13 @@ export const translations = {
     // Search
     searchResults: 'Результати пошуку',
     noResults: 'Нічого не знайдено',
+    
+    // Checkout
+    quickCheckout: 'Швидке оформлення',
+    loginBenefits: 'Увійдіть в акаунт щоб автоматично заповнити дані доставки та швидше оформити замовлення',
+    continueAsGuest: 'Продовжити як гість',
+    dataAutoFilled: 'Дані автоматично заповнені',
+    savedDeliveryData: 'Використовуються ваші збережені дані доставки',
     adminPanel: 'Панель адміністратора',
     logout: 'Вийти',
     
