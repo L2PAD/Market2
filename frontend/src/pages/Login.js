@@ -21,7 +21,16 @@ const Login = () => {
     
     if (result.success) {
       toast.success('Logged in successfully!');
-      navigate('/');
+      
+      // Redirect based on user role
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user.role === 'admin') {
+        navigate('/admin');
+      } else if (user.role === 'seller') {
+        navigate('/seller/dashboard');
+      } else {
+        navigate('/');
+      }
     } else {
       toast.error(result.error || 'Login failed');
     }
