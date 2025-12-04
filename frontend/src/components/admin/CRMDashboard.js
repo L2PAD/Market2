@@ -372,27 +372,27 @@ const CRMDashboard = () => {
         <div className="space-y-4">
           <Card className="overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[800px]">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="text-left py-4 px-6 text-sm font-semibold text-gray-700">Клієнт</th>
-                    <th className="text-left py-4 px-6 text-sm font-semibold text-gray-700">Сегмент</th>
-                    <th className="text-right py-4 px-6 text-sm font-semibold text-gray-700">Замовлень</th>
-                    <th className="text-right py-4 px-6 text-sm font-semibold text-gray-700">Витрачено</th>
-                    <th className="text-right py-4 px-6 text-sm font-semibold text-gray-700">Сер. чек</th>
-                    <th className="text-left py-4 px-6 text-sm font-semibold text-gray-700">Останнє замовл.</th>
-                    <th className="text-center py-4 px-6 text-sm font-semibold text-gray-700">Дії</th>
+                    <th className="text-left py-3 md:py-4 px-4 md:px-6 text-xs md:text-sm font-semibold text-gray-700">Клієнт</th>
+                    <th className="text-left py-3 md:py-4 px-4 md:px-6 text-xs md:text-sm font-semibold text-gray-700">Сегмент</th>
+                    <th className="text-right py-3 md:py-4 px-4 md:px-6 text-xs md:text-sm font-semibold text-gray-700">Замовлень</th>
+                    <th className="text-right py-3 md:py-4 px-4 md:px-6 text-xs md:text-sm font-semibold text-gray-700">Витрачено</th>
+                    <th className="text-right py-3 md:py-4 px-4 md:px-6 text-xs md:text-sm font-semibold text-gray-700">Сер. чек</th>
+                    <th className="text-left py-3 md:py-4 px-4 md:px-6 text-xs md:text-sm font-semibold text-gray-700">Останнє</th>
+                    <th className="text-center py-3 md:py-4 px-4 md:px-6 text-xs md:text-sm font-semibold text-gray-700">Дії</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {customers.map((customer) => (
                     <tr key={customer.id} className="hover:bg-gray-50">
-                      <td className="py-4 px-6">
+                      <td className="py-3 md:py-4 px-4 md:px-6">
                         <div>
-                          <div className="font-medium">{customer.full_name || customer.email}</div>
-                          <div className="text-sm text-gray-500">{customer.email}</div>
+                          <div className="font-medium text-sm md:text-base">{customer.full_name || customer.email}</div>
+                          <div className="text-xs md:text-sm text-gray-500 truncate max-w-[150px] md:max-w-none">{customer.email}</div>
                           {customer.phone && (
-                            <div className="text-sm text-gray-500">{customer.phone}</div>
+                            <div className="text-xs md:text-sm text-gray-500">{customer.phone}</div>
                           )}
                         </div>
                       </td>
