@@ -50,10 +50,10 @@ export const CartProvider = ({ children }) => {
       // Also fetch fresh cart data to ensure sync
       await fetchCart();
       
-      toast.success('Added to cart');
+      toast.success(t('addedToCart'));
       return { success: true };
     } catch (error) {
-      toast.error(error.response?.data?.detail || 'Failed to add to cart');
+      toast.error(error.response?.data?.detail || t('failedToAddToCart'));
       return { success: false };
     }
   };
