@@ -403,22 +403,121 @@ const Checkout = () => {
               </div>
             )}
             
-            {/* Quick-fill notice for authenticated users */}
-            {isAuthenticated && user && (user.city || user.address || user.np_department) && (
-              <div className="bg-green-50 rounded-2xl p-4 border border-green-200">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                    <Package className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-green-900">
-                      {t('dataAutoFilled') || 'Дані автоматично заповнені'}
-                    </p>
-                    <p className="text-sm text-green-700">
-                      {t('savedDeliveryData') || 'Використовуються ваші збережені дані доставки'}
-                    </p>
+            {/* Saved Address Display & Quick-fill for authenticated users */}
+            {isAuthenticated && user && (user.city || user.address || user.phone || user.np_department) && (
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border-2 border-green-200 shadow-sm">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Package className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-green-900 text-lg">
+                        {t('savedAddress') || 'Збережена адреса'}
+                      </p>
+                      <p className="text-sm text-green-700">
+                        {t('useSavedAddress') || 'Використайте збережені дані для швидкого оформлення'}
+                      </p>
+                    </div>
                   </div>
                 </div>
+                
+                {/* Display Saved Address Details */}
+                <div className="bg-white rounded-xl p-4 mb-4 border border-green-100">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    {user.full_name && (
+                      <div className="flex items-center gap-2">
+                        <User className="w-4 h-4 text-gray-500" />
+                        <span className="font-medium">Ім'я:</span>
+                        <span className="text-gray-700">{user.full_name}</span>
+                      </div>
+                    )}
+                    {user.phone && (
+                      <div className="flex items-center gap-2">
+                        <Phone className="w-4 h-4 text-gray-500" />
+                        <span className="font-medium">Телефон:</span>
+                        <span className="text-gray-700">{user.phone}</span>
+                      </div>
+                    )}
+                    {user.email && (
+                      <div className="flex items-center gap-2">
+                        <Mail className="w-4 h-4 text-gray-500" />
+                        <span className="font-medium">Email:</span>
+                        <span className="text-gray-700">{user.email}</span>
+                      </div>
+                    )}
+                    {user.city && (
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-gray-500" />
+                        <span className="font-medium">Місто:</span>
+                        <span className="text-gray-700">{user.city}</span>
+                      </div>
+                    )}
+                    {user.delivery_method === 'nova_poshta' && user.np_department && (
+                      <div className="flex items-center gap-2 col-span-2">
+                        <Package className="w-4 h-4 text-gray-500" />
+                        <span className="font-medium">Відділення:</span>
+                        <span className="text-gray-700">{user.np_department}</span>
+                      </div>
+                    )}
+                    {user.address && user.delivery_method !== 'nova_poshta' && (
+                      <div className="flex items-center gap-2 col-span-2">
+                        <MapPin className="w-4 h-4 text-gray-500" />
+                        <span className="font-medium">Адреса:</span>
+                        <span className="text-gray-700">{user.address}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <Button 
+                    onClick={() => {
+                      // Re-fill form with saved data
+                      setRecipientData({
+                        firstName: user.full_name?.split(' ')[0] || '',
+                        lastName: user.full_name?.split(' ')[1] || '',
+                        patronymic: recipientData.patronymic || '',
+                        phone: user.phone || '',
+                        email: user.email || '',
+                        city: user.city || '',
+                        address: user.address || '',
+                        postalCode: user.postal_code || '',
+                        comment: recipientData.comment || ''
+                      });
+                      
+                      if (user.delivery_method) {
+                        setDeliveryMethod(user.delivery_method);
+                      }
+                      
+                      if (user.delivery_method === 'nova_poshta' && user.np_department) {
+                        setNovaPoshtaData({
+                          department: user.np_department,
+                          city: user.city || ''
+                        });
+                      }
+                      
+                      toast.success('Дані автоматично заповнені!');
+                    }}
+                    className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                    {t('useThisAddress') || 'Використати цю адресу'}
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => navigate('/profile')}
+                    className="flex items-center gap-2"
+                  >
+                    <Settings className="w-4 h-4" />
+                    {t('editAddress') || 'Редагувати адресу'}
+                  </Button>
+                </div>
+                
+                <p className="text-xs text-green-600 mt-3">
+                  ℹ️ {t('canEnterNewAddress') || 'Ви також можете ввести нову адресу нижче, якщо потрібно'}
+                </p>
               </div>
             )}
 
