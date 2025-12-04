@@ -431,6 +431,24 @@ export const translations = {
     adminPanel: 'Панель адміністратора',
     logout: 'Вийти',
     
+    // Admin Panel
+    categoryManagement: 'Управління категоріями',
+    addCategory: 'Додати категорію',
+    category: 'Категорія',
+    slug: 'Слаг',
+    products: 'Товари',
+    actions: 'Дії',
+    comments: 'Коментарі',
+    noComments: 'Коментарів поки немає',
+    writeComment: 'Написати коментар...',
+    postComment: 'Відправити',
+    
+    // Search
+    searchResults: 'Результати пошуку',
+    noResults: 'Нічого не знайдено',
+    adminPanel: 'Панель адміністратора',
+    logout: 'Вийти',
+    
     // Home
     heroTitle: 'Відкрийте для себе',
     heroTitleHighlight: 'Дивовижні товари',
