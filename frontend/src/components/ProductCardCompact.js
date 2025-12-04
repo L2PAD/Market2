@@ -238,7 +238,7 @@ const ProductCardCompact = ({ product, viewMode = 'grid' }) => {
             onClick={handleAddToCart}
             className="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 rounded-lg text-sm font-semibold transition-colors"
           >
-            Add to Cart
+            {t('addToCart')}
           </button>
         </div>
       </div>
