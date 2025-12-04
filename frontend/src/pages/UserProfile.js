@@ -29,6 +29,8 @@ const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [selectedDelivery, setSelectedDelivery] = useState('nova_poshta');
+  const [npDepartments, setNpDepartments] = useState([]);
+  const [loadingDepartments, setLoadingDepartments] = useState(false);
 
   useEffect(() => {
     if (loading) return;
