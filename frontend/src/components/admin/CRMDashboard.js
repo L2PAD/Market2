@@ -560,8 +560,8 @@ const CRMDashboard = () => {
               </div>
 
               {/* Customer Stats */}
-              <div className="grid grid-cols-4 gap-4 mb-6">
-                <div className="p-4 bg-blue-50 rounded-lg">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6">
+                <div className="p-3 md:p-4 bg-blue-50 rounded-lg">
                   <p className="text-sm text-gray-600">Замовлень</p>
                   <p className="text-2xl font-bold text-blue-600">{selectedCustomer.total_orders}</p>
                 </div>
