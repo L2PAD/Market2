@@ -558,10 +558,7 @@ const UserProfile = () => {
 
                 <div className="flex gap-3 mt-6">
                   {!isEditing ? (
-                    <Button type="button" onClick={() => {
-                      console.log('Address editing enabled');
-                      setIsEditing(true);
-                    }}>
+                    <Button type="button" onClick={() => setIsEditing(true)}>
                       Редактировать адрес
                     </Button>
                   ) : (
