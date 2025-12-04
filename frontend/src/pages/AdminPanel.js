@@ -210,6 +210,9 @@ const AdminPanel = () => {
         {/* Slides Management Tab */}
         {activeTab === 'slides' && <SlidesManagement />}
 
+        {/* CRM Tab */}
+        {activeTab === 'crm' && <CRMDashboard />}
+
         {/* Users Tab */}
         {activeTab === 'users' && (
           <div className="bg-white rounded-2xl p-6 border border-gray-200">
