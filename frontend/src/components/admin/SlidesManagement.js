@@ -13,6 +13,7 @@ const SlidesManagement = () => {
   const [showAddSlide, setShowAddSlide] = useState(false);
   const [editingSlide, setEditingSlide] = useState(null);
   const [products, setProducts] = useState([]);
+  const [uploadingImage, setUploadingImage] = useState(false);
   
   const [slideForm, setSlideForm] = useState({
     title: '',
