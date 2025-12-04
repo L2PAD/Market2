@@ -112,7 +112,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
               <Link
                 to="/register"
                 onClick={onClose}
-                className="block w-full py-3 px-4 border-2 border-blue-600 text-blue-600 text-center rounded-lg font-semibold hover:bg-blue-50"
+                className="block w-full py-3 px-4 border-2 border-blue-600 text-blue-600 text-center rounded-lg font-semibold hover:bg-blue-50 whitespace-nowrap"
               >
                 Зареєструватися
               </Link>
