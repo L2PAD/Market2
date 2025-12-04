@@ -332,13 +332,43 @@ const UserProfile = () => {
 
         {/* Addresses Tab */}
         {activeTab === 'addresses' && (
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <h2 className="text-2xl font-bold mb-6">Адреса доставки</h2>
             
             <Card className="p-6">
-              <form onSubmit={handleUpdateProfile} className="space-y-4">
+              <form onSubmit={handleUpdateProfile} className="space-y-6">
+                {/* Delivery Method Selection */}
                 <div>
-                  <Label htmlFor="city">Город</Label>
+                  <Label className="text-base font-semibold mb-3 block">Способ доставки</Label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="border rounded-lg p-4 cursor-pointer hover:border-blue-500 transition">
+                      <input 
+                        type="radio" 
+                        name="delivery_method" 
+                        value="nova_poshta"
+                        className="mr-2"
+                        disabled={!isEditing}
+                      />
+                      <span className="font-medium">Нова Пошта</span>
+                      <p className="text-sm text-gray-600 mt-1">Доставка до отделения</p>
+                    </div>
+                    <div className="border rounded-lg p-4 cursor-pointer hover:border-blue-500 transition">
+                      <input 
+                        type="radio" 
+                        name="delivery_method" 
+                        value="ukrposhta"
+                        className="mr-2"
+                        disabled={!isEditing}
+                      />
+                      <span className="font-medium">Укрпошта</span>
+                      <p className="text-sm text-gray-600 mt-1">Почтовая доставка</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* City */}
+                <div>
+                  <Label htmlFor="city">Город *</Label>
                   <Input
                     id="city"
                     value={userProfile.city}
@@ -347,29 +377,75 @@ const UserProfile = () => {
                     placeholder="Киев"
                     className="mt-1"
                   />
+                  <p className="text-sm text-gray-500 mt-1">Укажите город доставки</p>
                 </div>
 
+                {/* Nova Poshta Department */}
                 <div>
-                  <Label htmlFor="address">Адрес</Label>
+                  <Label htmlFor="np_department">Номер отделения Новой Почты</Label>
+                  <Input
+                    id="np_department"
+                    value={userProfile.np_department || ''}
+                    onChange={(e) => setUserProfile({ ...userProfile, np_department: e.target.value })}
+                    disabled={!isEditing}
+                    placeholder="Например: №15 или Отделение 15"
+                    className="mt-1"
+                  />
+                  <p className="text-sm text-gray-500 mt-1">Номер вашего отделения Новой Почты</p>
+                </div>
+
+                {/* Street Address */}
+                <div>
+                  <Label htmlFor="address">Полный адрес (улица, дом, квартира)</Label>
                   <Input
                     id="address"
                     value={userProfile.address}
                     onChange={(e) => setUserProfile({ ...userProfile, address: e.target.value })}
                     disabled={!isEditing}
-                    placeholder="ул. Крещатик, 1"
+                    placeholder="ул. Крещатик, д. 1, кв. 10"
                     className="mt-1"
                   />
+                  <p className="text-sm text-gray-500 mt-1">Для курьерской доставки</p>
                 </div>
 
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Region/Oblast */}
+                  <div>
+                    <Label htmlFor="region">Область/Регион</Label>
+                    <Input
+                      id="region"
+                      value={userProfile.region || ''}
+                      onChange={(e) => setUserProfile({ ...userProfile, region: e.target.value })}
+                      disabled={!isEditing}
+                      placeholder="Киевская область"
+                      className="mt-1"
+                    />
+                  </div>
+
+                  {/* Postal Code */}
+                  <div>
+                    <Label htmlFor="postal_code">Почтовый индекс</Label>
+                    <Input
+                      id="postal_code"
+                      value={userProfile.postal_code}
+                      onChange={(e) => setUserProfile({ ...userProfile, postal_code: e.target.value })}
+                      disabled={!isEditing}
+                      placeholder="01001"
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+
+                {/* Additional Notes */}
                 <div>
-                  <Label htmlFor="postal_code">Почтовый индекс</Label>
-                  <Input
-                    id="postal_code"
-                    value={userProfile.postal_code}
-                    onChange={(e) => setUserProfile({ ...userProfile, postal_code: e.target.value })}
+                  <Label htmlFor="delivery_notes">Дополнительные заметки</Label>
+                  <textarea
+                    id="delivery_notes"
+                    value={userProfile.delivery_notes || ''}
+                    onChange={(e) => setUserProfile({ ...userProfile, delivery_notes: e.target.value })}
                     disabled={!isEditing}
-                    placeholder="01001"
-                    className="mt-1"
+                    placeholder="Например: код домофона, этаж, особые пожелания по доставке"
+                    className="mt-1 w-full min-h-[80px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
