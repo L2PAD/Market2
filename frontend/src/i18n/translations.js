@@ -80,6 +80,11 @@ export const translations = {
     continueAsGuest: 'Продолжить как гость',
     dataAutoFilled: 'Данные автоматически заполнены',
     savedDeliveryData: 'Используются ваши сохраненные данные доставки',
+    savedAddress: 'Сохраненный адрес',
+    useSavedAddress: 'Используйте сохраненные данные для быстрого оформления',
+    useThisAddress: 'Использовать этот адрес',
+    editAddress: 'Редактировать адрес',
+    canEnterNewAddress: 'Вы также можете ввести новый адрес ниже, если нужно',
     
     // Home
     heroTitle: 'Откройте для себя',
