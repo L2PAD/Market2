@@ -299,23 +299,50 @@ const SlidesManagement = () => {
               />
             </div>
 
-            <div>
-              <Label>Тип слайда *</Label>
-              <select
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                value={slideForm.type}
-                onChange={(e) => setSlideForm({ ...slideForm, type: e.target.value })}
-              >
-                <option value="banner">Баннер с картинкой</option>
-                <option value="product">Товар с акцией</option>
-              </select>
+            <div className="border-2 border-blue-200 bg-blue-50 rounded-lg p-4 mb-4">
+              <Label className="text-lg font-bold mb-2 block">Тип слайда *</Label>
+              <p className="text-sm text-gray-600 mb-3">Выберите один из двух вариантов:</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div
+                  onClick={() => setSlideForm({ ...slideForm, type: 'banner' })}
+                  className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    slideForm.type === 'banner' 
+                      ? 'border-blue-600 bg-blue-100' 
+                      : 'border-gray-300 hover:border-blue-400'
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Image className="w-5 h-5 text-blue-600" />
+                    <span className="font-bold">Баннер с изображением</span>
+                  </div>
+                  <p className="text-xs text-gray-600">
+                    Загрузите URL картинки. На баннере будут текст акции, таймер и кнопка.
+                  </p>
+                </div>
+                <div
+                  onClick={() => setSlideForm({ ...slideForm, type: 'product' })}
+                  className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    slideForm.type === 'product' 
+                      ? 'border-blue-600 bg-blue-100' 
+                      : 'border-gray-300 hover:border-blue-400'
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Package className="w-5 h-5 text-green-600" />
+                    <span className="font-bold">Товар с акцией</span>
+                  </div>
+                  <p className="text-xs text-gray-600">
+                    Выберите товар из каталога. Будет показана его картинка и информация.
+                  </p>
+                </div>
+              </div>
             </div>
 
             {slideForm.type === 'product' ? (
-              <div>
+              <div className="border-l-4 border-green-500 pl-4">
                 <Label>Выберите товар *</Label>
                 <select
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md mt-2"
                   value={slideForm.product_id}
                   onChange={(e) => setSlideForm({ ...slideForm, product_id: e.target.value })}
                   required={slideForm.type === 'product'}
@@ -329,14 +356,18 @@ const SlidesManagement = () => {
                 </select>
               </div>
             ) : (
-              <div>
-                <Label>URL изображения *</Label>
+              <div className="border-l-4 border-blue-500 pl-4">
+                <Label>URL изображения для баннера *</Label>
                 <Input
                   value={slideForm.image_url}
                   onChange={(e) => setSlideForm({ ...slideForm, image_url: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
+                  placeholder="https://example.com/promo-banner.jpg"
                   required={slideForm.type === 'banner'}
+                  className="mt-2"
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  💡 Рекомендуемый размер: 1920x400px. Картинка будет фоном, на котором отобразятся текст и таймер.
+                </p>
               </div>
             )}
 
