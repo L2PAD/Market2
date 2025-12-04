@@ -74,6 +74,13 @@ export const translations = {
     searchResults: 'Результаты поиска',
     noResults: 'Ничего не найдено',
     
+    // Checkout
+    quickCheckout: 'Быстрое оформление',
+    loginBenefits: 'Войдите в аккаунт чтобы автоматически заполнить данные доставки и быстрее оформить заказ',
+    continueAsGuest: 'Продолжить как гость',
+    dataAutoFilled: 'Данные автоматически заполнены',
+    savedDeliveryData: 'Используются ваши сохраненные данные доставки',
+    
     // Home
     heroTitle: 'Откройте для себя',
     heroTitleHighlight: 'Удивительные товары',
