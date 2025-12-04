@@ -15,6 +15,7 @@ import { Plus, Edit, Trash2, Save, X, Search, ShoppingBag } from 'lucide-react';
  * 2. Products show their assigned category
  */
 const CategoryManagement = () => {
+  const { t } = useLanguage();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
