@@ -527,7 +527,8 @@ const AdvancedAnalytics = () => {
               </div>
             </div>
           </div>
-
+        </div>
+      )}
 
       {/* User Behavior Tab */}
       {activeTab === 'user-behavior' && (
