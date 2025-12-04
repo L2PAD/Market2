@@ -58,6 +58,13 @@ export const translations = {
     noComments: 'Комментариев пока нет',
     writeComment: 'Написать комментарий...',
     postComment: 'Отправить',
+    productManagement: 'Управление товарами',
+    addProduct: 'Добавить товар',
+    product: 'Товар',
+    price: 'Цена',
+    stock: 'Наличие',
+    edit: 'Редактировать',
+    delete: 'Удалить',
     
     // Search
     searchPlaceholder: 'Поиск товаров...',
