@@ -62,7 +62,7 @@ const UserProfile = () => {
     if (activeTab === 'orders') {
       fetchOrders();
     }
-  }, [user, loading, navigate, activeTab, isEditing]);
+  }, [user, loading, navigate, activeTab]);
 
   const fetchOrders = async () => {
     try {
