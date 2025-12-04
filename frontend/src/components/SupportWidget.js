@@ -52,8 +52,8 @@ const SupportWidget = () => {
 
   return (
     <>
-      {/* Main Support Button */}
-      <div className="fixed left-6 bottom-6 z-50 flex flex-col items-center gap-3">
+      {/* Main Support Button - адаптивное позиционирование */}
+      <div className="fixed left-4 md:left-6 bottom-20 md:bottom-6 z-40 flex flex-col items-center gap-3">
         {/* Expanded Icons */}
         <div 
           className={`flex flex-col gap-3 transition-all duration-300 ease-in-out ${
