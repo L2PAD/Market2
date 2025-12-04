@@ -82,7 +82,7 @@ const SupportWidget = () => {
           onClick={() => setIsOpen(!isOpen)}
           className={`${
             isOpen ? 'bg-orange-500 hover:bg-orange-600' : 'bg-blue-600 hover:bg-blue-700'
-          } w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 transform`}
+          } w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shadow-lg transition-all duration-300 hover:scale-110 transform`}
           aria-label={isOpen ? 'Закрыть меню поддержки' : 'Открыть меню поддержки'}
         >
           {isOpen ? (
