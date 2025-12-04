@@ -204,6 +204,7 @@ const AdminPanel = () => {
             <span className="hidden sm:inline">CRM</span>
             <span className="sm:hidden">💼</span>
           </button>
+          </div>
         </div>
 
         {/* Analytics Tab */}
