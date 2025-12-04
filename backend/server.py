@@ -50,6 +50,15 @@ class User(BaseModel):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     company_name: Optional[str] = None
     verified: bool = False
+    # Address and delivery fields
+    phone: Optional[str] = None
+    address: Optional[str] = None
+    city: Optional[str] = None
+    region: Optional[str] = None
+    postal_code: Optional[str] = None
+    delivery_method: Optional[str] = "nova_poshta"
+    np_department: Optional[str] = None
+    delivery_notes: Optional[str] = None
 
 class UserCreate(BaseModel):
     email: EmailStr
