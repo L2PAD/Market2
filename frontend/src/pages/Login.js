@@ -29,7 +29,8 @@ const Login = () => {
       } else if (user.role === 'seller') {
         navigate('/seller/dashboard');
       } else {
-        navigate('/');
+        // Regular users go to their profile
+        navigate('/profile');
       }
     } else {
       toast.error(result.error || 'Login failed');
