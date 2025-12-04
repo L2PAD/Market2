@@ -47,6 +47,23 @@ export const translations = {
     loginSuccess: 'Вход выполнен успешно!',
     loginFailed: 'Ошибка входа',
     
+    // Admin Panel
+    categoryManagement: 'Управление категориями',
+    addCategory: 'Добавить категорию',
+    category: 'Категория',
+    slug: 'Слаг',
+    products: 'Товары',
+    actions: 'Действия',
+    comments: 'Комментарии',
+    noComments: 'Комментариев пока нет',
+    writeComment: 'Написать комментарий...',
+    postComment: 'Отправить',
+    
+    // Search
+    searchPlaceholder: 'Поиск товаров...',
+    searchResults: 'Результаты поиска',
+    noResults: 'Ничего не найдено',
+    
     // Home
     heroTitle: 'Откройте для себя',
     heroTitleHighlight: 'Удивительные товары',
