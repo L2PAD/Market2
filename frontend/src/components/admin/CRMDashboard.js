@@ -281,8 +281,8 @@ const CRMDashboard = () => {
       {activeTab === 'overview' && dashboardData && (
         <div className="space-y-6">
           {/* Key Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <Card className="p-4 md:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
               <div className="flex items-center justify-between mb-4">
                 <Users className="w-8 h-8 opacity-80" />
                 <TrendingUp className="w-5 h-5" />
