@@ -62,6 +62,7 @@ const UserProfile = () => {
     if (activeTab === 'orders') {
       fetchOrders();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, loading, navigate, activeTab]);
 
   const fetchOrders = async () => {
