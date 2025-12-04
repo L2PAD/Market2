@@ -161,41 +161,41 @@ const NewHeader = () => {
               </button>
             </div>
             
-            {/* Center Navigation */}
-            <div className="flex items-center gap-8">
-              <Link to="/contact" className="hover:text-gray-300 transition-colors">
+            {/* Center Navigation - Hidden on mobile/tablet, visible on lg+ */}
+            <div className="hidden lg:flex items-center gap-4 xl:gap-8 text-sm xl:text-base">
+              <Link to="/contact" className="hover:text-gray-300 transition-colors whitespace-nowrap">
                 {t('contactInfo')}
               </Link>
               
-              <Link to="/delivery-payment" className="hover:text-gray-300 transition-colors">
+              <Link to="/delivery-payment" className="hover:text-gray-300 transition-colors whitespace-nowrap">
                 {t('deliveryPayment')}
               </Link>
               
-              <Link to="/exchange-return" className="hover:text-gray-300 transition-colors">
+              <Link to="/exchange-return" className="hover:text-gray-300 transition-colors whitespace-nowrap">
                 {t('exchangeReturn')}
               </Link>
               
-              <Link to="/about" className="hover:text-gray-300 transition-colors">
+              <Link to="/about" className="hover:text-gray-300 transition-colors whitespace-nowrap">
                 {t('aboutUs')}
               </Link>
               
-              <Link to="/terms" className="hover:text-gray-300 transition-colors">
+              <Link to="/terms" className="hover:text-gray-300 transition-colors whitespace-nowrap">
                 {t('agreement')}
               </Link>
               
-              <Link to="/blog" className="hover:text-gray-300 transition-colors">
+              <Link to="/blog" className="hover:text-gray-300 transition-colors whitespace-nowrap">
                 {t('blog')}
               </Link>
             </div>
 
             {/* Right Side - Language and Login */}
-            <div className="flex items-center gap-4 relative">
+            <div className="flex items-center gap-2 md:gap-4 relative">
               <div className="relative">
                 <button
                   onClick={toggleLanguageDropdown}
-                  className="flex items-center gap-1 hover:text-gray-300 transition-colors"
+                  className="flex items-center gap-1 hover:text-gray-300 transition-colors text-sm md:text-base"
                 >
-                  🌐 {language === 'ru' ? 'RU' : 'UA'}
+                  🌐 <span className="hidden sm:inline">{language === 'ru' ? 'RU' : 'UA'}</span>
                 </button>
                 
                 {/* Language Dropdown */}
@@ -218,22 +218,22 @@ const NewHeader = () => {
               </div>
 
               {user ? (
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 md:gap-4">
                   <Link 
                     to={user.role === 'admin' ? '/admin' : user.role === 'seller' ? '/seller/dashboard' : '/profile'} 
-                    className="hover:text-gray-300"
+                    className="hover:text-gray-300 flex items-center gap-1"
                   >
-                    <User className="w-4 h-4 inline mr-1" />
-                    {user.full_name || user.email}
+                    <User className="w-4 h-4" />
+                    <span className="hidden md:inline truncate max-w-[120px]\">{user.full_name || user.email}</span>
                   </Link>
-                  <button onClick={handleLogout} className="hover:text-gray-300">
+                  <button onClick={handleLogout} className="hover:text-gray-300 p-1">
                     <LogOut className="w-4 h-4" />
                   </button>
                 </div>
               ) : (
                 <Link to="/login" className="flex items-center gap-1 hover:text-gray-300 transition-colors">
                   <User className="w-4 h-4" />
-                  <span>{t('login')}</span>
+                  <span className="hidden sm:inline">{t('login')}</span>
                 </Link>
               )}
             </div>
