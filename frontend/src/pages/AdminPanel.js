@@ -182,6 +182,17 @@ const AdminPanel = () => {
             <Monitor className="w-5 h-5 inline mr-2" />
             Слайдер
           </button>
+          <button
+            onClick={() => setActiveTab('crm')}
+            className={`pb-4 px-4 font-semibold transition-colors ${
+              activeTab === 'crm'
+                ? 'border-b-2 border-blue-600 text-blue-600'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <Briefcase className="w-5 h-5 inline mr-2" />
+            CRM
+          </button>
         </div>
 
         {/* Analytics Tab */}
