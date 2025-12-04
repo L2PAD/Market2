@@ -71,6 +71,53 @@ const SlidesManagement = () => {
     }
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Будь ласка, оберіть файл зображення');
+      return;
+    }
+    
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Файл занадто великий. Максимум 5 МБ');
+      return;
+    }
+    
+    try {
+      setUploadingImage(true);
+      const token = localStorage.getItem('token');
+      
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/upload/image`,
+        formData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+      
+      // Update form with uploaded image URL
+      const imageUrl = `${process.env.REACT_APP_BACKEND_URL}${response.data.url}`;
+      setSlideForm({ ...slideForm, image_url: imageUrl });
+      
+      toast.success('Зображення завантажено!');
+    } catch (error) {
+      console.error('Failed to upload image:', error);
+      toast.error('Помилка завантаження зображення');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleSaveSlide = async (e) => {
     e.preventDefault();
     
