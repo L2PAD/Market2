@@ -55,7 +55,7 @@ const SlidesManagement = () => {
       setSlides(response.data);
     } catch (error) {
       console.error('Failed to fetch slides:', error);
-      toast.error('Не удалось загрузить слайды');
+      toast.error('Не вдалося завантажити слайди');
     } finally {
       setLoading(false);
     }
