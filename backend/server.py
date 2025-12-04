@@ -369,7 +369,7 @@ async def change_password(
         raise HTTPException(status_code=401, detail="Неверный текущий пароль")
     
     # Hash and save new password
-    new_password_hash = hash_password(new_password)
+    new_password_hash = get_password_hash(new_password)
     await db.users.update_one(
         {"id": current_user.id},
         {"$set": {"password_hash": new_password_hash}}
