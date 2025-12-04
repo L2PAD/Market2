@@ -194,7 +194,7 @@ const SlidesManagement = () => {
       fetchSlides();
     } catch (error) {
       console.error('Failed to reorder slides:', error);
-      toast.error('Ошибка изменения порядка');
+      toast.error('Помилка зміни порядку');
     }
   };
 
