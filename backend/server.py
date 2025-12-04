@@ -2407,7 +2407,7 @@ async def get_customer_notes(
     """
     Get all notes for a customer
     """
-    notes = await db.customer_notes.find({"customer_id": customer_id}).sort("created_at", -1).to_list(100)
+    notes = await db.customer_notes.find({"customer_id": customer_id}, {"_id": 0}).sort("created_at", -1).to_list(100)
     return notes
 
 @api_router.post("/crm/tasks", response_model=CRMTask)
