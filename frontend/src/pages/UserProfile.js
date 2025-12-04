@@ -355,27 +355,69 @@ const UserProfile = () => {
                 <div>
                   <Label className="text-base font-semibold mb-3 block">Способ доставки</Label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="border rounded-lg p-4 cursor-pointer hover:border-blue-500 transition">
-                      <input 
-                        type="radio" 
-                        name="delivery_method" 
-                        value="nova_poshta"
-                        className="mr-2"
-                        disabled={!isEditing}
-                      />
-                      <span className="font-medium">Нова Пошта</span>
-                      <p className="text-sm text-gray-600 mt-1">Доставка до отделения</p>
+                    <div 
+                      className={`border-2 rounded-lg p-4 cursor-pointer transition ${
+                        selectedDelivery === 'nova_poshta' 
+                          ? 'border-blue-500 bg-blue-50' 
+                          : 'border-gray-200 hover:border-blue-300'
+                      } ${!isEditing ? 'opacity-60 cursor-not-allowed' : ''}`}
+                      onClick={() => {
+                        if (isEditing) {
+                          setSelectedDelivery('nova_poshta');
+                          setUserProfile({ ...userProfile, delivery_method: 'nova_poshta' });
+                        }
+                      }}
+                    >
+                      <div className="flex items-center">
+                        <input 
+                          type="radio" 
+                          name="delivery_method" 
+                          value="nova_poshta"
+                          checked={selectedDelivery === 'nova_poshta'}
+                          onChange={(e) => {
+                            setSelectedDelivery(e.target.value);
+                            setUserProfile({ ...userProfile, delivery_method: e.target.value });
+                          }}
+                          className="mr-2"
+                          disabled={!isEditing}
+                        />
+                        <div>
+                          <span className="font-medium">Нова Пошта</span>
+                          <p className="text-sm text-gray-600 mt-1">Доставка до отделения</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="border rounded-lg p-4 cursor-pointer hover:border-blue-500 transition">
-                      <input 
-                        type="radio" 
-                        name="delivery_method" 
-                        value="ukrposhta"
-                        className="mr-2"
-                        disabled={!isEditing}
-                      />
-                      <span className="font-medium">Укрпошта</span>
-                      <p className="text-sm text-gray-600 mt-1">Почтовая доставка</p>
+                    <div 
+                      className={`border-2 rounded-lg p-4 cursor-pointer transition ${
+                        selectedDelivery === 'ukrposhta' 
+                          ? 'border-blue-500 bg-blue-50' 
+                          : 'border-gray-200 hover:border-blue-300'
+                      } ${!isEditing ? 'opacity-60 cursor-not-allowed' : ''}`}
+                      onClick={() => {
+                        if (isEditing) {
+                          setSelectedDelivery('ukrposhta');
+                          setUserProfile({ ...userProfile, delivery_method: 'ukrposhta' });
+                        }
+                      }}
+                    >
+                      <div className="flex items-center">
+                        <input 
+                          type="radio" 
+                          name="delivery_method" 
+                          value="ukrposhta"
+                          checked={selectedDelivery === 'ukrposhta'}
+                          onChange={(e) => {
+                            setSelectedDelivery(e.target.value);
+                            setUserProfile({ ...userProfile, delivery_method: e.target.value });
+                          }}
+                          className="mr-2"
+                          disabled={!isEditing}
+                        />
+                        <div>
+                          <span className="font-medium">Укрпошта</span>
+                          <p className="text-sm text-gray-600 mt-1">Почтовая доставка</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
