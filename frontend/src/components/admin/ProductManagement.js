@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { productsAPI, categoriesAPI } from '../../utils/api';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
@@ -10,6 +11,7 @@ import ImageUploader from './ImageUploader';
 import StructuredSpecificationsEditor from './StructuredSpecificationsEditor';
 
 const ProductManagement = () => {
+  const { t } = useLanguage();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
