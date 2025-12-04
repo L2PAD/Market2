@@ -145,7 +145,7 @@ const HeroBanner = () => {
   }
 
   return (
-    <div className="relative w-full h-[400px] rounded-2xl overflow-hidden">
+    <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-lg md:rounded-2xl overflow-hidden">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
