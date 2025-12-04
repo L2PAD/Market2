@@ -716,9 +716,6 @@ const AdvancedAnalytics = () => {
           </div>
         </div>
       )}
-
-        </div>
-      )}
       
     </div>
   );
