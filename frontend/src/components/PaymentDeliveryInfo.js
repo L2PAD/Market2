@@ -80,7 +80,7 @@ const PaymentDeliveryInfo = () => {
                 <MapPin className="w-5 h-5 text-gray-600 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold">Самовивіз з магазину</p>
-                  <p className="text-sm text-gray-600">м. Київ, вул. Хрещатик, 1</p>
+                  <p className="text-sm text-gray-600">проспект Миколи Бажана, 24/1, Київ, Україна, 02149</p>
                   <p className="text-sm text-green-600 font-medium mt-1">Безкоштовно</p>
                 </div>
               </div>
