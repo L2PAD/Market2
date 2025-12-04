@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { categoriesAPI, productsAPI } from '../../utils/api';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
