@@ -452,6 +452,7 @@ export const translations = {
     noComments: 'Коментарів поки немає',
     writeComment: 'Написати коментар...',
     postComment: 'Відправити',
+    sending: 'Відправка...',
     productManagement: 'Управління товарами',
     addProduct: 'Додати товар',
     product: 'Товар',
