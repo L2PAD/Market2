@@ -368,18 +368,56 @@ const Checkout = () => {
           <div className="flex-1 space-y-6">
             {/* Auth Block (if not authenticated) */}
             {!isAuthenticated && (
-              <div className="bg-white rounded-2xl p-6 border border-gray-200">
-                <h2 className="text-xl font-bold mb-4">Авторизація</h2>
-                <p className="text-gray-600 mb-4">
-                  Увійдіть в свій акаунт або продовжіть як гість
-                </p>
-                <div className="flex gap-4">
-                  <Button onClick={() => navigate('/login')} className="flex-1">
-                    Увійти
-                  </Button>
-                  <Button variant="outline" className="flex-1">
-                    Продовжити як гість
-                  </Button>
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-200">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <User className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h2 className="text-xl font-bold mb-2 text-gray-900">
+                      {t('quickCheckout') || 'Швидке оформлення'}
+                    </h2>
+                    <p className="text-gray-700 mb-4">
+                      {t('loginBenefits') || 'Увійдіть в акаунт щоб автоматично заповнити дані доставки та швидше оформити замовлення'}
+                    </p>
+                    <div className="flex gap-3">
+                      <Button 
+                        onClick={() => navigate('/login', { state: { from: '/checkout' } })} 
+                        className="flex items-center gap-2"
+                      >
+                        <User className="w-4 h-4" />
+                        {t('login') || 'Увійти'}
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => {
+                          // Just collapse this notice, user can continue as guest
+                          document.getElementById('guest-notice')?.remove();
+                        }}
+                      >
+                        {t('continueAsGuest') || 'Продовжити як гість'}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Quick-fill notice for authenticated users */}
+            {isAuthenticated && user && (user.city || user.address || user.np_department) && (
+              <div className="bg-green-50 rounded-2xl p-4 border border-green-200">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                    <Package className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-green-900">
+                      {t('dataAutoFilled') || 'Дані автоматично заповнені'}
+                    </p>
+                    <p className="text-sm text-green-700">
+                      {t('savedDeliveryData') || 'Використовуються ваші збережені дані доставки'}
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
