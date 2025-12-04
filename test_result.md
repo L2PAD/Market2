@@ -492,6 +492,18 @@ test_plan:
         agent: "testing"
         comment: "🎉 PRODUCTION ADMIN PANEL VERIFICATION SUCCESSFUL: Comprehensive testing of production URL (https://market-admin-6.preview.emergentagent.com) confirms admin panel is FULLY FUNCTIONAL. TESTING RESULTS: 1) ✅ Backend API working perfectly - POST /api/auth/login returns valid JWT token for admin@bazaar.com/admin123 2) ✅ Admin panel accessible at /admin with authentication token 3) ✅ ALL 7 REQUIRED TABS PRESENT: Аналитика, Пользователи, Категории, Товары, Выплаты, Заказы, Расширенная 4) ✅ All tabs are clickable and functional 5) ✅ Admin panel heading 'Админ Панель' displayed correctly 6) ✅ Tab navigation working properly. MINOR ISSUE IDENTIFIED: Frontend login form has welcome modal overlay that blocks login button clicks, but this doesn't affect admin panel functionality once authenticated. The admin panel itself is 100% operational and meets all requirements. User can access admin panel by properly handling the welcome modal or using direct authentication methods."
 
+  - task: "Saved Address Feature on Checkout Page"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/Checkout.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "New task created for testing the Saved Address feature on checkout page for logged-in users. Need to test: 1) Green saved address block display with user data (name, phone, email, city, Nova Poshta department) 2) 'Use this address' button functionality with auto-fill 3) 'Edit address' button navigation 4) Toast notification on auto-fill 5) Form field population after using saved address."
+
   - task: "Role-Based Login Redirect Logic Testing"
     implemented: true
     working: false
