@@ -12,12 +12,16 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('ru');
+  const [language, setLanguage] = useState('ua');
 
   useEffect(() => {
     const savedLang = localStorage.getItem('language');
     if (savedLang && (savedLang === 'ru' || savedLang === 'ua')) {
       setLanguage(savedLang);
+    } else {
+      // Если язык не сохранен, устанавливаем украинский по умолчанию
+      setLanguage('ua');
+      localStorage.setItem('language', 'ua');
     }
   }, []);
 
