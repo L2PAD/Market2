@@ -522,15 +522,18 @@ test_plan:
 
   - task: "Profile Editing Functionality with Console Logs"
     implemented: true
-    working: false
+    working: true
     file: "/app/frontend/src/pages/UserProfile.js"
     stuck_count: 1
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
         agent: "testing"
         comment: "❌ CRITICAL PROFILE EDITING BUG IDENTIFIED: Comprehensive testing reveals that profile editing functionality has a React state management issue. TESTING RESULTS: 1) ✅ Login successful (testcustomer@example.com/customer123) 2) ✅ Redirect to /profile working correctly 3) ✅ 'Личные данные' tab accessible and clickable 4) ✅ Console logs working correctly - 'Profile tab - isEditing: false' appears initially 5) ✅ 'Редактировать профиль' button clickable 6) ✅ Console log 'Editing enabled' appears when button clicked 7) ✅ Console log 'Profile tab - isEditing: true' appears (state changes correctly) 8) ❌ CRITICAL BUG: Console immediately shows 'Profile tab - isEditing: false' twice, indicating state reverts back to false 9) ❌ Input fields remain DISABLED (cannot type in them) 10) ❌ Save/Cancel buttons do not appear (edit mode UI not activated). ROOT CAUSE: React state management bug in UserProfile.js where isEditing state is being reset immediately after being set to true. The console.log on line 311 shows the state flipping from true back to false, suggesting a useEffect or state update conflict that's overriding the edit button's setIsEditing(true) call."
+      - working: true
+        agent: "main"
+        comment: "✅ FIXED: Profile editing state management issue resolved. ROOT CAUSE: useEffect hook (line 35-65) had 'isEditing' in dependency array, creating infinite re-render loop. When user clicked 'Edit Profile' button, setIsEditing(true) triggered useEffect, which had conditional 'if (!isEditing)' that would reset profile data. The inclusion of 'isEditing' in dependencies caused useEffect to run again when state changed, potentially resetting the editing state. SOLUTION: Removed 'isEditing' from useEffect dependency array (line 65). Now useEffect only runs when user, loading, navigate, or activeTab changes, preventing the state reset loop. Input fields should now remain enabled when editing mode is activated. Frontend compiled successfully."
 
 agent_communication:
   - agent: "testing"
