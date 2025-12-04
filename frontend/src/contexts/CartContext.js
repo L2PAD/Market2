@@ -62,10 +62,10 @@ export const CartProvider = ({ children }) => {
     try {
       await cartAPI.removeItem(productId);
       await fetchCart();
-      toast.success('Removed from cart');
+      toast.success(t('removedFromCart'));
       return { success: true };
     } catch (error) {
-      toast.error('Failed to remove from cart');
+      toast.error(t('failedToRemoveFromCart'));
       return { success: false };
     }
   };
