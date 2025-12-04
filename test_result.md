@@ -408,15 +408,18 @@ backend:
 
   - task: "Advanced Analytics User Behavior Tab"
     implemented: true
-    working: false
+    working: true
     file: "/app/frontend/src/components/admin/AdvancedAnalytics.js"
     stuck_count: 1
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: false
         agent: "testing"
         comment: "❌ ADVANCED ANALYTICS USER BEHAVIOR TAB PARTIALLY FUNCTIONAL: Comprehensive testing reveals tab structure working but content not displaying. WORKING COMPONENTS: ✅ Admin authentication (admin@marketplace.com/admin123) successful ✅ Advanced Analytics tab ('Расширенная') accessible and clickable ✅ User Behavior tab ('⏱️ Поведение') exists and is clickable ✅ Tab navigation working between Overview and Behavior tabs ✅ Backend API integration confirmed - all analytics endpoints responding with 200 OK: /api/admin/analytics/advanced/time-on-pages, /api/admin/analytics/advanced/product-page-analytics, /api/admin/analytics/advanced/user-behavior-flow ✅ Analytics events confirmed in database (170 events). CRITICAL ISSUES: ❌ User Behavior tab content not rendering - the 4 required metric cards (Sessions, Average Time, Pages/Session, Bounce Rate) are not visible ❌ The 3 required sections (Time on Pages table, Product Analytics table, User Behavior Flow) are not displaying ❌ No time formatting (Xм Yс) elements found. The tab infrastructure works correctly but there appears to be a frontend rendering/state management issue in the AdvancedAnalytics.js component preventing the user-behavior tab content from displaying despite successful API responses. This suggests a component conditional rendering or data processing bug in the user-behavior tab section."
+      - working: true
+        agent: "main"
+        comment: "✅ FIXED: Advanced Analytics User Behavior Tab rendering issue resolved. ROOT CAUSE: Missing closing </div> tag between Time Tab and User Behavior Tab sections caused incorrect DOM nesting. The Time Tab section was not properly closed before User Behavior Tab started, causing the User Behavior content to be hidden inside the Time Tab's DOM structure. SOLUTION: Added proper closing tags for Time Tab section (lines 530-531) before User Behavior Tab begins (line 533). Frontend compiled successfully after fix. Need to test that all 4 metric cards (Sessions, Average Time, Pages/Session, Bounce Rate) and 3 data sections (Time on Pages, Product Analytics, User Behavior Flow) now display correctly."
 
   - task: "Website Branding Change from BAZAAR to Y-store"
     implemented: true
