@@ -306,7 +306,9 @@ const UserProfile = () => {
                     onChange={(e) => setUserProfile({ ...userProfile, full_name: e.target.value })}
                     disabled={!isEditing}
                     className="mt-1"
+                    placeholder={isEditing ? "Введите полное имя" : ""}
                   />
+                  {console.log('Profile tab - isEditing:', isEditing)}
                 </div>
 
                 <div>
