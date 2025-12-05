@@ -13,17 +13,22 @@ const ActualOffersManagement = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingOffer, setEditingOffer] = useState(null);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]);
   
   const [form, setForm] = useState({
     title: '',
     subtitle: '',
+    description: '',
     image_url: '',
+    banner_image_url: '',
     link_url: '/products',
     background_color: '#3b82f6',
     text_color: '#ffffff',
     position: 0,
     order: 0,
-    active: true
+    active: true,
+    product_ids: []
   });
 
   const colorPresets = [
