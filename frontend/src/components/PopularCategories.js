@@ -1,20 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const PopularCategories = ({ categories }) => {
   const navigate = useNavigate();
+  const [popularCategories, setPopularCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Популярные категории с эмодзи-иконками
-  const popularCategories = [
-    { name: 'СМАРТФОНИ', icon: '📱', emoji: true },
-    { name: 'ТЕЛЕВІЗОРИ', icon: '📺', emoji: true },
-    { name: 'МУЛЬТИВАРКИ', icon: '🍲', emoji: true },
-    { name: 'КАВОВАРКИ', icon: '☕', emoji: true },
-    { name: 'ПРАЛЬНІ МАШИНИ', icon: '🧺', emoji: true },
-    { name: 'ПИЛОСОСИ', icon: '🧹', emoji: true },
-    { name: 'НОУТБУКИ', icon: '💻', emoji: true },
-    { name: 'ХОЛОДИЛЬНИКИ', icon: '❄️', emoji: true },
-  ];
+  useEffect(() => {
+    fetchPopularCategories();
+  }, []);
+
+  const fetchPopularCategories = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/popular-categories`);
+      
+      if (response.data.length > 0) {
+        setPopularCategories(response.data);
+      } else {
+        // Fallback к дефолтным категориям если нет в базе
+        setPopularCategories([
+          { name: 'СМАРТФОНИ', icon: '📱', order: 0 },
+          { name: 'ТЕЛЕВІЗОРИ', icon: '📺', order: 1 },
+          { name: 'МУЛЬТИВАРКИ', icon: '🍲', order: 2 },
+          { name: 'КАВОВАРКИ', icon: '☕', order: 3 },
+          { name: 'ПРАЛЬНІ МАШИНИ', icon: '🧺', order: 4 },
+          { name: 'ПИЛОСОСИ', icon: '🧹', order: 5 },
+          { name: 'НОУТБУКИ', icon: '💻', order: 6 },
+          { name: 'ХОЛОДИЛЬНИКИ', icon: '❄️', order: 7 },
+        ]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch popular categories:', error);
+      // Fallback
+      setPopularCategories([
+        { name: 'СМАРТФОНИ', icon: '📱', order: 0 },
+        { name: 'ТЕЛЕВІЗОРИ', icon: '📺', order: 1 },
+        { name: 'МУЛЬТИВАРКИ', icon: '🍲', order: 2 },
+        { name: 'КАВОВАРКИ', icon: '☕', order: 3 },
+        { name: 'ПРАЛЬНІ МАШИНИ', icon: '🧺', order: 4 },
+        { name: 'ПИЛОСОСИ', icon: '🧹', order: 5 },
+        { name: 'НОУТБУКИ', icon: '💻', order: 6 },
+        { name: 'ХОЛОДИЛЬНИКИ', icon: '❄️', order: 7 },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleCategoryClick = (categoryName) => {
     // Находим ID категории по имени
