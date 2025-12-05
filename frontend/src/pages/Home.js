@@ -50,12 +50,14 @@ const Home = () => {
     <div className="min-h-screen bg-[#F7F7F7]">
       <div className="container-main py-6">
         <div className="flex gap-6">
-          {/* Left Sidebar - Categories */}
-          <CategorySidebar 
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryClick={handleCategoryClick}
-          />
+          {/* Left Sidebar - Categories - только на десктопе */}
+          <div className="hidden lg:block">
+            <CategorySidebar 
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onCategoryClick={handleCategoryClick}
+            />
+          </div>
 
           {/* Right Content */}
           <div className="flex-1">
