@@ -117,31 +117,45 @@ const ActualOffersManagement = () => {
     e.preventDefault();
     
     if (!form.image_url) {
-      toast.error('Завантажте зображення');
+      toast.error('Завантажте зображення для баннера');
       return;
     }
     
     try {
       const token = localStorage.getItem('token');
       
+      // Подготавливаем данные
+      const saveData = { ...form, product_ids: selectedProducts };
+      
       if (editingOffer) {
         await axios.put(
           `${process.env.REACT_APP_BACKEND_URL}/api/admin/actual-offers/${editingOffer.id}`,
-          form,
+          saveData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         toast.success('Пропозицію оновлено!');
       } else {
-        await axios.post(
+        // При создании автоматически устанавливаем link_url
+        const response = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/api/admin/actual-offers`,
-          form,
+          saveData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
+        
+        // Обновляем link_url на /offer/{id}
+        const offerId = response.data.id;
+        await axios.put(
+          `${process.env.REACT_APP_BACKEND_URL}/api/admin/actual-offers/${offerId}`,
+          { link_url: `/offer/${offerId}` },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        
         toast.success('Пропозицію створено!');
       }
       
       setShowAddForm(false);
       setEditingOffer(null);
+      setSelectedProducts([]);
       resetForm();
       fetchOffers();
     } catch (error) {
