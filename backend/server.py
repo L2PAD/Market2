@@ -401,8 +401,12 @@ class ActualOffer(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     title: str
     subtitle: Optional[str] = None
+    description: Optional[str] = None  # Описание предложения
+    description_html: Optional[str] = None  # HTML описание
     image_url: str
-    link_url: str  # URL or /products?category_id=...
+    banner_image_url: Optional[str] = None  # Баннер для страницы предложения
+    link_url: str  # URL or /offer/{id}
+    product_ids: List[str] = []  # Товары в этом предложении
     background_color: Optional[str] = "#ffffff"
     text_color: Optional[str] = "#000000"
     position: int = 0  # 0-4 for grid positions
@@ -413,8 +417,12 @@ class ActualOffer(BaseModel):
 class ActualOfferCreate(BaseModel):
     title: str
     subtitle: Optional[str] = None
+    description: Optional[str] = None
+    description_html: Optional[str] = None
     image_url: str
+    banner_image_url: Optional[str] = None
     link_url: str
+    product_ids: List[str] = []
     background_color: Optional[str] = "#ffffff"
     text_color: Optional[str] = "#000000"
     position: int = 0
@@ -424,8 +432,12 @@ class ActualOfferCreate(BaseModel):
 class ActualOfferUpdate(BaseModel):
     title: Optional[str] = None
     subtitle: Optional[str] = None
+    description: Optional[str] = None
+    description_html: Optional[str] = None
     image_url: Optional[str] = None
+    banner_image_url: Optional[str] = None
     link_url: Optional[str] = None
+    product_ids: Optional[List[str]] = None
     background_color: Optional[str] = None
     text_color: Optional[str] = None
     position: Optional[int] = None
