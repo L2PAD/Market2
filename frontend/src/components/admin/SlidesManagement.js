@@ -814,8 +814,10 @@ const SlidesManagement = () => {
         )}
       </div>
       </>
-      ) : (
+      ) : activeSubTab === 'popular' ? (
         <PopularCategoriesManagement />
+      ) : (
+        <ActualOffersManagement />
       )}
     </div>
   );
