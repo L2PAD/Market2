@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import { Plus, Trash2, Edit, Eye, EyeOff, Image, Package, Calendar, ArrowUp, ArrowDown, Clock, Sparkles } from 'lucide-react';
 import axios from 'axios';
 import PopularCategoriesManagement from './PopularCategoriesManagement';
+import ActualOffersManagement from './ActualOffersManagement';
 
 const SlidesManagement = () => {
   const [slides, setSlides] = useState([]);
