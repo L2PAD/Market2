@@ -264,7 +264,7 @@ const PopularCategoriesManagement = () => {
 
       {/* Список категорий */}
       <div className="grid gap-4">
-        {categories.length === 0 ? (
+        {(categories?.length || 0) === 0 ? (
           <Card className="p-12 text-center">
             <Sparkles className="w-16 h-16 mx-auto mb-4 text-gray-400" />
             <h3 className="text-xl font-semibold mb-2">Немає популярних категорій</h3>
