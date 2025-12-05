@@ -5,6 +5,7 @@ import ProductCardCompact from '../components/ProductCardCompact';
 import CategorySidebar from '../components/CategorySidebar';
 import HeroBanner from '../components/HeroBanner';
 import PopularCategories from '../components/PopularCategories';
+import ActualOffers from '../components/ActualOffers';
 import PaymentDeliveryInfo from '../components/PaymentDeliveryInfo';
 import TestimonialsSection from '../components/TestimonialsSection';
 import { ChevronRight } from 'lucide-react';
