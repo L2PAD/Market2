@@ -341,7 +341,7 @@ const PopularCategoriesManagement = () => {
       </div>
 
       {/* Предпросмотр */}
-      {categories.length > 0 && (
+      {(categories?.length || 0) > 0 && (
         <Card className="p-6 bg-gray-50">
           <h3 className="font-bold mb-4">Попередній перегляд на сайті:</h3>
           <div className="bg-white py-6 rounded-xl border border-gray-200">
