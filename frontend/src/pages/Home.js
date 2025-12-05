@@ -105,12 +105,12 @@ const Home = () => {
               <ActualOffers />
             </div>
 
-            {/* New Products */}
+            {/* Bestsellers - Хіти продажу */}
             <section className="mt-12">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-3xl font-bold text-[#121212]">{t('language') === 'ru' ? 'Новинки' : 'Новинки'}</h2>
+                <h2 className="text-3xl font-bold text-[#121212]">🔥 Хіти продажу</h2>
                 <Link 
-                  to="/products?sort_by=newest"
+                  to="/products?bestsellers=true"
                   className="text-blue-600 hover:text-blue-700 flex items-center gap-1 font-medium"
                 >
                   {t('viewAll')}
@@ -122,9 +122,13 @@ const Home = () => {
                 <div className="flex items-center justify-center py-20">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0071E3]"></div>
                 </div>
+              ) : bestsellers.length === 0 ? (
+                <div className="bg-white rounded-2xl p-12 text-center border border-gray-200">
+                  <p className="text-gray-500">Хітів продажу поки немає. Додайте товари в админці.</p>
+                </div>
               ) : (
                 <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-                  {newProducts.slice(0, 12).map((product) => (
+                  {bestsellers.slice(0, 12).map((product) => (
                     <ProductCardCompact key={product.id} product={product} />
                   ))}
                 </div>
