@@ -743,7 +743,7 @@ const SlidesManagement = () => {
                         </button>
                         <button
                           onClick={() => handleMoveSlide(slide.id, 'down')}
-                          disabled={index === slides.length - 1}
+                          disabled={index === (slides?.length || 0) - 1}
                           className="p-2 hover:bg-gray-100 rounded disabled:opacity-30"
                         >
                           <ArrowDown className="w-4 h-4" />
