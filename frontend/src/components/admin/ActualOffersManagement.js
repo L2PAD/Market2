@@ -200,14 +200,18 @@ const ActualOffersManagement = () => {
     setForm({
       title: offer.title,
       subtitle: offer.subtitle || '',
+      description: offer.description || '',
       image_url: offer.image_url,
+      banner_image_url: offer.banner_image_url || '',
       link_url: offer.link_url,
       background_color: offer.background_color || '#3b82f6',
       text_color: offer.text_color || '#ffffff',
       position: offer.position,
       order: offer.order,
-      active: offer.active
+      active: offer.active,
+      product_ids: offer.product_ids || []
     });
+    setSelectedProducts(offer.product_ids || []);
     setShowAddForm(true);
   };
 
@@ -215,14 +219,18 @@ const ActualOffersManagement = () => {
     setForm({
       title: '',
       subtitle: '',
+      description: '',
       image_url: '',
-      link_url: '/products',
+      banner_image_url: '',
+      link_url: '/offer/new',
       background_color: '#3b82f6',
       text_color: '#ffffff',
       position: offers.length,
       order: offers.length,
-      active: true
+      active: true,
+      product_ids: []
     });
+    setSelectedProducts([]);
   };
 
   if (loading) {
