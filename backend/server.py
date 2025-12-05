@@ -2689,6 +2689,77 @@ async def create_popular_category(
     category_dict["created_at"] = datetime.now(timezone.utc)
     
     await db.popular_categories.insert_one(category_dict)
+
+
+# ============= ACTUAL OFFERS =============
+
+@api_router.get("/actual-offers")
+async def get_actual_offers():
+    """
+    Get all active actual offers (public endpoint)
+    """
+    offers = await db.actual_offers.find({"active": True}, {"_id": 0}).sort("order", 1).to_list(100)
+    return offers
+
+@api_router.get("/admin/actual-offers")
+async def get_all_actual_offers(current_user: User = Depends(get_current_admin)):
+    """
+    Get all actual offers (admin only)
+    """
+    offers = await db.actual_offers.find({}, {"_id": 0}).sort("order", 1).to_list(100)
+    return offers
+
+@api_router.post("/admin/actual-offers", response_model=ActualOffer)
+async def create_actual_offer(
+    offer: ActualOfferCreate,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Create an actual offer (admin only)
+    """
+    offer_dict = offer.model_dump()
+    offer_dict["id"] = str(uuid.uuid4())
+    offer_dict["created_at"] = datetime.now(timezone.utc)
+    
+    await db.actual_offers.insert_one(offer_dict)
+    return ActualOffer(**offer_dict)
+
+@api_router.put("/admin/actual-offers/{offer_id}", response_model=ActualOffer)
+async def update_actual_offer(
+    offer_id: str,
+    offer_update: ActualOfferUpdate,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Update an actual offer (admin only)
+    """
+    update_data = offer_update.model_dump(exclude_unset=True)
+    
+    result = await db.actual_offers.update_one(
+        {"id": offer_id},
+        {"$set": update_data}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Offer not found")
+    
+    updated_offer = await db.actual_offers.find_one({"id": offer_id}, {"_id": 0})
+    return ActualOffer(**updated_offer)
+
+@api_router.delete("/admin/actual-offers/{offer_id}")
+async def delete_actual_offer(
+    offer_id: str,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Delete an actual offer (admin only)
+    """
+    result = await db.actual_offers.delete_one({"id": offer_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Offer not found")
+    
+    return {"message": "Actual offer deleted successfully"}
+
     return PopularCategory(**category_dict)
 
 @api_router.put("/admin/popular-categories/{category_id}", response_model=PopularCategory)
