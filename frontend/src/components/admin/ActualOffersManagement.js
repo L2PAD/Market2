@@ -42,7 +42,17 @@ const ActualOffersManagement = () => {
 
   useEffect(() => {
     fetchOffers();
+    fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products`);
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+    }
+  };
 
   const fetchOffers = async () => {
     try {
