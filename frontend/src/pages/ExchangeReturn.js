@@ -217,8 +217,8 @@ const ExchangeReturn = () => {
                 <p className="font-semibold mb-1">
                   {language === 'ru' ? 'Написать письмо на электронную почту:' : 'написати лист на електронну пошту:'}
                 </p>
-                <a href="mailto:dynamo1402om@gmail.com" className="text-xl hover:underline">
-                  dynamo1402om@gmail.com
+                <a href="mailto:support@y-store.in.ua" className="text-xl hover:underline">
+                  support@y-store.in.ua
                 </a>
               </div>
             </div>
