@@ -301,7 +301,7 @@ const PopularCategoriesManagement = () => {
                     </button>
                     <button
                       onClick={() => handleMove(category.id, 'down')}
-                      disabled={index === categories.length - 1}
+                      disabled={index === (categories?.length || 0) - 1}
                       className="p-1 hover:bg-gray-100 rounded disabled:opacity-30"
                       title="Вниз"
                     >
