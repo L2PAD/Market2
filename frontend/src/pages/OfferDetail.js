@@ -141,21 +141,26 @@ const OfferDetail = () => {
 
         {/* Дополнительная информация */}
         <div className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 md:p-8">
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="text-4xl mb-3">🚚</div>
               <h3 className="font-bold mb-2">Безкоштовна доставка</h3>
-              <p className="text-sm text-gray-600">Для замовлень від 1000 грн</p>
+              <p className="text-sm text-gray-600">При замовленні від 20 000 грн</p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-3">💳</div>
-              <h3 className="font-bold mb-2">Оплата частинами</h3>
-              <p className="text-sm text-gray-600">Розстрочка до 24 місяців</p>
+              <h3 className="font-bold mb-2">Оплата при отриманні</h3>
+              <p className="text-sm text-gray-600">Готівкою або карткою</p>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-3">🎁</div>
+              <div className="text-4xl mb-3">✅</div>
               <h3 className="font-bold mb-2">Гарантія якості</h3>
-              <p className="text-sm text-gray-600">Офіційна гарантія виробника</p>
+              <p className="text-sm text-gray-600">Тільки перевірені товари</p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-3">⚡</div>
+              <h3 className="font-bold mb-2">Швидка відправка</h3>
+              <p className="text-sm text-gray-600">Замовлення 24/7, відправка за 1-2 дні</p>
             </div>
           </div>
         </div>
