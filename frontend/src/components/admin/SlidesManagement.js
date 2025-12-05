@@ -292,7 +292,7 @@ const SlidesManagement = () => {
       button_link: '',
       countdown_enabled: false,
       countdown_end_date: '',
-      order: slides.length,
+      order: slides?.length || 0,
       active: true
     });
   };
