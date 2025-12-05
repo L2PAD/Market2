@@ -76,6 +76,7 @@ function App() {
                           <Route path="/register" element={<Register />} />
                           <Route path="/products" element={<Products />} />
                           <Route path="/product/:id" element={<EnhancedProductDetail />} />
+                          <Route path="/offer/:offerId" element={<OfferDetail />} />
                           <Route path="/favorites" element={<Favorites />} />
                           <Route path="/comparison" element={<Comparison />} />
                           <Route path="/cart" element={<Cart />} />
