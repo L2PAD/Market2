@@ -96,6 +96,11 @@ const Home = () => {
               <PopularCategories categories={categories} />
             </div>
 
+            {/* Actual Offers - актуальні пропозиції */}
+            <div className="mt-8">
+              <ActualOffers />
+            </div>
+
             {/* New Products */}
             <section className="mt-12">
               <div className="flex justify-between items-center mb-6">
