@@ -2713,6 +2713,27 @@ async def get_actual_offers():
     offers = await db.actual_offers.find({"active": True}, {"_id": 0}).sort("order", 1).to_list(100)
     return offers
 
+@api_router.get("/actual-offers/{offer_id}")
+async def get_actual_offer(offer_id: str):
+    """
+    Get single actual offer by ID with products (public endpoint)
+    """
+    offer = await db.actual_offers.find_one({"id": offer_id, "active": True}, {"_id": 0})
+    if not offer:
+        raise HTTPException(status_code=404, detail="Offer not found")
+    
+    # Get products for this offer
+    if offer.get("product_ids"):
+        products = await db.products.find(
+            {"id": {"$in": offer["product_ids"]}},
+            {"_id": 0}
+        ).to_list(100)
+        offer["products"] = products
+    else:
+        offer["products"] = []
+    
+    return offer
+
 @api_router.get("/admin/actual-offers")
 async def get_all_actual_offers(current_user: User = Depends(get_current_admin)):
     """
