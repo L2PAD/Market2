@@ -436,6 +436,7 @@ class Promotion(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     title: str
     description: str
+    detailed_description: Optional[str] = None  # Большое детальное описание для страницы
     image_url: str
     discount_text: Optional[str] = None  # "-50%" или "2+1"
     link_url: Optional[str] = None  # Ссылка на товары акции
@@ -452,6 +453,7 @@ class Promotion(BaseModel):
 class PromotionCreate(BaseModel):
     title: str
     description: str
+    detailed_description: Optional[str] = None
     image_url: str
     discount_text: Optional[str] = None
     link_url: Optional[str] = None
@@ -466,6 +468,7 @@ class PromotionCreate(BaseModel):
 class PromotionUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
+    detailed_description: Optional[str] = None
     image_url: Optional[str] = None
     discount_text: Optional[str] = None
     link_url: Optional[str] = None
