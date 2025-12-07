@@ -301,15 +301,30 @@ const PromotionsManagement = () => {
             </div>
 
             <div>
-              <Label>Опис акції *</Label>
+              <Label>Короткий опис акції *</Label>
               <textarea
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
-                placeholder="Детальний опис акції..."
-                rows="3"
+                placeholder="Короткий опис для картки (1-2 речення)..."
+                rows="2"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              <p className="text-xs text-gray-500 mt-1">Відображається на картці акції</p>
+            </div>
+
+            <div>
+              <Label>Детальний опис акції</Label>
+              <textarea
+                value={form.detailed_description}
+                onChange={(e) => setForm({ ...form, detailed_description: e.target.value })}
+                placeholder="Повний детальний опис акції для окремої сторінки. Розкажіть про всі умови, деталі та переваги..."
+                rows="6"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Відображається на окремій сторінці акції. Можна написати довгий текст зі всіма деталями.
+              </p>
             </div>
 
             <div>
