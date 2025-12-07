@@ -133,7 +133,7 @@ const Promotions = () => {
                   
                   {promo.link_url && (
                     <Link
-                      to={promo.link_url}
+                      to={`/promotion/${promo.id}`}
                       className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold group-hover:gap-3 transition-all"
                     >
                       Детальніше
