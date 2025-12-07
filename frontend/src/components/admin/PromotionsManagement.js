@@ -180,6 +180,7 @@ const PromotionsManagement = () => {
     setForm({
       title: promotion.title,
       description: promotion.description,
+      detailed_description: promotion.detailed_description || '',
       image_url: promotion.image_url,
       discount_text: promotion.discount_text || '',
       link_url: promotion.link_url || '/products',
