@@ -205,7 +205,7 @@ const NewHeader = () => {
               </Link>
               
               <Link to="/promotions" className="hover:text-gray-300 transition-colors whitespace-nowrap">
-                \u0410\u043a\u0446\u0456\u0457
+                Акції
               </Link>
             </div>
 
