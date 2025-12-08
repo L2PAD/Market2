@@ -181,38 +181,50 @@ const Cart = () => {
           {/* Order Summary */}
           <div className="lg:col-span-1 animate-slideInRight">
             <div className="bg-gradient-to-br from-white to-blue-50 border-2 border-blue-200 rounded-3xl p-8 space-y-6 sticky top-24 shadow-2xl">
-              <h2 className="text-2xl font-bold">{t('orderSummary')}</h2>
+              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                {t('orderSummary')}
+              </h2>
               
-              <div className="space-y-3 py-4 border-t border-b">
-                <div className="flex justify-between text-gray-600">
-                  <span>{t('subtotal')} ({cartItems.length} {t('items')})</span>
-                  <span>${total.toFixed(2)}</span>
+              <div className="space-y-4 py-6 border-t-2 border-b-2 border-gray-200">
+                <div className="flex justify-between text-gray-700 text-lg">
+                  <span className="font-medium">{t('subtotal')} ({cartItems.length} {t('items')})</span>
+                  <span className="font-bold">${total.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>{t('shipping')}</span>
-                  <span className="text-green-600 font-medium">{t('free')}</span>
+                <div className="flex justify-between text-gray-700 text-lg">
+                  <span className="font-medium">{t('shipping')}</span>
+                  <span className="text-green-600 font-bold bg-green-50 px-3 py-1 rounded-full">
+                    🎉 {t('free')}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex justify-between text-xl font-bold">
-                <span>{t('total')}</span>
-                <span data-testid="cart-total">${total.toFixed(2)}</span>
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white">
+                <div className="flex justify-between items-center">
+                  <span className="text-xl font-bold">{t('total')}</span>
+                  <span data-testid="cart-total" className="text-4xl font-extrabold">
+                    ${total.toFixed(2)}
+                  </span>
+                </div>
               </div>
 
               {/* Fixed Button Layout */}
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <Button
                   data-testid="proceed-to-checkout-button"
                   onClick={handleCheckout}
                   size="lg"
-                  className="w-full"
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 rounded-2xl text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95"
                 >
-                  {t('proceedToCheckout')}
+                  {t('proceedToCheckout')} →
                 </Button>
 
                 <Link to="/products" className="block">
-                  <Button data-testid="continue-shopping-link" variant="outline" className="w-full">
-                    <ArrowLeft className="w-4 h-4 mr-2" />
+                  <Button 
+                    data-testid="continue-shopping-link" 
+                    variant="outline" 
+                    className="w-full border-2 border-gray-300 hover:border-blue-600 hover:bg-blue-50 py-4 rounded-2xl text-lg font-semibold transition-all duration-300"
+                  >
+                    <ArrowLeft className="w-5 h-5 mr-2" />
                     {t('continueShopping')}
                   </Button>
                 </Link>
