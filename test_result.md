@@ -782,3 +782,16 @@ agent_communication:
   - agent: "testing"
     message: "🎉 CRM API TESTING COMPLETED SUCCESSFULLY - ALL 10 SCENARIOS PASSED: Comprehensive testing of all CRM endpoints completed with 100% success rate (11/11 tests passed). FIXED ISSUES: 1) Added missing get_customer_activity() method to CRM service for dashboard endpoint. 2) Fixed MongoDB ObjectId serialization errors by excluding '_id' field from all database queries (added {'_id': 0} projection). 3) Fixed image upload test to use correct form field name 'file' instead of 'image'. ALL ENDPOINTS WORKING: ✅ CRM Dashboard (sales_funnel, customer_segments, customer_activity, pending_tasks, overdue_tasks, new_customers_week) ✅ Customers List (with metrics: total_orders, total_spent, avg_order_value, segment) ✅ Customer Profile (detailed profile with orders, notes, tasks) ✅ Create Customer Note (with type: general/call/email/meeting/complaint) ✅ Get Customer Notes (sorted by created_at) ✅ Create Task (with priority, type, assigned_to) ✅ Get Tasks (with optional filters) ✅ Create Lead (with source, status tracking) ✅ Get Leads (with status filter) ✅ Image Upload (multipart form data, admin only). Backend CRM functionality is production-ready."
 
+
+  - task: "Admin Panel UI Consistency - Oval Button Style"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/AdminPanel.js"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "✅ Issue #2 (P2) ALREADY RESOLVED: Verified that the 'Розширена' (Advanced) tab button already has the unified oval button style matching all other tabs. The button uses the same rounded-2xl class and gradient styling as other tabs. No changes needed."
+
