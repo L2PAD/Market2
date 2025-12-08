@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ScrollReveal from './ScrollReveal';
+import { 
+  Smartphone, Laptop, Monitor, Tv, Watch, Camera, Headphones, Gamepad,
+  Home, Zap, ShoppingBag, Coffee, Microwave, Fan, Wind, Snowflake,
+  Shirt, Heart, Book, Music, Car, Bike, Dumbbell, Baby,
+  Pill, Leaf, Palette, Wrench, Hammer, Lightbulb, Wifi, Speaker
+} from 'lucide-react';
 
 const PopularCategories = ({ categories }) => {
   const navigate = useNavigate();
