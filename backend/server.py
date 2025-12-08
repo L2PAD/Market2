@@ -2926,6 +2926,10 @@ async def create_popular_category(
     category_dict["created_at"] = datetime.now(timezone.utc)
     
     await db.popular_categories.insert_one(category_dict)
+    
+    # Return the created category without _id
+    created_category = await db.popular_categories.find_one({"id": category_dict["id"]}, {"_id": 0})
+    return PopularCategory(**created_category)
 
 
 # ============= ACTUAL OFFERS =============
