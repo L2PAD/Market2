@@ -224,27 +224,61 @@ const PopularCategoriesManagement = () => {
               </p>
             </div>
 
-            <div>
-              <Label>Виберіть іконку (emoji)</Label>
-              <div className="grid grid-cols-10 gap-2 p-4 bg-gray-50 rounded-lg max-h-60 overflow-y-auto">
-                {emojiIcons.map((emoji) => (
-                  <button
-                    key={emoji}
-                    type="button"
-                    onClick={() => setForm({ ...form, icon: emoji })}
-                    className={`text-3xl p-2 rounded-lg transition-all ${
-                      form.icon === emoji
-                        ? 'bg-blue-100 ring-2 ring-blue-500 scale-110'
-                        : 'hover:bg-gray-200'
-                    }`}
-                  >
-                    {emoji}
-                  </button>
-                ))}
+            <div className="space-y-4">
+              <div>
+                <Label>Зображення категорії (рекомендовано)</Label>
+                <div className="mt-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="block w-full text-sm text-gray-500
+                      file:mr-4 file:py-2 file:px-4
+                      file:rounded-lg file:border-0
+                      file:text-sm file:font-semibold
+                      file:bg-blue-50 file:text-blue-700
+                      hover:file:bg-blue-100
+                      disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={uploading}
+                  />
+                  {uploading && (
+                    <p className="text-sm text-gray-600 mt-2">Завантаження зображення...</p>
+                  )}
+                  {form.image_url && (
+                    <div className="mt-3">
+                      <p className="text-sm text-gray-600 mb-2">Попередній перегляд:</p>
+                      <img
+                        src={form.image_url}
+                        alt="Preview"
+                        className="w-24 h-24 object-cover rounded-xl border-2 border-blue-300"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className="mt-3 flex items-center gap-3">
-                <span className="text-sm text-gray-600">Вибрана іконка:</span>
-                <span className="text-5xl">{form.icon}</span>
+
+              <div>
+                <Label>Або виберіть іконку (emoji) як fallback</Label>
+                <div className="grid grid-cols-10 gap-2 p-4 bg-gray-50 rounded-lg max-h-40 overflow-y-auto">
+                  {emojiIcons.map((emoji) => (
+                    <button
+                      key={emoji}
+                      type="button"
+                      onClick={() => setForm({ ...form, icon: emoji })}
+                      className={`text-2xl p-2 rounded-lg transition-all ${
+                        form.icon === emoji
+                          ? 'bg-blue-100 ring-2 ring-blue-500 scale-110'
+                          : 'hover:bg-gray-200'
+                      }`}
+                    >
+                      {emoji}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-2 flex items-center gap-3">
+                  <span className="text-sm text-gray-600">Вибрана іконка:</span>
+                  <span className="text-3xl">{form.icon}</span>
+                </div>
               </div>
             </div>
 
