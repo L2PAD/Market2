@@ -133,7 +133,7 @@ const NewHeader = () => {
             {/* Cart - Always visible */}
             <Link
               to="/cart"
-              className="flex items-center gap-1 md:gap-2 text-black hover:text-blue-600"
+              className="flex items-center gap-1 md:gap-2 text-black hover:text-blue-600 transition-all duration-300 hover:scale-110 active:scale-95 p-2 hover:bg-blue-50 rounded-2xl"
               title={t('myCart')}
             >
               <div className="relative">
