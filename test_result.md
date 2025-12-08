@@ -526,6 +526,18 @@ test_plan:
         agent: "testing"
         comment: "🎉 UKRAINIAN LOGIN PAGE TRANSLATION FULLY VERIFIED: Comprehensive testing at https://shop-redesign-9.preview.emergentagent.com/login confirms ALL Ukrainian translations are working perfectly. TESTING FLOW: 1) ✅ Welcome modal detected and Ukrainian language (UA flag) selected successfully 2) ✅ Welcome modal closed with 'Прийняти та продовжити' button 3) ✅ ✅ ✅ BOTTOM TEXT VERIFIED IN UKRAINIAN: Found 'Немає облікового запису?' (Don't have account?) and 'Зареєструватися' (Sign up) text in Ukrainian - NO English text present 4) ✅ Login form filled with admin@bazaar.com/admin123 credentials 5) ✅ ✅ ✅ SUCCESS TOAST MESSAGE IN UKRAINIAN: Toast message 'Вхід виконано успішно!' (Login successful!) detected and displayed correctly in Ukrainian 6) ✅ NO English toast 'Login success' found 7) ✅ Redirect to /admin working correctly 8) ✅ Admin panel loaded successfully. TRANSLATION VERIFICATION: ✅ translations.js contains correct Ukrainian translations: dontHaveAccount: 'Немає облікового запису?', signUp: 'Зареєструватися', loginSuccess: 'Вхід виконано успішно!' ✅ Login.js correctly uses t('dontHaveAccount'), t('signUp'), and t('loginSuccess') for dynamic translation ✅ Toast message uses t('loginSuccess') instead of hardcoded English text. SCREENSHOTS CAPTURED: login_ukrainian_text.png (showing bottom text in Ukrainian), login_ukrainian_toast.png (showing success toast in Ukrainian). ALL CRITICAL CHECK POINTS PASSED: ✅ Bottom text under login button is in Ukrainian ✅ Success toast message is in Ukrainian: 'Вхід виконано успішно!' ✅ NO English text appears anywhere. The fixes for missing Ukrainian translations (dontHaveAccount, signUp) and hardcoded success message are working perfectly in production."
 
+  - task: "Popular Categories Image Upload Functionality"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/admin/PopularCategoriesManagement.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL BUG IDENTIFIED: Popular Categories image upload functionality is broken due to form rendering issue. COMPREHENSIVE TESTING COMPLETED: ✅ Admin authentication working (admin@ystore.com/admin credentials) ✅ Admin panel access successful ✅ 'Популярні категорії' tab found and clickable ✅ 'Додати категорію' button found and clickable ❌ CRITICAL ISSUE: Add category form does not render after clicking 'Додати категорію' button. Expected form with category name input (placeholder='СМАРТФОНИ') and file input (type='file') for image upload is not appearing. DEBUGGING RESULTS: Found 3 forms and 4 input elements on page, but none match the expected PopularCategoriesManagement form structure. The showAddForm state is not being set to true or the conditional form rendering is not working. ROOT CAUSE: React state management issue in PopularCategoriesManagement component where clicking 'Add Category' button does not trigger form display. IMPACT: Users cannot test image upload functionality as described in review request - cannot enter category name 'ТЕСТОВА', cannot upload test image, cannot verify 'Зображення завантажено!' message or image preview. This blocks the entire test scenario for popular categories image upload feature."
+
   - task: "Saved Address Feature on Checkout Page"
     implemented: true
     working: "NA"
