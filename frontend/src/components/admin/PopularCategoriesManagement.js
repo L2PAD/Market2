@@ -310,7 +310,74 @@ const PopularCategoriesManagement = () => {
 
             <div className="space-y-4">
               <div>
-                <Label>Зображення категорії (рекомендовано)</Label>
+                <Label className="text-lg font-semibold">Виберіть іконку *</Label>
+                <p className="text-xs text-gray-500 mb-3">Оберіть іконку, яка найкраще відображає категорію</p>
+                
+                <div className="mb-3">
+                  <Input
+                    placeholder="🔍 Пошук іконки..."
+                    value={iconSearch}
+                    onChange={(e) => setIconSearch(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+
+                <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl max-h-96 overflow-y-auto border-2 border-blue-200">
+                  {filteredIcons.map((iconOption) => {
+                    const IconComponent = iconComponents[iconOption.name];
+                    return (
+                      <button
+                        key={iconOption.name}
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setForm({ ...form, icon: iconOption.name });
+                        }}
+                        className={`flex flex-col items-center justify-center p-3 rounded-xl transition-all duration-200 ${
+                          form.icon === iconOption.name
+                            ? 'bg-blue-600 text-white ring-2 ring-blue-400 ring-offset-2 scale-105 shadow-lg'
+                            : 'bg-white text-gray-700 hover:bg-blue-100 hover:scale-105 shadow-md'
+                        }`}
+                        title={iconOption.label}
+                      >
+                        <IconComponent className="w-8 h-8 mb-1" />
+                        <span className="text-[9px] font-medium text-center leading-tight">
+                          {iconOption.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {filteredIcons.length === 0 && (
+                  <p className="text-center text-gray-500 py-8">Іконки не знайдено</p>
+                )}
+
+                <div className="mt-4 p-4 bg-white rounded-xl border-2 border-gray-200">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl">
+                      {(() => {
+                        const IconComponent = iconComponents[form.icon];
+                        return <IconComponent className="w-10 h-10 text-blue-600" />;
+                      })()}
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-600 font-semibold">Вибрана іконка:</p>
+                      <p className="text-lg font-bold text-gray-800">
+                        {iconOptions.find(i => i.name === form.icon)?.label || form.icon}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t-2 border-gray-200 pt-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Label className="text-sm text-gray-600">Зображення категорії (опційно)</Label>
+                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Не обов'язково</span>
+                </div>
+                <p className="text-xs text-gray-500 mb-2">Якщо додасте зображення, воно буде відображатись замість іконки</p>
                 <div className="mt-2">
                   <input
                     type="file"
@@ -320,52 +387,37 @@ const PopularCategoriesManagement = () => {
                       file:mr-4 file:py-2 file:px-4
                       file:rounded-lg file:border-0
                       file:text-sm file:font-semibold
-                      file:bg-blue-50 file:text-blue-700
-                      hover:file:bg-blue-100
+                      file:bg-gray-100 file:text-gray-700
+                      hover:file:bg-gray-200
                       disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={uploading}
                   />
                   {uploading && (
-                    <p className="text-sm text-gray-600 mt-2">Завантаження зображення...</p>
+                    <p className="text-sm text-blue-600 mt-2 animate-pulse">⏳ Завантаження зображення...</p>
                   )}
                   {form.image_url && (
                     <div className="mt-3">
                       <p className="text-sm text-gray-600 mb-2">Попередній перегляд:</p>
-                      <img
-                        src={form.image_url}
-                        alt="Preview"
-                        className="w-24 h-24 object-cover rounded-xl border-2 border-blue-300"
-                      />
+                      <div className="relative inline-block">
+                        <img
+                          src={form.image_url}
+                          alt="Preview"
+                          className="w-32 h-32 object-cover rounded-xl border-2 border-blue-300 shadow-md"
+                        />
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setForm({ ...form, image_url: '' });
+                          }}
+                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 shadow-lg"
+                          title="Видалити зображення"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                   )}
-                </div>
-              </div>
-
-              <div>
-                <Label>Або виберіть іконку (emoji) як fallback</Label>
-                <div className="grid grid-cols-10 gap-2 p-4 bg-gray-50 rounded-lg max-h-40 overflow-y-auto">
-                  {emojiIcons.map((emoji) => (
-                    <button
-                      key={emoji}
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setForm({ ...form, icon: emoji });
-                      }}
-                      className={`text-2xl p-2 rounded-lg transition-all ${
-                        form.icon === emoji
-                          ? 'bg-blue-100 ring-2 ring-blue-500 scale-110'
-                          : 'hover:bg-gray-200'
-                      }`}
-                    >
-                      {emoji}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-2 flex items-center gap-3">
-                  <span className="text-sm text-gray-600">Вибрана іконка:</span>
-                  <span className="text-3xl">{form.icon}</span>
                 </div>
               </div>
             </div>
