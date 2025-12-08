@@ -482,16 +482,21 @@ const PopularCategoriesManagement = () => {
               <Card key={category.id} className={`p-4 ${!category.active ? 'opacity-60' : ''}`}>
                 <div className="flex flex-col items-center">
                   {/* Предпросмотр */}
-                  <div className="w-24 h-24 mb-3 flex items-center justify-center rounded-xl overflow-hidden border-2 border-gray-200">
+                  <div className="w-24 h-24 mb-3 flex items-center justify-center rounded-xl overflow-hidden border-2 border-gray-200 bg-gradient-to-br from-blue-50 to-purple-50">
                     {category.image_url ? (
                       <img 
                         src={category.image_url} 
                         alt={category.name}
                         className="w-full h-full object-cover"
                       />
-                    ) : (
-                      <div className="text-6xl">{category.icon}</div>
-                    )}
+                    ) : (() => {
+                      const IconComponent = iconComponents[category.icon];
+                      return IconComponent ? (
+                        <IconComponent className="w-12 h-12 text-blue-600" />
+                      ) : (
+                        <div className="text-4xl">{category.icon}</div>
+                      );
+                    })()}
                   </div>
                   <h3 className="font-bold text-center mb-3">{category.name}</h3>
                   
