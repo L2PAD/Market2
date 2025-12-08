@@ -71,10 +71,13 @@ const AdminPanel = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 flex items-center justify-center">
+        <div className="text-center animate-fadeIn">
+          <div className="relative">
+            <div className="animate-spin rounded-full h-20 w-20 border-b-4 border-blue-600 mx-auto mb-6"></div>
+            <div className="absolute top-0 left-0 animate-ping rounded-full h-20 w-20 border-4 border-purple-400 opacity-20"></div>
+          </div>
+          <p className="text-gray-600 text-xl font-semibold">Завантаження...</p>
         </div>
       </div>
     );
@@ -83,20 +86,28 @@ const AdminPanel = () => {
   if (!isAdmin) return null;
 
   return (
-    <div data-testid="admin-panel" className="min-h-screen bg-gray-50 py-4 md:py-8">
+    <div data-testid="admin-panel" className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 py-8 md:py-12">
       <div className="container-main px-4">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 md:mb-8 gap-4">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">Админ Панель</h1>
-          <Button onClick={() => setShowAddCategory(!showAddCategory)} className="w-full sm:w-auto">
-            <Plus className="w-4 h-4 mr-2" />
-            <span className="hidden md:inline">Добавить категорию</span>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 md:mb-12 gap-6 animate-slideInLeft">
+          <div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+              🎯 Адмін Панель
+            </h1>
+            <p className="text-gray-600 text-lg">Керування маркетплейсом Y-store</p>
+          </div>
+          <Button 
+            onClick={() => setShowAddCategory(!showAddCategory)} 
+            className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+          >
+            <Plus className="w-5 h-5 mr-2" />
+            <span className="hidden md:inline">Додати категорію</span>
             <span className="md:hidden">Категорія</span>
           </Button>
         </div>
 
         {/* Tabs - Horizontal scroll on mobile */}
-        <div className="border-b mb-6 md:mb-8 overflow-x-auto -mx-4 px-4">
-          <div className="flex gap-2 md:gap-4 min-w-max">
+        <div className="mb-8 md:mb-12 overflow-x-auto -mx-4 px-4">
+          <div className="flex gap-3 min-w-max pb-2">
             <button
               onClick={() => setActiveTab('analytics')}
               className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-colors whitespace-nowrap text-sm md:text-base ${
