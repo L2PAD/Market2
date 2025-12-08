@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, ArrowRight } from 'lucide-react';
+import { Clock, ArrowRight, Gift, Sparkles, Tag } from 'lucide-react';
 import axios from 'axios';
+import ScrollReveal from '../components/ScrollReveal';
 
 const Promotions = () => {
   const [promotions, setPromotions] = useState([]);
