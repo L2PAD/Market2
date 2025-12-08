@@ -2417,15 +2417,35 @@ async def upload_image(
 ):
     """
     Upload image for slides or other purposes (admin only)
+    Accepts any image format and converts to JPEG for universal compatibility
     """
     try:
+        from PIL import Image
+        import io
+        
         # Validate file type
         if not file.content_type.startswith('image/'):
             raise HTTPException(status_code=400, detail="File must be an image")
         
-        # Generate unique filename
-        file_extension = file.filename.split('.')[-1]
-        unique_filename = f"{uuid.uuid4()}.{file_extension}"
+        # Read file content
+        content = await file.read()
+        
+        # Open image with Pillow
+        image = Image.open(io.BytesIO(content))
+        
+        # Convert to RGB if necessary (for JPEG compatibility)
+        if image.mode in ('RGBA', 'LA', 'P'):
+            # Create white background for transparency
+            background = Image.new('RGB', image.size, (255, 255, 255))
+            if image.mode == 'P':
+                image = image.convert('RGBA')
+            background.paste(image, mask=image.split()[-1] if image.mode == 'RGBA' else None)
+            image = background
+        elif image.mode != 'RGB':
+            image = image.convert('RGB')
+        
+        # Generate unique filename (always use .jpg)
+        unique_filename = f"{uuid.uuid4()}.jpg"
         
         # Save file to public uploads folder
         upload_dir = Path("/app/frontend/public/uploads/slides")
@@ -2433,10 +2453,8 @@ async def upload_image(
         
         file_path = upload_dir / unique_filename
         
-        # Read and write file
-        content = await file.read()
-        with open(file_path, 'wb') as f:
-            f.write(content)
+        # Save optimized JPEG
+        image.save(file_path, 'JPEG', quality=85, optimize=True)
         
         # Return public URL
         public_url = f"/uploads/slides/{unique_filename}"
