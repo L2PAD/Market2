@@ -50,24 +50,27 @@ const NewHeader = () => {
   };
 
   return (
-    <header className="bg-white sticky top-0 z-50 shadow-sm">
+    <header className="bg-white sticky top-0 z-50 shadow-xl backdrop-blur-lg bg-white/95">
       {/* Mobile Menu */}
       <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
       
       {/* Main Header - White Section */}
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-3 md:py-4 gap-2 md:gap-4">
+        <div className="flex items-center justify-between py-4 md:py-5 gap-2 md:gap-4">
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+            className="lg:hidden p-3 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 rounded-2xl transition-all duration-300 hover:scale-110 active:scale-95"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-6 h-6 text-gray-700" />
           </button>
           
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="text-2xl md:text-3xl lg:text-4xl font-bold text-black hover:opacity-80 transition-opacity">
+            <Link 
+              to="/" 
+              className="text-2xl md:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+            >
               Y-store
             </Link>
           </div>
