@@ -184,13 +184,13 @@ const AdminPanel = () => {
           </button>
           <button
             onClick={() => setActiveTab('advanced')}
-            className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-colors whitespace-nowrap text-sm md:text-base ${
+            className={`px-5 py-3 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap text-sm md:text-base flex items-center gap-2 ${
               activeTab === 'advanced'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <TrendingUp className="w-4 h-4 md:w-5 md:h-5 inline mr-1 md:mr-2" />
+            <TrendingUp className="w-4 h-4 md:w-5 md:h-5" />
             <span className="hidden sm:inline">Расширенная</span>
             <span className="sm:hidden">📈</span>
           </button>
