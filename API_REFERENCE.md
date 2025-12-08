@@ -1,6 +1,6 @@
 # Y-store API Reference
 
-**Base URL:** `https://shop-redesign-9.preview.emergentagent.com/api`
+**Base URL:** `https://marketplace-renewal.preview.emergentagent.com/api`
 
 ## Authentication
 

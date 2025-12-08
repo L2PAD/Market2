@@ -302,7 +302,7 @@ npm install next-themes  # для темной темы
 
 3. **Настроить окружение (.env.local):**
 ```env
-NEXT_PUBLIC_API_URL=https://shop-redesign-9.preview.emergentagent.com/api
+NEXT_PUBLIC_API_URL=https://marketplace-renewal.preview.emergentagent.com/api
 ```
 
 ### Этап 2: Создание типов
@@ -484,8 +484,8 @@ app.add_middleware(
 
 ## Контакты и support
 
-**Backend API URL:** https://shop-redesign-9.preview.emergentagent.com/api
-**Current React app:** https://shop-redesign-9.preview.emergentagent.com
+**Backend API URL:** https://marketplace-renewal.preview.emergentagent.com/api
+**Current React app:** https://marketplace-renewal.preview.emergentagent.com
 
 **Админ доступ:**
 - Email: admin@bazaar.com
