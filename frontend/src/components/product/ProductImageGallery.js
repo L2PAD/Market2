@@ -76,18 +76,30 @@ const ProductImageGallery = ({ images = [], videos = [], productTitle, discount 
               </div>
             )}
 
-            <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button 
+              onClick={() => setIsZoomed(!isZoomed)}
+              className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
               <div className="bg-white/90 p-2 rounded-full shadow-lg cursor-pointer hover:bg-white">
                 <ZoomIn className="w-5 h-5 text-gray-700" />
               </div>
-            </div>
+            </button>
 
-            <div className="absolute inset-0 p-8 flex items-center justify-center">
+            <div 
+              className="absolute inset-0 p-8 flex items-center justify-center overflow-hidden"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={() => currentMedia.type === 'image' && setIsZoomed(true)}
+              onMouseLeave={() => setIsZoomed(false)}
+            >
               {currentMedia.type === 'image' ? (
                 <img
                   src={currentMedia.url}
                   alt={`${productTitle} ${selectedIndex + 1}`}
-                  className="max-w-full max-h-full object-contain cursor-zoom-in transition-transform hover:scale-105"
+                  className="max-w-full max-h-full object-contain cursor-zoom-in transition-transform duration-300"
+                  style={{
+                    transform: isZoomed ? 'scale(2)' : 'scale(1)',
+                    transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
+                  }}
                 />
               ) : (
                 <div className="relative w-full h-full">
