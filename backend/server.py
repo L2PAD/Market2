@@ -3038,6 +3038,160 @@ async def delete_popular_category(
     
     return {"message": "Popular category deleted successfully"}
 
+# ============= CUSTOM SECTIONS API =============
+
+@api_router.get("/custom-sections", response_model=List[CustomSection])
+async def get_custom_sections():
+    """
+    Get all active custom sections for frontend (sorted by order)
+    """
+    sections = await db.custom_sections.find(
+        {"active": True, "display_on_home": True},
+        {"_id": 0}
+    ).sort("order", 1).to_list(100)
+    return [CustomSection(**section) for section in sections]
+
+@api_router.get("/custom-sections/{slug}")
+async def get_custom_section_by_slug(slug: str):
+    """
+    Get a specific custom section by slug
+    """
+    section = await db.custom_sections.find_one({"slug": slug, "active": True}, {"_id": 0})
+    if not section:
+        raise HTTPException(status_code=404, detail="Section not found")
+    
+    # Получаем товары для этого раздела
+    products = []
+    if section.get("product_ids"):
+        products = await db.products.find(
+            {"id": {"$in": section["product_ids"]}},
+            {"_id": 0}
+        ).to_list(100)
+    
+    return {
+        "section": CustomSection(**section),
+        "products": [Product(**p) for p in products]
+    }
+
+@api_router.get("/admin/custom-sections", response_model=List[CustomSection])
+async def get_all_custom_sections_admin(current_user: User = Depends(get_current_admin)):
+    """
+    Get all custom sections (including inactive) for admin panel
+    """
+    sections = await db.custom_sections.find({}, {"_id": 0}).sort("order", 1).to_list(100)
+    return [CustomSection(**section) for section in sections]
+
+@api_router.post("/admin/custom-sections", response_model=CustomSection)
+async def create_custom_section(
+    section: CustomSectionCreate,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Create a new custom section (admin only)
+    """
+    # Проверяем уникальность slug
+    existing = await db.custom_sections.find_one({"slug": section.slug})
+    if existing:
+        raise HTTPException(status_code=400, detail="Section with this slug already exists")
+    
+    section_dict = section.model_dump()
+    section_dict["id"] = str(uuid.uuid4())
+    section_dict["created_at"] = datetime.now(timezone.utc)
+    section_dict["updated_at"] = datetime.now(timezone.utc)
+    
+    await db.custom_sections.insert_one(section_dict)
+    return CustomSection(**section_dict)
+
+@api_router.put("/admin/custom-sections/{section_id}", response_model=CustomSection)
+async def update_custom_section(
+    section_id: str,
+    section_update: CustomSectionUpdate,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Update a custom section (admin only)
+    """
+    update_data = section_update.model_dump(exclude_unset=True)
+    update_data["updated_at"] = datetime.now(timezone.utc)
+    
+    # Если обновляется slug, проверяем уникальность
+    if "slug" in update_data:
+        existing = await db.custom_sections.find_one({
+            "slug": update_data["slug"],
+            "id": {"$ne": section_id}
+        })
+        if existing:
+            raise HTTPException(status_code=400, detail="Section with this slug already exists")
+    
+    result = await db.custom_sections.update_one(
+        {"id": section_id},
+        {"$set": update_data}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Section not found")
+    
+    updated_section = await db.custom_sections.find_one({"id": section_id}, {"_id": 0})
+    return CustomSection(**updated_section)
+
+@api_router.delete("/admin/custom-sections/{section_id}")
+async def delete_custom_section(
+    section_id: str,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Delete a custom section (admin only)
+    """
+    result = await db.custom_sections.delete_one({"id": section_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Section not found")
+    
+    return {"message": "Custom section deleted successfully"}
+
+@api_router.post("/admin/custom-sections/{section_id}/products/{product_id}")
+async def add_product_to_section(
+    section_id: str,
+    product_id: str,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Add a product to a custom section (admin only)
+    """
+    # Проверяем существование товара
+    product = await db.products.find_one({"id": product_id})
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    # Добавляем товар в раздел
+    result = await db.custom_sections.update_one(
+        {"id": section_id},
+        {"$addToSet": {"product_ids": product_id}, "$set": {"updated_at": datetime.now(timezone.utc)}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Section not found or product already in section")
+    
+    return {"message": "Product added to section successfully"}
+
+@api_router.delete("/admin/custom-sections/{section_id}/products/{product_id}")
+async def remove_product_from_section(
+    section_id: str,
+    product_id: str,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Remove a product from a custom section (admin only)
+    """
+    result = await db.custom_sections.update_one(
+        {"id": section_id},
+        {"$pull": {"product_ids": product_id}, "$set": {"updated_at": datetime.now(timezone.utc)}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Section not found")
+    
+    return {"message": "Product removed from section successfully"}
+
 # ============= INITIALIZE APP =============
 
 app.include_router(api_router)
