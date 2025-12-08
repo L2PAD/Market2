@@ -76,9 +76,6 @@ const PopularCategoriesManagement = () => {
   };
 
   const handleImageUpload = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
     const file = e.target.files[0];
     if (!file) return;
 
@@ -98,7 +95,8 @@ const PopularCategoriesManagement = () => {
       setForm(prev => ({ ...prev, image_url: imageUrl }));
       toast.success('Зображення завантажено!');
     } catch (error) {
-      toast.error('Помилка завантаження зображення');
+      console.error('Image upload error:', error);
+      toast.error('Помилка завантаження зображення: ' + (error.response?.data?.detail || error.message));
     } finally {
       setUploading(false);
     }
