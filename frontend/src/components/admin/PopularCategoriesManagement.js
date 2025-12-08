@@ -278,7 +278,7 @@ const PopularCategoriesManagement = () => {
         <Button 
           onClick={() => {
             setEditingCategory(null);
-            setForm({ name: '', icon: '📱', image_url: '', order: categories?.length || 0, active: true });
+            setForm({ name: '', icon: 'Smartphone', image_url: '', order: categories?.length || 0, active: true });
             setShowAddForm(true);
           }}
         >
