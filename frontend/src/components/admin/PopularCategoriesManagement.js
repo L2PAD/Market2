@@ -265,7 +265,11 @@ const PopularCategoriesManagement = () => {
                     <button
                       key={emoji}
                       type="button"
-                      onClick={() => setForm({ ...form, icon: emoji })}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setForm({ ...form, icon: emoji });
+                      }}
                       className={`text-2xl p-2 rounded-lg transition-all ${
                         form.icon === emoji
                           ? 'bg-blue-100 ring-2 ring-blue-500 scale-110'
