@@ -92,15 +92,18 @@ function App() {
                           <Route path="/admin" element={<AdminPanel />} />
                           <Route path="/profile" element={<UserProfile />} />
                           <Route path="/contact" element={<ContactInfo />} />
+                          <Route path="/contact-us" element={<Contact />} />
                           <Route path="/delivery-payment" element={<DeliveryPayment />} />
                           <Route path="/exchange-return" element={<ExchangeReturn />} />
                           <Route path="/about" element={<AboutUs />} />
+                          <Route path="/about-us" element={<About />} />
                           <Route path="/terms" element={<Terms />} />
                           <Route path="/promotions" element={<Promotions />} />
                           <Route path="/promotion/:promotionId" element={<PromotionDetail />} />
-                          <Route path="*" element={<Navigate to="/" />} />
+                          <Route path="*" element={<NotFound />} />
                         </Routes>
                         <Footer />
+                        <ScrollToTop />
                         <AIChatbot />
                         <SupportWidget />
                       </div>
