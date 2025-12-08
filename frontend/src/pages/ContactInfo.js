@@ -1,165 +1,157 @@
 import React from 'react';
-import { Phone, Mail, Clock, MapPin } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { Phone, Mail, Clock, MapPin, MessageCircle } from 'lucide-react';
+import ScrollReveal from '../components/ScrollReveal';
 
 const ContactInfo = () => {
-  const { t, language } = useLanguage();
-
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8 text-center">
-          {language === 'ru' ? 'Контактная информация' : 'Контактна інформація'}
-        </h1>
-
-        <div className="bg-white rounded-2xl shadow-sm p-8 mb-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Phone Numbers */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-blue-600" />
-                </div>
-                <h2 className="text-2xl font-bold">
-                  {language === 'ru' ? 'Телефоны' : 'Телефони'}
-                </h2>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 py-12">
+      <div className="container mx-auto px-4 max-w-5xl">
+        {/* Header */}
+        <ScrollReveal animation="fadeInUp">
+          <div className="text-center mb-12">
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl">
+                <Phone className="w-10 h-10 text-white" />
               </div>
-              
-              <a href="tel:+380502474161" className="block text-xl font-semibold hover:text-blue-600 transition-colors">
-                050-247-41-61
-              </a>
-              <a href="tel:+380637247703" className="block text-xl font-semibold hover:text-blue-600 transition-colors">
-                063-724-77-03
-              </a>
             </div>
-
-            {/* Email */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-green-600" />
-                </div>
-                <h2 className="text-2xl font-bold">Email</h2>
-              </div>
-              
-              <a href="mailto:support@y-store.in.ua" className="block text-xl font-semibold hover:text-blue-600 transition-colors">
-                support@y-store.in.ua
-              </a>
-            </div>
-          </div>
-
-          {/* Address */}
-          <div className="mt-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <MapPin className="w-6 h-6 text-purple-600" />
-              </div>
-              <h2 className="text-2xl font-bold">
-                {language === 'ru' ? 'Адрес' : 'Адреса'}
-              </h2>
-            </div>
-            
-            <p className="text-lg text-gray-700">
-              проспект Миколи Бажана, 24/1<br />
-              Київ, 02149<br />
-              Україна
+            <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+              Контактна інформація
+            </h1>
+            <p className="text-xl text-gray-600">
+              Ми завжди на зв'язку! Зв'яжіться з нами зручним способом
             </p>
           </div>
-        </div>
+        </ScrollReveal>
 
-        {/* Working Hours */}
-        <div className="bg-white rounded-2xl shadow-sm p-8 mb-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-              <Clock className="w-6 h-6 text-purple-600" />
-            </div>
-            <h2 className="text-2xl font-bold">
-              {language === 'ru' ? 'Время работы' : 'Час роботи'}
-            </h2>
-          </div>
-          
-          <div className="space-y-3 text-lg">
-            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-              <span className="font-medium">
-                {language === 'ru' ? 'Будни (Пн-Пт)' : 'Будні (Пн-Пт)'}
-              </span>
-              <span>09:00 – 19:00</span>
-            </div>
-            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-              <span className="font-medium">
-                {language === 'ru' ? 'Суббота' : 'Субота'}
-              </span>
-              <span>10:00 – 18:00</span>
-            </div>
-            <div className="flex justify-between items-center py-2 border-b border-gray-200">
-              <span className="font-medium">
-                {language === 'ru' ? 'Воскресенье' : 'Неділя'}
-              </span>
-              <span>10:00 – 18:00</span>
-            </div>
-            <div className="flex justify-between items-center py-2 bg-green-50 rounded-lg px-3">
-              <span className="font-semibold text-green-700">
-                {language === 'ru' ? '🌐 Заказы онлайн' : '🌐 Замовлення онлайн'}
-              </span>
-              <span className="font-bold text-green-700">24/7</span>
-            </div>
-          </div>
-        </div>
+        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 space-y-10">
+          {/* Contact Cards Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Phone Numbers */}
+            <ScrollReveal animation="slideInLeft">
+              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-8 hover:shadow-xl transition-all border-2 border-blue-200">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center">
+                    <Phone className="w-8 h-8 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-extrabold text-gray-900">Телефони</h2>
+                </div>
+                <div className="space-y-4">
+                  <a href="tel:+380502474161" className="block text-2xl font-bold text-blue-600 hover:text-blue-800 transition-colors">
+                    📱 050-247-41-61
+                  </a>
+                  <a href="tel:+380637247703" className="block text-2xl font-bold text-blue-600 hover:text-blue-800 transition-colors">
+                    📱 063-724-77-03
+                  </a>
+                  <p className="text-gray-600 mt-4">Графік роботи: Пн-Нд 9:00-19:00</p>
+                </div>
+              </div>
+            </ScrollReveal>
 
-        {/* Messengers */}
-        <div className="bg-white rounded-2xl shadow-sm p-8">
-          <h2 className="text-2xl font-bold mb-6">
-            {language === 'ru' ? 'Мессенджеры' : 'Месенджери'}
-          </h2>
-          
-          <p className="text-gray-600 mb-6">
-            {language === 'ru' 
-              ? 'Пишите нам в любой удобный мессенджер — мы читаем все сообщения и всегда отвечаем в ближайшее рабочее время 💬'
-              : 'Пишіть нам у будь-який зручний месенджер — ми читаємо всі повідомлення і завжди відповідаємо у найближчий робочий час 💬'
-            }
-          </p>
+            {/* Email */}
+            <ScrollReveal animation="slideInRight">
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 hover:shadow-xl transition-all border-2 border-purple-200">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center">
+                    <Mail className="w-8 h-8 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-extrabold text-gray-900">Email</h2>
+                </div>
+                <a href="mailto:support@y-store.in.ua" className="block text-2xl font-bold text-purple-600 hover:text-purple-800 transition-colors mb-4">
+                  ✉️ support@y-store.in.ua
+                </a>
+                <p className="text-gray-600">Відповідаємо протягом 24 годин</p>
+              </div>
+            </ScrollReveal>
 
-          <div className="flex gap-4">
-            <a 
-              href="viber://chat?number=%2B380502474161"
-              className="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.35.5C6.697.5 2.09 5.107 2.09 10.76c0 1.904.522 3.684 1.427 5.214L2 20.5l4.74-1.474c1.452.803 3.13 1.264 4.91 1.264 5.653 0 10.26-4.607 10.26-10.26C21.91 5.107 17.303.5 12.35.5zm5.8 13.96c-.226.634-1.132 1.165-1.85 1.314-.493.098-.947.442-3.206-.668-2.715-1.337-4.458-4.123-4.594-4.312-.136-.19-1.11-1.477-1.11-2.817 0-1.34.704-1.998.952-.77.247.002.588.092.845.092.248 0 .548-.097.858.656.317.772 1.08 2.634 1.174 2.825.095.19.158.412.032.603-.127.19-.19.308-.38.474-.19.165-.4.37-.57.497-.19.143-.388.297-.167.583.222.286.987 1.628 2.12 2.635 1.458 1.297 2.687 1.698 3.067 1.888.38.19.603.158.825-.095.222-.254.95-1.108 1.204-1.49.254-.38.507-.317.857-.19.35.126 2.223 1.048 2.603 1.238.38.19.634.285.73.444.095.158.095.92-.13 1.553z"/>
-              </svg>
-              Viber
-            </a>
-            
-            <a 
-              href="https://t.me/yourtelegram"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-              </svg>
-              Telegram
-            </a>
-          </div>
-        </div>
+            {/* Address */}
+            <ScrollReveal animation="slideInLeft" delay={100}>
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 hover:shadow-xl transition-all border-2 border-green-200">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center">
+                    <MapPin className="w-8 h-8 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-extrabold text-gray-900">Адреса</h2>
+                </div>
+                <div className="space-y-2 text-gray-700 text-lg leading-relaxed">
+                  <p className="font-semibold">📍 Полтавська область</p>
+                  <p>Лебенський район</p>
+                  <p>с. Маяківка, вул. Моложіжна, буд. 1</p>
+                  <a 
+                    href="https://www.google.com/maps" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block mt-4 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105"
+                  >
+                    Маршрут на карті →
+                  </a>
+                </div>
+              </div>
+            </ScrollReveal>
 
-        {/* Questions Section */}
-        <div className="mt-8 text-center p-8 bg-blue-50 rounded-2xl">
-          <h3 className="text-2xl font-bold mb-4">
-            📞 {language === 'ru' ? 'Есть вопросы? Мы рядом!' : 'Маєте запитання? Ми поруч!'}
-          </h3>
-          <p className="text-gray-700 max-w-2xl mx-auto mb-4">
-            {language === 'ru'
-              ? 'Если у вас есть любые вопросы по заказу, доставке или товарам — просто напишите нам. Мы с радостью подскажем, поможем и всё объясним простыми словами.'
-              : 'Якщо у вас є будь-які питання щодо замовлення, доставки чи товарів — просто напишіть нам. Ми з радістю підкажемо, допоможемо й усе пояснимо простими словами.'
-            }
-          </p>
-          <div className="text-center mt-4">
-            <a href="tel:+380502474161" className="text-2xl font-bold text-blue-600 hover:underline">050-247-41-61</a>
-            <span className="mx-2">•</span>
-            <a href="tel:+380637247703" className="text-2xl font-bold text-blue-600 hover:underline">063-724-77-03</a>
+            {/* Working Hours */}
+            <ScrollReveal animation="slideInRight" delay={100}>
+              <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-3xl p-8 hover:shadow-xl transition-all border-2 border-orange-200">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl flex items-center justify-center">
+                    <Clock className="w-8 h-8 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-extrabold text-gray-900">Графік роботи</h2>
+                </div>
+                <div className="space-y-3 text-gray-700 text-lg">
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">Понеділок - П'ятниця:</span>
+                    <span className="font-bold text-orange-600">9:00 - 19:00</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">Субота:</span>
+                    <span className="font-bold text-orange-600">10:00 - 18:00</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold">Неділя:</span>
+                    <span className="font-bold text-orange-600">10:00 - 18:00</span>
+                  </div>
+                  <div className="mt-4 p-4 bg-green-100 rounded-xl">
+                    <p className="text-green-800 font-bold text-center">🌐 Замовлення online 24/7</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
+
+          {/* Social Media */}
+          <ScrollReveal animation="scaleIn">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 text-white">
+              <h2 className="text-3xl font-extrabold mb-6 text-center">Соціальні мережі</h2>
+              <div className="flex justify-center gap-6">
+                <a 
+                  href="https://t.me/yourtelegram" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center hover:scale-110 hover:bg-white/30 transition-all"
+                >
+                  <MessageCircle className="w-8 h-8" />
+                </a>
+                <a 
+                  href="https://instagram.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center hover:scale-110 hover:bg-white/30 transition-all"
+                >
+                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+                <a 
+                  href="viber://chat?number=%2B380502474161" 
+                  className="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center hover:scale-110 hover:bg-white/30 transition-all"
+                >
+                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.35.5C6.697.5 2.09 5.107 2.09 10.76c0 1.904.522 3.684 1.427 5.214L2 20.5l4.74-1.474c1.452.803 3.13 1.264 4.91 1.264 5.653 0 10.26-4.607 10.26-10.26C21.91 5.107 17.303.5 12.35.5z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </div>
