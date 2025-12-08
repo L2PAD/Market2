@@ -105,6 +105,7 @@ function App() {
                         </Routes>
                         <Footer />
                         <ScrollToTop />
+                        <FloatingActionButton />
                         <AIChatbot />
                         <SupportWidget />
                       </div>
