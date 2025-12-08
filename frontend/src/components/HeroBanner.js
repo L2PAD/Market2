@@ -145,27 +145,27 @@ const HeroBanner = () => {
   }
 
   return (
-    <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-lg md:rounded-2xl overflow-hidden">
+    <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-xl md:rounded-3xl overflow-hidden shadow-2xl">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`absolute inset-0 transition-opacity duration-500 cursor-pointer ${
-            index === currentSlide ? 'opacity-100' : 'opacity-0'
+          className={`absolute inset-0 transition-all duration-700 cursor-pointer ${
+            index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
           }`}
           onClick={() => handleSlideClick(slide)}
         >
           {/* Background - для баннера используем изображение как фон */}
           {slide.type === 'banner' && slide.image_url ? (
             <div 
-              className="absolute inset-0 bg-cover bg-center"
+              className="absolute inset-0 bg-cover bg-center transform transition-transform duration-700 hover:scale-105"
               style={{ 
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${slide.image_url})`,
+                backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url(${slide.image_url})`,
               }}
             />
           ) : (
             <div 
-              className="absolute inset-0"
+              className="absolute inset-0 transform transition-transform duration-700 hover:scale-105"
               style={{ background: slide.background_gradient }}
             />
           )}
@@ -173,7 +173,7 @@ const HeroBanner = () => {
           <div className="flex items-center justify-center h-full text-white relative z-10">
             {/* Промо текст в углу */}
             {slide.promo_text && (
-              <div className="absolute top-3 right-3 md:top-6 md:right-6 bg-red-600 text-white px-3 py-1 md:px-6 md:py-3 rounded-lg font-bold text-sm md:text-lg lg:text-xl shadow-lg animate-pulse">
+              <div className="absolute top-4 right-4 md:top-8 md:right-8 bg-gradient-to-r from-red-600 to-pink-600 text-white px-4 py-2 md:px-8 md:py-4 rounded-2xl font-extrabold text-sm md:text-xl lg:text-2xl shadow-2xl animate-pulse transform rotate-3 hover:rotate-0 transition-transform">
                 {slide.promo_text}
               </div>
             )}
