@@ -258,75 +258,106 @@ const ProductDetail = () => {
 
             {/* Quantity Selector */}
             {product.stock_level > 0 && (
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <label className="font-medium">Quantity:</label>
-                  <div className="flex items-center border border-gray-300 rounded-xl">
+              <div className="space-y-6">
+                <div className="flex items-center gap-6 bg-white rounded-2xl p-4 shadow-md">
+                  <label className="font-bold text-lg">Кількість:</label>
+                  <div className="flex items-center border-2 border-blue-600 rounded-2xl overflow-hidden shadow-lg">
                     <button
                       data-testid="decrease-quantity"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-4 py-2 hover:bg-gray-100 rounded-l-xl"
+                      className="px-6 py-3 hover:bg-blue-50 transition-colors font-bold text-xl text-blue-600"
                     >
-                      -
+                      <Minus className="w-5 h-5" />
                     </button>
-                    <span data-testid="quantity-value" className="px-6 py-2 border-x border-gray-300">
+                    <span data-testid="quantity-value" className="px-8 py-3 border-x-2 border-blue-600 font-bold text-xl min-w-[80px] text-center">
                       {quantity}
                     </span>
                     <button
                       data-testid="increase-quantity"
                       onClick={() => setQuantity(Math.min(product.stock_level, quantity + 1))}
-                      className="px-4 py-2 hover:bg-gray-100 rounded-r-xl"
+                      className="px-6 py-3 hover:bg-blue-50 transition-colors font-bold text-xl text-blue-600"
                     >
-                      +
+                      <Plus className="w-5 h-5" />
                     </button>
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4">
+                <div className="flex flex-col md:flex-row gap-4">
                   <Button
                     data-testid="add-to-cart-button"
                     onClick={handleAddToCart}
-                    variant="outline"
                     size="lg"
-                    className="flex-1"
+                    className="flex-1 bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 py-4 rounded-2xl text-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg"
                   >
-                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    <ShoppingCart className="w-6 h-6 mr-2" />
                     {t('addToCart')}
                   </Button>
                   <Button
                     data-testid="buy-now-button"
                     onClick={handleBuyNow}
                     size="lg"
-                    className="flex-1"
+                    className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-4 rounded-2xl text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95"
                   >
-                    {t('buyNow') || 'Купить сейчас'}
+                    {t('buyNow') || 'Купити зараз'} →
                   </Button>
+                </div>
+
+                {/* Wishlist & Compare */}
+                <div className="flex gap-4">
+                  <button
+                    onClick={handleToggleFavorite}
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
+                      isFavorite(product.id)
+                        ? 'bg-gradient-to-r from-red-600 to-pink-600 text-white shadow-lg'
+                        : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-red-600'
+                    }`}
+                  >
+                    <Heart className={`w-5 h-5 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
+                    {isFavorite(product.id) ? 'В обраному' : 'В обране'}
+                  </button>
+                  <button
+                    onClick={handleToggleComparison}
+                    className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 ${
+                      isInComparison(product.id)
+                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                        : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-blue-600'
+                    }`}
+                  >
+                    <GitCompare className="w-5 h-5" />
+                    {isInComparison(product.id) ? 'Порівнюється' : 'Порівняти'}
+                  </button>
                 </div>
               </div>
             )}
 
             {/* Features */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t">
-              <div className="text-center space-y-2">
-                <Package className="w-8 h-8 mx-auto text-[#0071E3]" />
-                <p className="text-sm text-gray-600">Free Shipping</p>
+            <div className="grid grid-cols-3 gap-6 pt-8 border-t-2 border-gray-200">
+              <div className="text-center space-y-3 p-4 rounded-2xl hover:bg-white hover:shadow-lg transition-all duration-300">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center">
+                  <Package className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-sm font-bold text-gray-700">Безкоштовна доставка</p>
               </div>
-              <div className="text-center space-y-2">
-                <Shield className="w-8 h-8 mx-auto text-[#0071E3]" />
-                <p className="text-sm text-gray-600">Secure Payment</p>
+              <div className="text-center space-y-3 p-4 rounded-2xl hover:bg-white hover:shadow-lg transition-all duration-300">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-sm font-bold text-gray-700">Безпечна оплата</p>
               </div>
-              <div className="text-center space-y-2">
-                <Truck className="w-8 h-8 mx-auto text-[#0071E3]" />
-                <p className="text-sm text-gray-600">Fast Delivery</p>
+              <div className="text-center space-y-3 p-4 rounded-2xl hover:bg-white hover:shadow-lg transition-all duration-300">
+                <div className="w-16 h-16 mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center">
+                  <Truck className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-sm font-bold text-gray-700">Швидка доставка</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Description Section */}
-        <div className="mt-16 bg-white border border-gray-200 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold mb-6">Product Description</h2>
+        <div className="mt-16 bg-gradient-to-br from-white to-blue-50 border-2 border-blue-200 rounded-3xl p-10 shadow-2xl animate-fadeIn">
+          <h2 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-8">Опис товару</h2>
           <div data-testid="product-description" className="prose prose-lg max-w-none text-gray-700">
             {product.description.split('\n').map((paragraph, idx) => (
               <p key={idx} className="mb-4">
