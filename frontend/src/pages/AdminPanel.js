@@ -196,61 +196,61 @@ const AdminPanel = () => {
           </button>
           <button
             onClick={() => setActiveTab('slides')}
-            className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-colors whitespace-nowrap text-sm md:text-base ${
+            className={`px-5 py-3 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap text-sm md:text-base flex items-center gap-2 ${
               activeTab === 'slides'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <Monitor className="w-4 h-4 md:w-5 md:h-5 inline mr-1 md:mr-2" />
+            <Monitor className="w-4 h-4 md:w-5 md:h-5" />
             <span className="hidden sm:inline">Слайдер</span>
             <span className="sm:hidden">🖼️</span>
           </button>
           <button
             onClick={() => setActiveTab('crm')}
-            className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-colors whitespace-nowrap text-sm md:text-base ${
+            className={`px-5 py-3 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap text-sm md:text-base flex items-center gap-2 ${
               activeTab === 'crm'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <Briefcase className="w-4 h-4 md:w-5 md:h-5 inline mr-1 md:mr-2" />
+            <Briefcase className="w-4 h-4 md:w-5 md:h-5" />
             <span className="hidden sm:inline">CRM</span>
             <span className="sm:hidden">💼</span>
           </button>
           <button
             onClick={() => setActiveTab('promotions')}
-            className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-colors whitespace-nowrap text-sm md:text-base ${
+            className={`px-5 py-3 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap text-sm md:text-base flex items-center gap-2 ${
               activeTab === 'promotions'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <Gift className="w-4 h-4 md:w-5 md:h-5 inline mr-1 md:mr-2" />
+            <Gift className="w-4 h-4 md:w-5 md:h-5" />
             <span className="hidden sm:inline">Акції</span>
             <span className="sm:hidden">🎁</span>
           </button>
           <button
             onClick={() => setActiveTab('popular-categories')}
-            className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-colors whitespace-nowrap text-sm md:text-base ${
+            className={`px-5 py-3 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap text-sm md:text-base flex items-center gap-2 ${
               activeTab === 'popular-categories'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <Package className="w-4 h-4 md:w-5 md:h-5 inline mr-1 md:mr-2" />
+            <Package className="w-4 h-4 md:w-5 md:h-5" />
             <span className="hidden sm:inline">Популярні категорії</span>
             <span className="sm:hidden">📦</span>
           </button>
           <button
             onClick={() => setActiveTab('custom-sections')}
-            className={`pb-3 md:pb-4 px-3 md:px-4 font-semibold transition-colors whitespace-nowrap text-sm md:text-base ${
+            className={`px-5 py-3 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap text-sm md:text-base flex items-center gap-2 ${
               activeTab === 'custom-sections'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <TrendingUp className="w-4 h-4 md:w-5 md:h-5 inline mr-1 md:mr-2" />
+            <TrendingUp className="w-4 h-4 md:w-5 md:h-5" />
             <span className="hidden sm:inline">Кастомні розділи</span>
             <span className="sm:hidden">🔥</span>
           </button>
