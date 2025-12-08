@@ -21,14 +21,89 @@ const PopularCategoriesManagement = () => {
   
   const [form, setForm] = useState({
     name: '',
-    icon: '📱',
+    icon: 'Smartphone',
     image_url: '',
     order: 0,
     active: true
   });
   const [uploading, setUploading] = useState(false);
+  const [iconSearch, setIconSearch] = useState('');
 
-  const emojiIcons = ['📱', '📺', '💻', '⌚', '📷', '🎧', '🎮', '🏠', '🍲', '☕', '🧺', '🧹', '❄️', '🔌', '💡', '🎨', '📚', '👕', '👟', '⚽', '🎸', '🚗', '🏃', '🍕', '🎁'];
+  // Mapping icon names to components
+  const iconComponents = {
+    'Smartphone': Smartphone,
+    'Laptop': Laptop,
+    'Monitor': Monitor,
+    'Tv': Tv,
+    'Watch': Watch,
+    'Camera': Camera,
+    'Headphones': Headphones,
+    'Gamepad': Gamepad,
+    'Home': Home,
+    'Zap': Zap,
+    'ShoppingBag': ShoppingBag,
+    'Coffee': Coffee,
+    'Microwave': Microwave,
+    'Fan': Fan,
+    'Wind': Wind,
+    'Snowflake': Snowflake,
+    'Shirt': Shirt,
+    'Heart': Heart,
+    'Book': Book,
+    'Music': Music,
+    'Car': Car,
+    'Bike': Bike,
+    'Dumbbell': Dumbbell,
+    'Baby': Baby,
+    'Pill': Pill,
+    'Leaf': Leaf,
+    'Palette': Palette,
+    'Wrench': Wrench,
+    'Hammer': Hammer,
+    'Lightbulb': Lightbulb,
+    'Wifi': Wifi,
+    'Speaker': Speaker
+  };
+
+  const iconOptions = [
+    { name: 'Smartphone', label: 'Смартфони' },
+    { name: 'Laptop', label: 'Ноутбуки' },
+    { name: 'Monitor', label: 'Монітори' },
+    { name: 'Tv', label: 'Телевізори' },
+    { name: 'Watch', label: 'Годинники' },
+    { name: 'Camera', label: 'Камери' },
+    { name: 'Headphones', label: 'Навушники' },
+    { name: 'Gamepad', label: 'Ігри' },
+    { name: 'Home', label: 'Для дому' },
+    { name: 'Zap', label: 'Електроніка' },
+    { name: 'ShoppingBag', label: 'Покупки' },
+    { name: 'Coffee', label: 'Кава' },
+    { name: 'Microwave', label: 'Мікрохвильовка' },
+    { name: 'Fan', label: 'Вентилятор' },
+    { name: 'Wind', label: 'Кондиціонер' },
+    { name: 'Snowflake', label: 'Холодильник' },
+    { name: 'Shirt', label: 'Одяг' },
+    { name: 'Heart', label: 'Здоров\'я' },
+    { name: 'Book', label: 'Книги' },
+    { name: 'Music', label: 'Музика' },
+    { name: 'Car', label: 'Авто' },
+    { name: 'Bike', label: 'Велосипеди' },
+    { name: 'Dumbbell', label: 'Спорт' },
+    { name: 'Baby', label: 'Дитяче' },
+    { name: 'Pill', label: 'Медицина' },
+    { name: 'Leaf', label: 'Еко' },
+    { name: 'Palette', label: 'Творчість' },
+    { name: 'Wrench', label: 'Інструменти' },
+    { name: 'Hammer', label: 'Будівництво' },
+    { name: 'Lightbulb', label: 'Освітлення' },
+    { name: 'Wifi', label: 'WiFi' },
+    { name: 'Speaker', label: 'Акустика' }
+  ];
+
+  const filteredIcons = iconOptions.filter(icon =>
+    icon.label.toLowerCase().includes(iconSearch.toLowerCase()) ||
+    icon.name.toLowerCase().includes(iconSearch.toLowerCase())
+  );
 
   useEffect(() => {
     fetchCategories();
