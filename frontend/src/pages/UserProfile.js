@@ -183,58 +183,69 @@ const UserProfile = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 py-12">
       <div className="container-main">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Личный кабинет</h1>
-          <p className="text-gray-600">Добро пожаловать, {user.full_name || user.email}!</p>
+        <div className="mb-12 animate-slideInLeft">
+          <div className="flex items-center gap-6 mb-4">
+            <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl">
+              <User className="w-10 h-10 text-white" />
+            </div>
+            <div>
+              <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Особистий кабінет
+              </h1>
+              <p className="text-gray-600 text-xl mt-2">
+                Вітаємо, <strong>{user.full_name || user.email}</strong>! 👋
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-4 mb-8 border-b overflow-x-auto">
+        <div className="flex gap-3 mb-10 overflow-x-auto pb-2">
           <button
             onClick={() => setActiveTab('orders')}
-            className={`pb-4 px-4 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-6 py-4 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap flex items-center gap-2 ${
               activeTab === 'orders'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <ShoppingBag className="w-5 h-5 inline mr-2" />
-            Мои заказы
+            <ShoppingBag className="w-5 h-5" />
+            Мої замовлення
           </button>
           <button
             onClick={() => setActiveTab('profile')}
-            className={`pb-4 px-4 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-6 py-4 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap flex items-center gap-2 ${
               activeTab === 'profile'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <User className="w-5 h-5 inline mr-2" />
-            Личные данные
+            <User className="w-5 h-5" />
+            Особисті дані
           </button>
           <button
             onClick={() => setActiveTab('addresses')}
-            className={`pb-4 px-4 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-6 py-4 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap flex items-center gap-2 ${
               activeTab === 'addresses'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <MapPin className="w-5 h-5 inline mr-2" />
-            Адреса доставки
+            <MapPin className="w-5 h-5" />
+            Адреси доставки
           </button>
           <button
             onClick={() => setActiveTab('settings')}
-            className={`pb-4 px-4 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-6 py-4 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap flex items-center gap-2 ${
               activeTab === 'settings'
-                ? 'border-b-2 border-blue-600 text-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
             }`}
           >
-            <Settings className="w-5 h-5 inline mr-2" />
-            Настройки
+            <Settings className="w-5 h-5" />
+            Налаштування
           </button>
         </div>
 
