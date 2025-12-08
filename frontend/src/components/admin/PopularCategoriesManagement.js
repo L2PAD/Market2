@@ -75,6 +75,32 @@ const PopularCategoriesManagement = () => {
     }
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/upload/image`,
+        formData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      setForm(prev => ({ ...prev, image_url: response.data.url }));
+      toast.success('Зображення завантажено!');
+    } catch (error) {
+      toast.error('Помилка завантаження зображення');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+
   const handleDelete = async (categoryId) => {
     if (!window.confirm('Видалити цю категорію?')) return;
     
