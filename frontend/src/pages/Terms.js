@@ -24,40 +24,64 @@ const Terms = () => {
         </ScrollReveal>
 
         <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-12 space-y-10">
-          <section>
-            <h2 className="text-2xl font-bold mb-4">
-              1. {language === 'ru' ? 'Общие положения' : 'Загальні положення'}
-            </h2>
-            <p className="text-gray-700">
-              {language === 'ru'
-                ? 'Настоящее Пользовательское соглашение регулирует отношения между администрацией интернет-магазина Y-store и пользователями сайта.'
-                : 'Ця Угода користувача регулює відносини між адміністрацією інтернет-магазину Y-store та користувачами сайту.'}
-            </p>
-          </section>
+          {/* Introduction */}
+          <ScrollReveal animation="fadeInUp">
+            <div className="prose prose-lg max-w-none">
+              <p className="text-gray-700 leading-relaxed text-lg">
+                Цей договір є офіційною та публічною пропозицією Продавця укласти договір купівлі-продажу Товару, представленого на сайті <strong className="text-blue-600">Y-store</strong>. Даний договір є публічним, тобто відповідно до статті 633 Цивільного кодексу України, його умови є однаковими для всіх покупців незалежно від їх статусу.
+              </p>
+            </div>
+          </ScrollReveal>
 
-          <section>
-            <h2 className="text-2xl font-bold mb-4">
-              2. {language === 'ru' ? 'Условия использования' : 'Умови використання'}
-            </h2>
-            <p className="text-gray-700 mb-2">
-              {language === 'ru'
-                ? 'Используя наш сайт, вы соглашаетесь с условиями данного соглашения.'
-                : 'Використовуючи наш сайт, ви погоджуєтесь з умовами цієї угоди.'}
-            </p>
-          </section>
+          {/* 1. Визначення термінів */}
+          <ScrollReveal animation="fadeInUp" delay={100}>
+            <section className="border-l-4 border-blue-600 pl-6">
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-6 flex items-center gap-3">
+                <span className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">1</span>
+                Визначення термінів
+              </h2>
+              <div className="space-y-4">
+                <div className="bg-blue-50 rounded-2xl p-6">
+                  <h3 className="font-bold text-lg text-blue-900 mb-2">1.1. Публічна оферта</h3>
+                  <p className="text-gray-700">Публічна пропозиція Продавця, адресована невизначеному колу осіб, укласти з Продавцем договір купівлі-продажу товару дистанційним способом на умовах, що містяться в цій Оферті.</p>
+                </div>
+                <div className="bg-purple-50 rounded-2xl p-6">
+                  <h3 className="font-bold text-lg text-purple-900 mb-2">1.2. Товар або Послуга</h3>
+                  <p className="text-gray-700">Об'єкт угоди сторін, який був обраний покупцем на сайті Інтернет-магазину та поміщений у кошик, або вже придбаний Покупцем у Продавця дистанційним способом.</p>
+                </div>
+                <div className="bg-green-50 rounded-2xl p-6">
+                  <h3 className="font-bold text-lg text-green-900 mb-2">1.3. Інтернет-магазин</h3>
+                  <p className="text-gray-700">Сайт Продавця <strong>Y-store</strong> створений для укладення договорів роздрібної та оптової купівлі-продажу на підставі ознайомлення Покупця із запропонованим Продавцем описом Товару за допомогою мережі Інтернет.</p>
+                </div>
+                <div className="bg-orange-50 rounded-2xl p-6">
+                  <h3 className="font-bold text-lg text-orange-900 mb-2">1.4. Покупець</h3>
+                  <p className="text-gray-700">Дієздатна фізична особа, яка досягла 18 років, отримує інформацію від Продавця, розміщує замовлення щодо купівлі товару, що представлений на сайті Інтернет-магазину для цілей, що не пов'язані зі здійсненням підприємницької діяльності, або юридична особа чи фізична особа-підприємець.</p>
+                </div>
+                <div className="bg-red-50 rounded-2xl p-6">
+                  <h3 className="font-bold text-lg text-red-900 mb-2">1.5. Продавець</h3>
+                  <p className="text-gray-700">Фізична особа-підприємець Тищенко Олександр Миколайович (ідентифікаційний код 3473114859), місцезнаходження: Полтавська область, Лебенський район, с. Маяківка, вул. Моложіжна, буд. 1</p>
+                </div>
+              </div>
+            </section>
+          </ScrollReveal>
 
-          <section>
-            <h2 className="text-2xl font-bold mb-4">
-              3. {language === 'ru' ? 'Защита персональных данных' : 'Захист персональних даних'}
-            </h2>
-            <p className="text-gray-700">
-              {language === 'ru'
-                ? 'Мы обязуемся защищать ваши персональные данные в соответствии с законодательством Украины о защите персональных данных.'
-                : 'Ми зобов\'язуємось захищати ваші персональні дані відповідно до законодавства України про захист персональних даних.'}
-            </p>
-          </section>
+          {/* 2. Предмет договору */}
+          <ScrollReveal animation="fadeInUp" delay={150}>
+            <section className="border-l-4 border-purple-600 pl-6">
+              <h2 className="text-3xl font-extrabold text-gray-900 mb-6 flex items-center gap-3">
+                <span className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white font-bold">2</span>
+                Предмет договору
+              </h2>
+              <div className="space-y-4">
+                <p className="text-gray-700 leading-relaxed"><strong className="text-purple-600">2.1.</strong> Продавець зобов'язується передати у власність Покупцю Товар, а Покупець зобов'язується оплатити і прийняти Товар на умовах цього Договору.</p>
+                <p className="text-gray-700 leading-relaxed"><strong className="text-purple-600">2.2.</strong> Датою укладення Договору-оферти та моментом повного й беззаперечного прийняттям Покупцем умов Договору вважається дата заповнення Покупцем форми замовлення на сайті Інтернет-магазину.</p>
+              </div>
+            </section>
+          </ScrollReveal>
 
-          <section>
+          {/* 3. Оформлення Замовлення */}
+          <ScrollReveal animation="fadeInUp" delay={200}>
+            <section>
             <h2 className="text-2xl font-bold mb-4">
               4. {language === 'ru' ? 'Права и обязанности' : 'Права та обов\'язки'}
             </h2>
