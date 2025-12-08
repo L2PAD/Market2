@@ -247,7 +247,14 @@ const ProductCard = ({ product }) => {
         </Button>
       </div>
     </Link>
-  );
+    
+    {/* Quick View Modal */}
+    <QuickViewModal 
+      product={product}
+      isOpen={showQuickView}
+      onClose={() => setShowQuickView(false)}
+    />
+  </>;
 };
 
 export default ProductCard;
