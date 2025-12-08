@@ -468,6 +468,7 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Popular Categories Image Upload Functionality"
     - "Saved Address Feature on Checkout Page"
     - "Profile Editing Functionality with Console Logs"
     - "Advanced Analytics User Behavior Tab"
@@ -476,6 +477,7 @@ test_plan:
     - "RozetkaPay Payment Integration"
     - "Advanced Analytics User Behavior Tab"
     - "Profile Editing Functionality with Console Logs"
+    - "Popular Categories Image Upload Functionality"
   test_all: false
   test_priority: "high_first"
   completed_tasks:
