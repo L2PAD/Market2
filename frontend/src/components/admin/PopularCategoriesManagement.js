@@ -197,8 +197,8 @@ const PopularCategoriesManagement = () => {
         <Button 
           onClick={() => {
             setEditingCategory(null);
-            setForm({ name: '', icon: '📱', order: categories?.length || 0, active: true });
-            setShowAddForm(!showAddForm);
+            setForm({ name: '', icon: '📱', image_url: '', order: categories?.length || 0, active: true });
+            setShowAddForm(true);
           }}
         >
           <Plus className="w-4 h-4 mr-2" />
