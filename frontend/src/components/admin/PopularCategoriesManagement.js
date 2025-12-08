@@ -454,7 +454,7 @@ const PopularCategoriesManagement = () => {
                 onClick={() => {
                   setShowAddForm(false);
                   setEditingCategory(null);
-                  setForm({ name: '', icon: '📱', order: 0, active: true });
+                  setForm({ name: '', icon: 'Smartphone', image_url: '', order: 0, active: true });
                 }}
               >
                 Скасувати
