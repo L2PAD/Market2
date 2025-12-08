@@ -80,13 +80,50 @@ const Footer = () => {
 
       {/* Contact Info */}
       <div className="container-main py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Company Info */}
           <div className="animate-fadeIn">
             <h3 className="text-2xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Y-store</h3>
             <p className="text-gray-300 leading-relaxed">
               {t('ctaDescription') || 'Український маркетплейс нового покоління. Якісні товари, швидка доставка, найкращий сервіс!'}
             </p>
+          </div>
+
+          {/* Quick Links */}
+          <div className="animate-fadeIn">
+            <h3 className="text-lg font-semibold mb-4 text-white">Інформація</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/contact" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
+                  <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
+                  {t('contactInfo') || 'Контактна інформація'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/delivery-payment" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
+                  <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
+                  {t('deliveryPayment') || 'Доставка і оплата'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/exchange-return" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
+                  <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
+                  {t('exchangeReturn') || 'Обмін і повернення'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
+                  <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
+                  {t('aboutUs') || 'Про нас'}
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
+                  <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
+                  {t('terms') || 'Умови користування'}
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* Contact */}
