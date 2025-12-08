@@ -85,7 +85,7 @@ const Footer = () => {
           <div className="animate-fadeIn">
             <h3 className="text-2xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Y-store</h3>
             <p className="text-gray-300 leading-relaxed">
-              {t('ctaDescription') ||
+              {t('ctaDescription') || 'Український маркетплейс нового покоління. Якісні товари, швидка доставка, найкращий сервіс!'}
             </p>
           </div>
 
