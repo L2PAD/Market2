@@ -4,6 +4,8 @@ import { Play, ZoomIn } from 'lucide-react';
 const ProductImageGallery = ({ images = [], videos = [], productTitle, discount }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   const media = [
     ...images.map(img => ({ type: 'image', url: img })),
