@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useParallax } from '../hooks/useParallax';
 
 const HeroBanner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { offset, ref } = useParallax(0.3);
 
   useEffect(() => {
     fetchSlides();
