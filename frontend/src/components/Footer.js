@@ -96,31 +96,31 @@ const Footer = () => {
               <li>
                 <Link to="/contact" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
                   <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
-                  {t('contactInfo') || 'Контактна інформація'}
+                  Контактна інформація
                 </Link>
               </li>
               <li>
                 <Link to="/delivery-payment" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
                   <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
-                  {t('deliveryPayment') || 'Доставка і оплата'}
+                  Доставка і оплата
                 </Link>
               </li>
               <li>
                 <Link to="/exchange-return" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
                   <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
-                  {t('exchangeReturn') || 'Обмін і повернення'}
+                  Обмін і повернення
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
                   <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
-                  {t('aboutUs') || 'Про нас'}
+                  Про нас
                 </Link>
               </li>
               <li>
                 <Link to="/terms" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 group">
                   <span className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 transition-all"></span>
-                  {t('terms') || 'Умови користування'}
+                  Угода користувача
                 </Link>
               </li>
             </ul>
