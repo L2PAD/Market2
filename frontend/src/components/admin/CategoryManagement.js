@@ -142,7 +142,7 @@ const CategoryManagement = () => {
       name: category.name || '',
       slug: category.slug || '',
       parent_id: category.parent_id || null,
-      icon: category.icon || 'box'
+      icon: category.icon || 'Smartphone'
     });
     
     // Get products in this category
