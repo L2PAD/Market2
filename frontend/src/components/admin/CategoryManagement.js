@@ -5,8 +5,13 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { toast } from 'sonner';
-import { Plus, Edit, Trash2, Save, X, Search, ShoppingBag } from 'lucide-react';
-import { categoryIcons, getCategoryIcon } from '../icons/CategoryIcons';
+import { 
+  Plus, Edit, Trash2, Save, X, Search, ShoppingBag,
+  Smartphone, Laptop, Monitor, Tv, Watch, Camera, Headphones, Gamepad,
+  Home, Zap, Coffee, Microwave, Fan, Wind, Snowflake,
+  Shirt, Heart, Book, Music, Car, Bike, Dumbbell, Baby,
+  Pill, Leaf, Palette, Wrench, Hammer, Lightbulb, Wifi, Speaker
+} from 'lucide-react';
 
 /**
  * Category Management Component
