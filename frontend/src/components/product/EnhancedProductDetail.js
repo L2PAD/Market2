@@ -34,6 +34,7 @@ const EnhancedProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const [showShareModal, setShowShareModal] = useState(false);
 
   useEffect(() => {
     fetchProduct();
