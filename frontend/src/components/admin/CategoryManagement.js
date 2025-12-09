@@ -169,7 +169,7 @@ const CategoryManagement = () => {
       name: '',
       slug: '',
       parent_id: null,
-      icon: 'box'
+      icon: 'Smartphone'
     });
     setSelectedProducts([]);
     setSearchQuery('');
