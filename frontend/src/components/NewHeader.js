@@ -115,16 +115,50 @@ const NewHeader = () => {
               </a>
             </div>
 
-            {/* Cart - Always visible */}
+            {/* Favorites */}
+            <Link
+              to="/favorites"
+              className="flex items-center gap-1 md:gap-2 text-black hover:text-pink-600 transition-all duration-300 hover:scale-110 active:scale-95 p-2 hover:bg-pink-50 rounded-2xl"
+              title={t('language') === 'ru' ? 'Избранное' : 'Обране'}
+            >
+              <div className="relative">
+                <Heart className={`w-5 h-5 md:w-6 md:h-6 ${favoritesCount > 0 ? 'fill-pink-500 text-pink-500' : ''}`} />
+                {favoritesCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {favoritesCount}
+                  </span>
+                )}
+              </div>
+              <span className="hidden lg:inline text-sm">{t('language') === 'ru' ? 'Избранное' : 'Обране'}</span>
+            </Link>
+
+            {/* Comparison */}
+            <Link
+              to="/comparison"
+              className="flex items-center gap-1 md:gap-2 text-black hover:text-blue-600 transition-all duration-300 hover:scale-110 active:scale-95 p-2 hover:bg-blue-50 rounded-2xl"
+              title={t('language') === 'ru' ? 'Сравнение' : 'Порівняння'}
+            >
+              <div className="relative">
+                <GitCompare className="w-5 h-5 md:w-6 md:h-6" />
+                {comparisonCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {comparisonCount}
+                  </span>
+                )}
+              </div>
+              <span className="hidden lg:inline text-sm">{t('language') === 'ru' ? 'Сравнение' : 'Порівняння'}</span>
+            </Link>
+
+            {/* Cart */}
             <Link
               to="/cart"
-              className="flex items-center gap-1 md:gap-2 text-black hover:text-blue-600 transition-all duration-300 hover:scale-110 active:scale-95 p-2 hover:bg-blue-50 rounded-2xl"
+              className="flex items-center gap-1 md:gap-2 text-black hover:text-green-600 transition-all duration-300 hover:scale-110 active:scale-95 p-2 hover:bg-green-50 rounded-2xl"
               title={t('myCart')}
             >
               <div className="relative">
                 <ShoppingCart className="w-5 h-5 md:w-6 md:h-6" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {cartItemsCount}
                   </span>
                 )}
