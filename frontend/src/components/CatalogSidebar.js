@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { X, ChevronRight, ChevronDown, Search } from 'lucide-react';
+import { 
+  X, ChevronRight, ChevronDown, Search,
+  Smartphone, Laptop, Monitor, Tv, Watch, Camera, Headphones, Gamepad,
+  Home, Zap, ShoppingBag, Coffee, Microwave, Fan, Wind, Snowflake,
+  Shirt, Heart, Book, Music, Car, Bike, Dumbbell, Baby,
+  Pill, Leaf, Palette, Wrench, Hammer, Lightbulb, Wifi, Speaker
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { categoriesAPI } from '../utils/api';
 import { useCatalog } from '../contexts/CatalogContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { getCategoryIcon } from './icons/CategoryIcons';
 
 const CatalogSidebar = () => {
   const { isCatalogOpen, closeCatalog } = useCatalog();
