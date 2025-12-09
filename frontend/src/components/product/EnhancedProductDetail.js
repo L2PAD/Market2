@@ -18,6 +18,7 @@ import BuyTogether from './BuyTogether';
 import ProductImageGallery from './ProductImageGallery';
 import ReviewForm from './ReviewForm';
 import ProductComments from './ProductComments';
+import ShareModal from '../ShareModal';
 
 const EnhancedProductDetail = () => {
   const { id } = useParams();
