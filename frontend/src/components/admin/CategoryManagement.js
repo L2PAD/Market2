@@ -424,14 +424,24 @@ const CategoryManagement = () => {
                 return (
                   <tr key={category.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
-                      <div>
-                        <p className="font-medium text-gray-900">{category.name}</p>
-                        {/* Subcategories */}
-                        {categories.filter(c => c.parent_id === category.id).length > 0 && (
-                          <p className="text-sm text-gray-500 mt-1">
-                            {categories.filter(c => c.parent_id === category.id).length} subcategories
-                          </p>
-                        )}
+                      <div className="flex items-center gap-3">
+                        {/* Category Icon */}
+                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-gray-100 to-blue-100 rounded-lg flex items-center justify-center">
+                          {(() => {
+                            const IconComponent = getCategoryIcon(category.icon || 'box').component;
+                            return <IconComponent className="w-7 h-7" color="#374151" />;
+                          })()}
+                        </div>
+                        
+                        <div>
+                          <p className="font-medium text-gray-900">{category.name}</p>
+                          {/* Subcategories */}
+                          {categories.filter(c => c.parent_id === category.id).length > 0 && (
+                            <p className="text-sm text-gray-500 mt-1">
+                              {categories.filter(c => c.parent_id === category.id).length} subcategories
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
