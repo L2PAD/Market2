@@ -458,6 +458,78 @@ const PopularCategoriesManagement = () => {
               </div>
             </div>
 
+            {/* Product Selection */}
+            <div className="border-t-2 border-gray-200 pt-6">
+              <Label className="text-lg font-semibold mb-3 block">Вибір товарів для категорії</Label>
+              <p className="text-sm text-gray-500 mb-4">
+                Виберіть товари, які будуть відображатися в цій категорії (мінімум 4 рекомендовано)
+              </p>
+
+              {/* Search */}
+              <div className="mb-4">
+                <Input
+                  placeholder="🔍 Пошук товарів за назвою..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+
+              {/* Selected Products */}
+              {selectedProducts.length > 0 && (
+                <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+                  <p className="text-sm font-semibold text-blue-900 mb-2">
+                    Вибрано товарів: {selectedProducts.length}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProducts.map(product => (
+                      <div
+                        key={product.id}
+                        className="flex items-center gap-2 bg-white px-3 py-1 rounded-full border border-blue-200"
+                      >
+                        <span className="text-sm">{product.title}</span>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedProducts(prev => prev.filter(p => p.id !== product.id))}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Available Products */}
+              <div className="max-h-96 overflow-y-auto border rounded-lg">
+                {products
+                  .filter(p => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
+                  .filter(p => !selectedProducts.find(sp => sp.id === p.id))
+                  .map(product => (
+                    <div
+                      key={product.id}
+                      className="flex items-center gap-3 p-3 hover:bg-gray-50 border-b cursor-pointer"
+                      onClick={() => setSelectedProducts(prev => [...prev, product])}
+                    >
+                      <div className="w-12 h-12 bg-gray-100 rounded flex-shrink-0 overflow-hidden">
+                        {product.images && product.images[0] ? (
+                          <img src={product.images[0]} alt={product.title} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            <ShoppingBag className="w-6 h-6" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">{product.title}</p>
+                        <p className="text-xs text-gray-500">{product.price} грн</p>
+                      </div>
+                      <Plus className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                    </div>
+                  ))}
+              </div>
+            </div>
+
             <div>
               <Label>Порядок (0 = перший)</Label>
               <Input
