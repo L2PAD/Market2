@@ -180,7 +180,7 @@ const CategoryManagement = () => {
     
     try {
       if (!formData.name) {
-        toast.error('Please enter category name');
+        toast.error(t('enterCategoryName') || 'Please enter category name');
         return;
       }
 
@@ -189,11 +189,11 @@ const CategoryManagement = () => {
       if (editingCategory) {
         await categoriesAPI.update(editingCategory.id, formData);
         categoryId = editingCategory.id;
-        toast.success('Category updated successfully!');
+        toast.success(t('categoryUpdated'));
       } else {
         const response = await categoriesAPI.create(formData);
         categoryId = response.data.id;
-        toast.success('Category created successfully!');
+        toast.success(t('categoryCreated'));
       }
 
       // Update products with this category
