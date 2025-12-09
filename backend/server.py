@@ -926,8 +926,8 @@ async def search_suggestions(q: str, limit: int = 5):
     # Get products sorted by relevance
     products = await db.products.find(
         query,
-        {"_id": 0, "title": 1, "id": 1, "price": 1, "images": 1, "score": {"$meta": "textScore"}}
-    ).sort([("score", {"$meta": "textScore"})]).limit(limit).to_list(limit)
+        {"_id": 0, "title": 1, "id": 1, "price": 1, "images": 1}
+    ).limit(limit).to_list(limit)
     
     return [
         {
