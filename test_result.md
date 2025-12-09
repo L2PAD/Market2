@@ -468,12 +468,14 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Expanded Category Icon Set Testing (32 Icons)"
     - "Popular Categories Image Upload Functionality"
     - "Saved Address Feature on Checkout Page"
     - "Profile Editing Functionality with Console Logs"
     - "Advanced Analytics User Behavior Tab"
     - "RozetkaPay Payment Integration"
   stuck_tasks:
+    - "Expanded Category Icon Set Testing (32 Icons)"
     - "RozetkaPay Payment Integration"
     - "Advanced Analytics User Behavior Tab"
     - "Profile Editing Functionality with Console Logs"
