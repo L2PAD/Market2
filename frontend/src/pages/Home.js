@@ -58,12 +58,19 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100">
-      <div className="container-main py-8">
-        <div className="flex gap-8">
-          {/* Left Sidebar - Categories - только на десктопе */}
-          <div className="hidden lg:block">
-            <CategorySidebar 
+    <>
+      <SEO 
+        title="Y-store - Інтернет-магазин електроніки №1 в Україні | Смартфони, Ноутбуки, Техніка"
+        description="Y-store - найкращий інтернет-магазин електроніки в Україні. ✓ Смартфони ✓ Ноутбуки ✓ Побутова техніка за найкращими цінами. Швидка доставка по всій Україні. Офіційна гарантія!"
+        keywords="інтернет магазин електроніки, купити смартфон україна, ноутбуки київ, побутова техніка онлайн, телевізори купити, техніка для дому, y-store"
+        type="website"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100">
+        <div className="container-main py-8">
+          <div className="flex gap-8">
+            {/* Left Sidebar - Categories - только на десктопе */}
+            <div className="hidden lg:block">
+              <CategorySidebar 
               categories={categories}
               selectedCategory={selectedCategory}
               onCategoryClick={handleCategoryClick}
