@@ -182,6 +182,7 @@ const Home = () => {
       {/* Payment & Delivery Info Section */}
       <PaymentDeliveryInfo />
     </div>
+    </>
   );
 };
 
