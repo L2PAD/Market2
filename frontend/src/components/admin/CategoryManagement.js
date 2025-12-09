@@ -357,7 +357,7 @@ const CategoryManagement = () => {
               </div>
 
               {filteredIcons.length === 0 && (
-                <p className="text-center text-gray-500 py-8">Іконки не знайдено</p>
+                <p className="text-center text-gray-500 py-8">{t('noIconsFound')}</p>
               )}
 
               <div className="mt-4 p-4 bg-white rounded-xl border-2 border-gray-200">
@@ -369,7 +369,7 @@ const CategoryManagement = () => {
                     })()}
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600 font-semibold">Вибрана іконка:</p>
+                    <p className="text-sm text-gray-600 font-semibold">{t('selectedIcon')}</p>
                     <p className="text-lg font-bold text-gray-800">
                       {iconOptions.find(i => i.name === formData.icon)?.label || formData.icon}
                     </p>
