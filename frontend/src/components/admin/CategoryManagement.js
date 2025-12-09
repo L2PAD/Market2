@@ -582,6 +582,26 @@ const CategoryManagement = () => {
                         <Button
                           variant="outline"
                           size="sm"
+                          onClick={() => {
+                            setEditingCategory(null);
+                            setIsEditing(true);
+                            setFormData({
+                              name: '',
+                              slug: '',
+                              parent_id: category.id,
+                              icon: 'Smartphone'
+                            });
+                            setSelectedProducts([]);
+                          }}
+                          className="inline-flex items-center gap-1 text-green-600 hover:text-green-700 hover:bg-green-50"
+                          title="Добавить подкатегорию"
+                        >
+                          <Plus className="w-4 h-4" />
+                          Подкатегория
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
                           onClick={() => handleEdit(category)}
                           className="inline-flex items-center gap-1"
                         >
