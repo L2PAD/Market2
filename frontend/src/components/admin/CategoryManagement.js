@@ -264,13 +264,13 @@ const CategoryManagement = () => {
       <div className="max-w-5xl mx-auto">
         <div className="bg-white rounded-2xl p-8 border border-gray-200">
           <h2 className="text-2xl font-bold mb-6">
-            {editingCategory ? 'Edit Category' : 'Add New Category'}
+            {editingCategory ? t('editCategory') : t('addCategory')}
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Category Name */}
             <div>
-              <Label htmlFor="name">Category Name *</Label>
+              <Label htmlFor="name">{t('categoryName')} *</Label>
               <Input
                 id="name"
                 value={formData.name}
@@ -283,31 +283,31 @@ const CategoryManagement = () => {
                   });
                 }}
                 required
-                placeholder="Electronics"
+                placeholder={t('categoryName')}
               />
             </div>
 
             {/* Slug */}
             <div>
-              <Label htmlFor="slug">Slug (auto-generated)</Label>
+              <Label htmlFor="slug">{t('slug')} (auto-generated)</Label>
               <Input
                 id="slug"
                 value={formData.slug}
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                placeholder="electronics"
+                placeholder={t('slug')}
               />
             </div>
 
             {/* Parent Category */}
             <div>
-              <Label htmlFor="parent">Parent Category (optional)</Label>
+              <Label htmlFor="parent">{t('parentCategory')} (optional)</Label>
               <select
                 id="parent"
                 value={formData.parent_id || ''}
                 onChange={(e) => setFormData({ ...formData, parent_id: e.target.value || null })}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
-                <option value="">None (Main Category)</option>
+                <option value="">{t('parentCategory')} - {t('none') || 'None'}</option>
                 {categories
                   .filter(c => !c.parent_id && (!editingCategory || c.id !== editingCategory.id))
                   .map(category => (
