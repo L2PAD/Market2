@@ -24,7 +24,8 @@ const CategoryManagement = () => {
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
-    parent_id: null
+    parent_id: null,
+    icon: 'box'
   });
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
