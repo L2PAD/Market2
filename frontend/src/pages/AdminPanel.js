@@ -20,6 +20,7 @@ import CRMDashboard from '../components/admin/CRMDashboard';
 import PromotionsManagement from '../components/admin/PromotionsManagement';
 import PopularCategoriesManagement from '../components/admin/PopularCategoriesManagement';
 import CustomSectionsManagement from '../components/admin/CustomSectionsManagement';
+import ReviewsManagement from '../components/admin/ReviewsManagement';
 
 const AdminPanel = () => {
   const { isAdmin, loading } = useAuth();
