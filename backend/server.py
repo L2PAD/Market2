@@ -86,7 +86,7 @@ class Category(BaseModel):
     name: str
     slug: str
     parent_id: Optional[str] = None
-    icon: Optional[str] = 'box'  # Icon name for category
+    icon: Optional[str] = 'Smartphone'  # Icon name for category (lucide-react icon names)
     image_url: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
@@ -94,7 +94,7 @@ class CategoryCreate(BaseModel):
     name: str
     slug: str
     parent_id: Optional[str] = None
-    icon: Optional[str] = 'box'
+    icon: Optional[str] = 'Smartphone'
     image_url: Optional[str] = None
 
 class Product(BaseModel):
