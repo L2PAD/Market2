@@ -57,6 +57,31 @@ const ReviewsManagement = () => {
     }
   };
 
+  const handleToggleFeatured = async (reviewId, currentFeaturedStatus) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        `${process.env.REACT_APP_BACKEND_URL}/api/admin/reviews/${reviewId}/feature`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      // Update local state
+      setReviews(reviews.map(r => 
+        r.id === reviewId ? { ...r, featured: response.data.featured } : r
+      ));
+      
+      toast.success(
+        response.data.featured 
+          ? 'Відгук додано на головну' 
+          : 'Відгук прибрано з головної'
+      );
+    } catch (error) {
+      console.error('Failed to toggle featured:', error);
+      toast.error('Не вдалося оновити статус відгуку');
+    }
+  };
+
   const renderStars = (rating) => {
     return (
       <div className="flex gap-1">
