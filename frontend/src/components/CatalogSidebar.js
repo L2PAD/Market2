@@ -42,6 +42,7 @@ const CatalogSidebar = () => {
     try {
       setLoading(true);
       const response = await categoriesAPI.getAll();
+      console.log('Loaded categories:', response.data);
       setCategories(response.data || []);
     } catch (error) {
       console.error('Failed to fetch categories:', error);
