@@ -506,59 +506,117 @@ const CategoryManagement = () => {
             <tbody className="divide-y divide-gray-200">
               {categories.filter(c => !c.parent_id).map((category) => {
                 const categoryProducts = products.filter(p => p.category_id === category.id);
+                const subcategories = categories.filter(c => c.parent_id === category.id);
                 
                 return (
-                  <tr key={category.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
-                        {/* Category Icon */}
-                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center">
-                          {(() => {
-                            const IconComponent = iconComponents[category.icon || 'Smartphone'];
-                            return IconComponent ? <IconComponent className="w-7 h-7 text-blue-600" /> : <ShoppingBag className="w-7 h-7 text-gray-400" />;
-                          })()}
+                  <React.Fragment key={category.id}>
+                    {/* Parent Category */}
+                    <tr className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-3">
+                          {/* Category Icon */}
+                          <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center">
+                            {(() => {
+                              const IconComponent = iconComponents[category.icon || 'Smartphone'];
+                              return IconComponent ? <IconComponent className="w-7 h-7 text-blue-600" /> : <ShoppingBag className="w-7 h-7 text-gray-400" />;
+                            })()}
+                          </div>
+                          
+                          <div>
+                            <p className="font-bold text-gray-900">{category.name}</p>
+                            {subcategories.length > 0 && (
+                              <p className="text-sm text-blue-600 mt-1">
+                                📁 {subcategories.length} {subcategories.length === 1 ? 'subcategory' : 'subcategories'}
+                              </p>
+                            )}
+                          </div>
                         </div>
-                        
-                        <div>
-                          <p className="font-medium text-gray-900">{category.name}</p>
-                          {/* Subcategories */}
-                          {categories.filter(c => c.parent_id === category.id).length > 0 && (
-                            <p className="text-sm text-gray-500 mt-1">
-                              {categories.filter(c => c.parent_id === category.id).length} subcategories
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
-                      {category.slug}
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {categoryProducts.length} products
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-right space-x-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleEdit(category)}
-                        className="inline-flex items-center gap-1"
-                      >
-                        <Edit className="w-4 h-4" />
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleDelete(category.id)}
-                        className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 hover:bg-red-50"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-600">
+                        {category.slug}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          {categoryProducts.length} products
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-right space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleEdit(category)}
+                          className="inline-flex items-center gap-1"
+                        >
+                          <Edit className="w-4 h-4" />
+                          Edit
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDelete(category.id)}
+                          className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+
+                    {/* Subcategories */}
+                    {subcategories.map((subcategory) => {
+                      const subcategoryProducts = products.filter(p => p.category_id === subcategory.id);
+                      
+                      return (
+                        <tr key={subcategory.id} className="bg-blue-50 hover:bg-blue-100 transition-colors">
+                          <td className="px-6 py-3">
+                            <div className="flex items-center gap-3 pl-8">
+                              <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center">
+                                {(() => {
+                                  const IconComponent = iconComponents[subcategory.icon || 'Smartphone'];
+                                  return IconComponent ? <IconComponent className="w-5 h-5 text-blue-600" /> : <ShoppingBag className="w-5 h-5 text-gray-400" />;
+                                })()}
+                              </div>
+                              
+                              <div>
+                                <p className="text-sm font-medium text-gray-800">↳ {subcategory.name}</p>
+                                <p className="text-xs text-gray-500">
+                                  Child of: {category.name}
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-3 text-sm text-gray-600">
+                            {subcategory.slug}
+                          </td>
+                          <td className="px-6 py-3">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-200 text-blue-900">
+                              {subcategoryProducts.length} products
+                            </span>
+                          </td>
+                          <td className="px-6 py-3 text-right space-x-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleEdit(subcategory)}
+                              className="inline-flex items-center gap-1 text-xs"
+                            >
+                              <Edit className="w-3 h-3" />
+                              Edit
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleDelete(subcategory.id)}
+                              className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 hover:bg-red-50 text-xs"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                              Delete
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </React.Fragment>
                 );
               })}
             </tbody>
