@@ -175,18 +175,19 @@ const ReviewForm = ({ productId, onReviewAdded, isAuthenticated, onLoginRequired
           />
         </div>
 
-        {/* Submit Button */}
-        <Button
-          type="submit"
-          disabled={isSubmitting || !isAuthenticated || !comment.trim()}
-          className="w-full"
-        >
-          {isSubmitting
-            ? (t('language') === 'ru' ? 'Отправка...' : 'Відправка...')
-            : (t('language') === 'ru' ? 'Отправить отзыв' : 'Надіслати відгук')
-          }
-        </Button>
-      </form>
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            disabled={isSubmitting || !comment.trim()}
+            className="w-full"
+          >
+            {isSubmitting
+              ? (t('language') === 'ru' ? 'Отправка...' : 'Відправка...')
+              : (t('language') === 'ru' ? 'Отправить отзыв' : 'Надіслати відгук')
+            }
+          </Button>
+        </form>
+      )}
     </div>
   );
 };
