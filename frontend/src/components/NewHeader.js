@@ -184,12 +184,16 @@ const NewHeader = () => {
               >
                 {/* Show category icon if available, otherwise Menu icon */}
                 {(() => {
+                  console.log('BUTTON RENDER - firstCategory:', firstCategory);
                   if (firstCategory && firstCategory.icon) {
+                    console.log('HAS ICON:', firstCategory.icon);
                     const IconComponent = iconComponents[firstCategory.icon];
+                    console.log('IconComponent found:', !!IconComponent);
                     if (IconComponent) {
                       return <IconComponent className="w-4 h-4" />;
                     }
                   }
+                  console.log('FALLBACK TO MENU');
                   return <Menu className="w-4 h-4" />;
                 })()}
                 <span className="hidden sm:inline">{t('catalog')}</span>
