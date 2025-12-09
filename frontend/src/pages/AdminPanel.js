@@ -255,6 +255,18 @@ const AdminPanel = () => {
             <span className="hidden sm:inline">Кастомні розділи</span>
             <span className="sm:hidden">🔥</span>
           </button>
+          <button
+            onClick={() => setActiveTab('reviews')}
+            className={`px-5 py-3 font-bold rounded-2xl transition-all duration-300 whitespace-nowrap text-sm md:text-base flex items-center gap-2 ${
+              activeTab === 'reviews'
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl scale-105'
+                : 'bg-white text-gray-600 hover:bg-gray-50 hover:scale-105 shadow-md'
+            }`}
+          >
+            <Monitor className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="hidden sm:inline">Відгуки</span>
+            <span className="sm:hidden">⭐</span>
+          </button>
           </div>
         </div>
 
