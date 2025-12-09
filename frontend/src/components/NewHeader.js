@@ -20,21 +20,12 @@ const NewHeader = () => {
   const { openCatalog } = useCatalog();
   const { language, changeLanguage, t } = useLanguage();
   const { hasUnreadNotifications } = useNotifications();
-  const [searchQuery, setSearchQuery] = useState('');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const cartItemsCount = cart?.items?.reduce((sum, item) => sum + item.quantity, 0) || 0;
   const favoritesCount = favorites?.products?.length || 0;
   const comparisonCount = comparison?.products?.length || 0;
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
-    }
-  };
 
   const handleLogout = () => {
     logout();
