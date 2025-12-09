@@ -74,7 +74,8 @@ const CategoryManagement = () => {
     setFormData({
       name: '',
       slug: '',
-      parent_id: null
+      parent_id: null,
+      icon: 'box'
     });
     setSelectedProducts([]);
   };
