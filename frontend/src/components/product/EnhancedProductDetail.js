@@ -623,15 +623,6 @@ const SimilarProducts = ({ product }) => {
           </div>
         ))}
       </div>
-
-      {/* Share Modal */}
-      {product && (
-        <ShareModal 
-          isOpen={showShareModal}
-          onClose={() => setShowShareModal(false)}
-          product={product}
-        />
-      )}
     </div>
   );
 };
