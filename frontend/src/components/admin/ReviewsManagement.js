@@ -232,25 +232,41 @@ const ReviewsManagement = () => {
 
                     {/* Actions */}
                     <td className="px-6 py-4 text-right">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleDelete(review.id)}
-                        disabled={deleteLoading === review.id}
-                        className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
-                      >
-                        {deleteLoading === review.id ? (
-                          <>
-                            <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-red-600"></div>
-                            Видалення...
-                          </>
-                        ) : (
-                          <>
-                            <Trash2 className="w-4 h-4" />
-                            Видалити
-                          </>
-                        )}
-                      </Button>
+                      <div className="flex items-center justify-end gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleToggleFeatured(review.id, review.featured)}
+                          className={`inline-flex items-center gap-1 ${
+                            review.featured
+                              ? 'text-green-600 hover:text-green-700 hover:bg-green-50 border-green-300 bg-green-50'
+                              : 'text-blue-600 hover:text-blue-700 hover:bg-blue-50 border-blue-200'
+                          }`}
+                          title={review.featured ? 'Прибрати з головної' : 'Додати на головну'}
+                        >
+                          <Home className="w-4 h-4" />
+                          {review.featured ? '✓ На головній' : 'На головну'}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDelete(review.id)}
+                          disabled={deleteLoading === review.id}
+                          className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+                        >
+                          {deleteLoading === review.id ? (
+                            <>
+                              <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-red-600"></div>
+                              Видалення...
+                            </>
+                          ) : (
+                            <>
+                              <Trash2 className="w-4 h-4" />
+                              Видалити
+                            </>
+                          )}
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}
