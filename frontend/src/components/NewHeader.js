@@ -9,6 +9,7 @@ import { useCatalog } from '../contexts/CatalogContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useNotifications } from '../contexts/NotificationsContext';
 import MobileMenu from './MobileMenu';
+import SearchDropdown from './SearchDropdown';
 
 const NewHeader = () => {
   const navigate = useNavigate();
