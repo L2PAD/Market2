@@ -629,15 +629,30 @@ test_plan:
 
   - task: "Category Icon Management System Testing"
     implemented: true
-    working: true
+    working: false
     file: "/app/frontend/src/components/admin/CategoryManagement.js, /app/frontend/src/components/icons/CategoryIcons.js, /app/frontend/src/components/CatalogSidebar.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: true
         agent: "testing"
         comment: "✅ CATEGORY ICON MANAGEMENT SYSTEM FULLY FUNCTIONAL: Comprehensive E2E testing completed successfully for the new geometric icon system. CATALOG SIDEBAR VERIFICATION: ✅ Catalog button accessible and functional ✅ Sidebar displays categories with geometric icons: Смартфони, Ноутбуки, Телевізори, Побутова техніка, Електропростирадла, Освітлення ✅ Icons have light gray-blue gradient backgrounds (bg-gradient-to-br from-gray-100 to-blue-100) ✅ Simple geometric box-style icons visible next to each category name ✅ Consistent icon styling across all categories. POPULAR CATEGORIES"
+      - working: false
+        agent: "testing"
+        comment: "❌ TESTING BLOCKED: Cannot test expanded icon set for category creation due to CRITICAL AUTHENTICATION FAILURE. ISSUE: Production environment (https://marketplace-renewal.preview.emergentagent.com) authentication is completely broken. Attempted multiple credential combinations: 1) admin@ystore.com/admin (as specified in review request) - FAILED 2) admin@bazaar.com/admin123 (from previous successful tests) - FAILED. ROOT CAUSE: Login form appears to have JavaScript execution issues preventing proper form submission. Browser automation scripts fail with syntax errors, and manual login attempts show no API requests being made. IMPACT: Cannot verify the new 32-icon system (Smartphone, Laptop, Monitor, TV, Watch, Camera, Headphones, Gamepad, Home, Zap, ShoppingBag, Coffee, Microwave, Fan, Wind, Snowflake, Shirt, Heart, Book, Music, Car, Bike, Dumbbell, Baby, Pill, Leaf, Palette, Wrench, Hammer, Lightbulb, Wifi, Speaker) that should be available in category creation. CODE ANALYSIS CONFIRMS: CategoryManagement.js has been updated with 32 icons (lines 73-106), icon search functionality (lines 328-332), and proper grid display. The implementation appears correct but cannot be tested due to authentication barrier."
+
+  - task: "Expanded Category Icon Set Testing (32 Icons)"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/admin/CategoryManagement.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "❌ TESTING BLOCKED BY AUTHENTICATION: Cannot test the expanded 32-icon set for category creation as requested in Ukrainian review. REVIEW REQUEST ANALYSIS: User requested testing of: 1) Login with admin@ystore.com/admin 2) Navigate to Categories section 3) Verify 32 icons available (vs previous 8 geometric) 4) Test icon search with 'ноут' and 'електро' 5) Create test category 'ТЕСТОВА КАТЕГОРІЯ КАМЕРИ' with Camera icon 6) Verify icons in catalog sidebar. CODE VERIFICATION: ✅ CategoryManagement.js contains all 32 requested icons: Smartphone, Laptop, Monitor, Tv, Watch, Camera, Headphones, Gamepad, Home, Zap, ShoppingBag, Coffee, Microwave, Fan, Wind, Snowflake, Shirt, Heart, Book, Music, Car, Bike, Dumbbell, Baby, Pill, Leaf, Palette, Wrench, Hammer, Lightbulb, Wifi, Speaker ✅ Icon search functionality implemented (lines 108-111) ✅ Ukrainian labels provided for all icons ✅ Grid display with proper styling ✅ Preview functionality implemented. AUTHENTICATION ISSUE: Production login completely non-functional, preventing E2E verification of this critical feature expansion.""
 
   - task: "Product Search with Dropdown Autocomplete Testing"
     implemented: true
