@@ -179,11 +179,15 @@ const NewHeader = () => {
                 className="flex items-center gap-2 bg-gray-800 text-white px-4 md:px-6 py-2 rounded-full hover:bg-gray-700 transition-colors font-medium text-sm md:text-base"
               >
                 {/* Show category icon if available, otherwise Menu icon */}
-                {firstCategory && firstCategory.icon && iconComponents[firstCategory.icon] ? (
-                  React.createElement(iconComponents[firstCategory.icon], { className: "w-4 h-4" })
-                ) : (
-                  <Menu className="w-4 h-4" />
-                )}
+                {(() => {
+                  if (firstCategory && firstCategory.icon) {
+                    const IconComponent = iconComponents[firstCategory.icon];
+                    if (IconComponent) {
+                      return <IconComponent className="w-4 h-4" />;
+                    }
+                  }
+                  return <Menu className="w-4 h-4" />;
+                })()}
                 <span className="hidden sm:inline">{t('catalog')}</span>
                 <span className="sm:hidden">Меню</span>
               </button>
