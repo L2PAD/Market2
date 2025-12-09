@@ -178,7 +178,12 @@ const NewHeader = () => {
                 onClick={openCatalog}
                 className="flex items-center gap-2 bg-gray-800 text-white px-4 md:px-6 py-2 rounded-full hover:bg-gray-700 transition-colors font-medium text-sm md:text-base"
               >
-                <Menu className="w-4 h-4" />
+                {/* Show category icon if available, otherwise Menu icon */}
+                {firstCategory && firstCategory.icon && iconComponents[firstCategory.icon] ? (
+                  React.createElement(iconComponents[firstCategory.icon], { className: "w-4 h-4" })
+                ) : (
+                  <Menu className="w-4 h-4" />
+                )}
                 <span className="hidden sm:inline">{t('catalog')}</span>
                 <span className="sm:hidden">Меню</span>
               </button>
