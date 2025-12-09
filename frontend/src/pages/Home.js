@@ -180,6 +180,9 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Featured Reviews Section */}
+      <FeaturedReviews />
+
       {/* Payment & Delivery Info Section */}
       <PaymentDeliveryInfo />
     </div>
