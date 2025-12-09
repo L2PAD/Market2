@@ -11,6 +11,7 @@ import CustomSection from '../components/CustomSection';
 import PaymentDeliveryInfo from '../components/PaymentDeliveryInfo';
 import TestimonialsSection from '../components/TestimonialsSection';
 import SEO from '../components/SEO';
+import FeaturedReviews from '../components/FeaturedReviews';
 import { ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
