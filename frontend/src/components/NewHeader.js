@@ -68,23 +68,9 @@ const NewHeader = () => {
           </div>
 
           {/* Search Bar - Hidden on mobile, visible on md+ */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-2xl mx-4 lg:mx-8">
-            <div className="relative w-full group">
-              <input
-                type="text"
-                placeholder={t('searchPlaceholder')}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-5 py-3 lg:py-4 pr-14 border-2 border-gray-300 rounded-2xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all duration-300 group-hover:border-blue-400"
-              />
-              <button
-                type="submit"
-                className="absolute right-3 top-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-2 rounded-xl hover:scale-110 transition-transform duration-300 active:scale-95"
-              >
-                <Search className="w-5 h-5" />
-              </button>
-            </div>
-          </form>
+          <div className="hidden md:flex flex-1 max-w-2xl mx-4 lg:mx-8">
+            <SearchDropdown />
+          </div>
 
           {/* Right Section */}
           <div className="flex items-center gap-2 md:gap-4 lg:gap-6">
