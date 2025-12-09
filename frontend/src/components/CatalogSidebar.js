@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { categoriesAPI } from '../utils/api';
 import { useCatalog } from '../contexts/CatalogContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { getCategoryIcon } from './icons/CategoryIcons';
 
 const CatalogSidebar = () => {
   const { isCatalogOpen, closeCatalog } = useCatalog();
