@@ -1584,6 +1584,105 @@ async def get_admin_orders(current_user: User = Depends(get_current_admin)):
         logger.error(f"Error fetching admin orders: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
+# ============= ADMIN REVIEWS MANAGEMENT =============
+
+@api_router.get("/admin/reviews", response_model=List[ReviewWithProduct])
+async def get_all_reviews_admin(current_user: User = Depends(get_current_admin)):
+    """
+    Get all reviews with product and user information for admin management
+    """
+    try:
+        reviews = await db.reviews.find({}, {"_id": 0}).to_list(10000)
+        
+        enriched_reviews = []
+        for review in reviews:
+            # Get product info
+            product = await db.products.find_one({"id": review.get("product_id")}, {"_id": 0})
+            product_name = product.get("title", "Unknown Product") if product else "Unknown Product"
+            
+            # Get user info
+            user = await db.users.find_one({"id": review.get("user_id")}, {"_id": 0})
+            user_email = user.get("email", "N/A") if user else "N/A"
+            
+            # Parse created_at
+            created_at = review.get("created_at")
+            if isinstance(created_at, str):
+                created_at = datetime.fromisoformat(created_at)
+            
+            enriched_review = ReviewWithProduct(
+                id=review["id"],
+                product_id=review["product_id"],
+                product_name=product_name,
+                user_id=review["user_id"],
+                user_name=review.get("user_name", "Unknown"),
+                user_email=user_email,
+                rating=review["rating"],
+                comment=review["comment"],
+                created_at=created_at
+            )
+            enriched_reviews.append(enriched_review)
+        
+        # Sort by created_at descending
+        enriched_reviews.sort(key=lambda x: x.created_at, reverse=True)
+        
+        return enriched_reviews
+    except Exception as e:
+        logger.error(f"Error fetching admin reviews: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.delete("/admin/reviews/{review_id}")
+async def delete_review_admin(
+    review_id: str,
+    current_user: User = Depends(get_current_admin)
+):
+    """
+    Delete a review (admin only)
+    """
+    result = await db.reviews.delete_one({"id": review_id})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Review not found")
+    
+    return {"message": "Review deleted successfully"}
+
+
+@api_router.get("/products/{product_id}/can-review")
+async def can_user_review_product(
+    product_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Check if user can review a product (purchased and not reviewed yet)
+    """
+    # Check if user purchased this product
+    user_orders = await db.orders.find({
+        "buyer_id": current_user.id,
+        "payment_status": {"$in": ["completed", "paid"]}
+    }, {"_id": 0}).to_list(1000)
+    
+    has_purchased = False
+    for order in user_orders:
+        for item in order.get("items", []):
+            if item.get("product_id") == product_id:
+                has_purchased = True
+                break
+        if has_purchased:
+            break
+    
+    # Check if already reviewed
+    existing_review = await db.reviews.find_one({
+        "product_id": product_id,
+        "user_id": current_user.id
+    })
+    
+    return {
+        "can_review": has_purchased and not existing_review,
+        "has_purchased": has_purchased,
+        "already_reviewed": existing_review is not None
+    }
+
 @api_router.get("/orders/{order_id}", response_model=Order)
 async def get_order(order_id: str, current_user: User = Depends(get_current_user)):
     order = await db.orders.find_one({"id": order_id}, {"_id": 0})
