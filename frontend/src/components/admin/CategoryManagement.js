@@ -59,7 +59,8 @@ const CategoryManagement = () => {
     setFormData({
       name: category.name || '',
       slug: category.slug || '',
-      parent_id: category.parent_id || null
+      parent_id: category.parent_id || null,
+      icon: category.icon || 'box'
     });
     
     // Get products in this category
