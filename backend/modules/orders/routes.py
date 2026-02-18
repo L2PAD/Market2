@@ -1,26 +1,22 @@
 """
-Orders Module - Models & Routes
+Orders Module - Production-ready order management with state machine
 """
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Header
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime, timezone
-from enum import Enum
 import uuid
+import logging
 
 from core.db import db
 from core.security import get_current_user, get_current_admin
+from .order_status import OrderStatus
+from .order_state_machine import can_transition, get_allowed_transitions, is_cancellable
+from .order_repository import order_repository
+from .order_idempotency import make_idempotency_hash, stable_payload_hash
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
-
-
-class OrderStatus(str, Enum):
-    PENDING = "pending"
-    CONFIRMED = "confirmed"
-    PROCESSING = "processing"
-    SHIPPED = "shipped"
-    DELIVERED = "delivered"
-    CANCELLED = "cancelled"
+logger = logging.getLogger(__name__)
 
 
 class OrderItem(BaseModel):
@@ -46,34 +42,67 @@ class CreateOrderRequest(BaseModel):
     notes: Optional[str] = None
 
 
-class Order(BaseModel):
+class UpdateStatusRequest(BaseModel):
+    status: str
+    reason: Optional[str] = None
+
+
+class OrderResponse(BaseModel):
     id: str
     user_id: str
     items: List[OrderItem]
     shipping: ShippingAddress
-    status: OrderStatus
+    status: str
+    version: int = 1
     payment_method: str
-    payment_status: str = "pending"
+    payment: Optional[dict] = None
     subtotal: float
     shipping_cost: float = 0
     total: float
     notes: Optional[str] = None
+    status_history: List[dict] = []
     created_at: datetime
     updated_at: Optional[datetime] = None
 
 
-class OrderResponse(Order):
+class OrderListResponse(OrderResponse):
     user_name: Optional[str] = None
     user_email: Optional[str] = None
 
 
-@router.post("", response_model=Order)
+@router.post("", response_model=OrderResponse)
 async def create_order(
     data: CreateOrderRequest,
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(get_current_user),
+    x_idempotency_key: Optional[str] = Header(None, alias="X-Idempotency-Key")
 ):
-    """Create new order from cart"""
+    """
+    Create new order from cart.
+    Supports idempotency via X-Idempotency-Key header.
+    """
     user_id = current_user["id"]
+    
+    # Build payload for idempotency check
+    payload = {
+        "user_id": user_id,
+        "shipping": data.shipping.model_dump(),
+        "payment_method": data.payment_method,
+    }
+    
+    # Handle idempotency if key provided
+    if x_idempotency_key:
+        key_hash = make_idempotency_hash(x_idempotency_key)
+        payload_hash = stable_payload_hash(payload)
+        
+        existing = await order_repository.idem_get_or_lock(key_hash, payload_hash)
+        if existing:
+            if existing.get("status") == "DONE" and existing.get("result"):
+                return OrderResponse(**existing["result"])
+            if existing.get("payload_hash") != payload_hash:
+                raise HTTPException(
+                    status_code=422, 
+                    detail="IDEMPOTENCY_PAYLOAD_MISMATCH"
+                )
     
     # Get cart
     cart = await db.carts.find_one({"user_id": user_id})
@@ -85,7 +114,10 @@ async def create_order(
     subtotal = 0
     
     for cart_item in cart["items"]:
-        product = await db.products.find_one({"id": cart_item["product_id"]}, {"_id": 0})
+        product = await db.products.find_one(
+            {"id": cart_item["product_id"]}, 
+            {"_id": 0}
+        )
         if not product:
             continue
         
@@ -109,19 +141,35 @@ async def create_order(
     order_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc)
     
+    # Determine initial status based on payment method
+    initial_status = (
+        OrderStatus.AWAITING_PAYMENT 
+        if data.payment_method != "cash" 
+        else OrderStatus.NEW
+    )
+    
     order_doc = {
         "id": order_id,
         "user_id": user_id,
         "items": [item.model_dump() for item in order_items],
         "shipping": data.shipping.model_dump(),
-        "status": OrderStatus.PENDING,
+        "status": initial_status.value,
+        "version": 1,
         "payment_method": data.payment_method,
-        "payment_status": "pending",
+        "payment": None,
         "subtotal": subtotal,
         "shipping_cost": 0,
         "total": subtotal,
         "notes": data.notes,
-        "created_at": now
+        "status_history": [{
+            "from": None,
+            "to": initial_status.value,
+            "actor": f"user:{user_id}",
+            "reason": "ORDER_CREATED",
+            "at": now.isoformat(),
+        }],
+        "created_at": now,
+        "updated_at": None,
     }
     
     await db.orders.insert_one(order_doc)
@@ -132,10 +180,16 @@ async def create_order(
         {"$set": {"items": [], "updated_at": now}}
     )
     
-    return Order(**order_doc)
+    # Store idempotency result
+    if x_idempotency_key:
+        result_doc = {k: v for k, v in order_doc.items() if k != "_id"}
+        await order_repository.idem_store_result(key_hash, result_doc)
+        await order_repository.idem_set_expires(key_hash, hours=24)
+    
+    return OrderResponse(**order_doc)
 
 
-@router.get("/my", response_model=List[Order])
+@router.get("/my", response_model=List[OrderResponse])
 async def get_my_orders(current_user: dict = Depends(get_current_user)):
     """Get current user's orders"""
     orders = await db.orders.find(
@@ -143,16 +197,16 @@ async def get_my_orders(current_user: dict = Depends(get_current_user)):
         {"_id": 0}
     ).sort("created_at", -1).to_list(100)
     
-    return [Order(**o) for o in orders]
+    return [OrderResponse(**o) for o in orders]
 
 
-@router.get("/{order_id}", response_model=Order)
+@router.get("/{order_id}", response_model=OrderResponse)
 async def get_order(
     order_id: str,
     current_user: dict = Depends(get_current_user)
 ):
     """Get single order"""
-    order = await db.orders.find_one({"id": order_id}, {"_id": 0})
+    order = await order_repository.get_by_id(order_id)
     
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
@@ -161,12 +215,70 @@ async def get_order(
     if current_user["role"] != "admin" and order["user_id"] != current_user["id"]:
         raise HTTPException(status_code=403, detail="Not authorized")
     
-    return Order(**order)
+    return OrderResponse(**order)
 
 
-@router.get("", response_model=List[OrderResponse])
+@router.get("/{order_id}/transitions")
+async def get_available_transitions(
+    order_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    """Get available status transitions for an order"""
+    order = await order_repository.get_by_id(order_id)
+    
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    
+    current_status = OrderStatus(order["status"])
+    allowed = get_allowed_transitions(current_status)
+    
+    return {
+        "order_id": order_id,
+        "current_status": current_status.value,
+        "allowed_transitions": [s.value for s in allowed],
+        "version": order.get("version", 1),
+    }
+
+
+@router.post("/{order_id}/cancel")
+async def cancel_order(
+    order_id: str,
+    reason: Optional[str] = None,
+    current_user: dict = Depends(get_current_user)
+):
+    """Cancel an order (if allowed by state machine)"""
+    order = await order_repository.get_by_id(order_id)
+    
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    
+    # Check ownership or admin
+    if current_user["role"] != "admin" and order["user_id"] != current_user["id"]:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    current_status = OrderStatus(order["status"])
+    
+    if not is_cancellable(current_status):
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Cannot cancel order in {current_status.value} status"
+        )
+    
+    try:
+        updated = await order_repository.atomic_transition(
+            order_id=order_id,
+            to_status=OrderStatus.CANCELED,
+            actor=f"user:{current_user['id']}",
+            reason=reason or "USER_CANCELLED",
+        )
+        return {"message": "Order cancelled", "order": OrderResponse(**updated)}
+    except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e))
+
+
+@router.get("", response_model=List[OrderListResponse])
 async def get_all_orders(
-    status: Optional[OrderStatus] = None,
+    status: Optional[str] = None,
     current_user: dict = Depends(get_current_admin)
 ):
     """Get all orders (admin only)"""
@@ -179,8 +291,11 @@ async def get_all_orders(
     # Enrich with user info
     result = []
     for o in orders:
-        user = await db.users.find_one({"id": o["user_id"]}, {"full_name": 1, "email": 1})
-        result.append(OrderResponse(
+        user = await db.users.find_one(
+            {"id": o["user_id"]}, 
+            {"full_name": 1, "email": 1}
+        )
+        result.append(OrderListResponse(
             **o,
             user_name=user.get("full_name") if user else None,
             user_email=user.get("email") if user else None
@@ -192,16 +307,44 @@ async def get_all_orders(
 @router.put("/{order_id}/status")
 async def update_order_status(
     order_id: str,
-    status: OrderStatus,
+    data: UpdateStatusRequest,
     current_user: dict = Depends(get_current_admin)
 ):
-    """Update order status (admin only)"""
-    result = await db.orders.update_one(
-        {"id": order_id},
-        {"$set": {"status": status, "updated_at": datetime.now(timezone.utc)}}
-    )
+    """
+    Update order status (admin only).
+    Uses state machine to validate transitions.
+    Uses optimistic locking to prevent conflicts.
+    """
+    try:
+        to_status = OrderStatus(data.status)
+    except ValueError:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Invalid status: {data.status}"
+        )
     
-    if result.matched_count == 0:
-        raise HTTPException(status_code=404, detail="Order not found")
-    
-    return {"message": "Status updated"}
+    try:
+        updated = await order_repository.atomic_transition(
+            order_id=order_id,
+            to_status=to_status,
+            actor=f"admin:{current_user['id']}",
+            reason=data.reason or "ADMIN_UPDATE",
+        )
+        return {
+            "message": "Status updated",
+            "order_id": order_id,
+            "new_status": updated["status"],
+            "version": updated["version"],
+        }
+    except ValueError as e:
+        msg = str(e)
+        if msg == "ORDER_NOT_FOUND":
+            raise HTTPException(status_code=404, detail="Order not found")
+        if msg == "ORDER_CONFLICT":
+            raise HTTPException(
+                status_code=409, 
+                detail="Order was modified by another request"
+            )
+        if msg.startswith("INVALID_TRANSITION"):
+            raise HTTPException(status_code=400, detail=msg)
+        raise HTTPException(status_code=400, detail=msg)
