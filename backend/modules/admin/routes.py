@@ -8,11 +8,8 @@ from datetime import datetime, timezone, timedelta
 
 from core.db import db
 from core.security import get_current_admin
-from analytics_service import AnalyticsService
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
-
-analytics_service = AnalyticsService()
 
 
 class AdminStats(BaseModel):
