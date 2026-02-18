@@ -25,6 +25,12 @@ class Settings(BaseSettings):
     ROZETKAPAY_LOGIN: str = ""
     ROZETKAPAY_PASSWORD: str = ""
     
+    # Fondy Payment Gateway
+    FONDY_MERCHANT_ID: str = ""
+    FONDY_MERCHANT_PASSWORD: str = ""
+    FONDY_CALLBACK_URL: str = ""
+    FONDY_RETURN_URL: str = ""
+    
     # Optional
     CLOUDINARY_URL: str = ""
     
