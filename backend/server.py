@@ -3599,6 +3599,33 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
+
+@app.on_event("startup")
+async def startup_init():
+    """Initialize database indexes for production-ready modules"""
+    logger.info("🚀 Initializing production-ready indexes...")
+    
+    # Orders indexes - with optimistic locking support
+    await db.orders.create_index("id", unique=True)
+    await db.orders.create_index("user_id")
+    await db.orders.create_index("status")
+    await db.orders.create_index("created_at")
+    
+    # Payment events - webhook idempotency
+    await db.payment_events.create_index(
+        [("provider", 1), ("provider_event_id", 1)], 
+        unique=True
+    )
+    await db.payment_events.create_index("order_id")
+    await db.payment_events.create_index("signature_hash", unique=True, sparse=True)
+    
+    # Idempotency keys - general API idempotency
+    await db.idempotency_keys.create_index("key_hash", unique=True)
+    await db.idempotency_keys.create_index("expires_at", expireAfterSeconds=0)
+    
+    logger.info("✅ Production indexes created")
+
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
