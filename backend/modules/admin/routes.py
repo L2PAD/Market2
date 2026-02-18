@@ -93,7 +93,21 @@ async def get_revenue_analytics(
     current_user: dict = Depends(get_current_admin)
 ):
     """Get revenue analytics"""
-    return await analytics_service.get_revenue_analytics(days)
+    from datetime import timedelta
+    start_date = datetime.now(timezone.utc) - timedelta(days=days)
+    
+    pipeline = [
+        {"$match": {"created_at": {"$gte": start_date}}},
+        {"$group": {
+            "_id": {"$dateToString": {"format": "%Y-%m-%d", "date": "$created_at"}},
+            "total": {"$sum": "$total"},
+            "count": {"$sum": 1}
+        }},
+        {"$sort": {"_id": 1}}
+    ]
+    
+    result = await db.orders.aggregate(pipeline).to_list(days)
+    return [{"date": r["_id"], "revenue": r["total"], "orders": r["count"]} for r in result]
 
 
 @router.get("/analytics/top-products")
@@ -102,13 +116,25 @@ async def get_top_products(
     current_user: dict = Depends(get_current_admin)
 ):
     """Get top selling products"""
-    return await analytics_service.get_top_products(limit)
+    products = await db.products.find({}, {"_id": 0}).sort("sales_count", -1).limit(limit).to_list(limit)
+    return products
 
 
 @router.get("/analytics/categories")
 async def get_category_distribution(current_user: dict = Depends(get_current_admin)):
     """Get sales by category"""
-    return await analytics_service.get_category_distribution()
+    pipeline = [
+        {"$group": {"_id": "$category_id", "count": {"$sum": 1}, "total_sales": {"$sum": "$sales_count"}}},
+        {"$sort": {"total_sales": -1}}
+    ]
+    result = await db.products.aggregate(pipeline).to_list(50)
+    
+    # Enrich with category names
+    for r in result:
+        cat = await db.categories.find_one({"id": r["_id"]}, {"name": 1})
+        r["category_name"] = cat["name"] if cat else "Unknown"
+    
+    return result
 
 
 @router.get("/analytics/user-growth")
@@ -117,7 +143,20 @@ async def get_user_growth(
     current_user: dict = Depends(get_current_admin)
 ):
     """Get user registration growth"""
-    return await analytics_service.get_user_growth(days)
+    from datetime import timedelta
+    start_date = datetime.now(timezone.utc) - timedelta(days=days)
+    
+    pipeline = [
+        {"$match": {"created_at": {"$gte": start_date}}},
+        {"$group": {
+            "_id": {"$dateToString": {"format": "%Y-%m-%d", "date": "$created_at"}},
+            "count": {"$sum": 1}
+        }},
+        {"$sort": {"_id": 1}}
+    ]
+    
+    result = await db.users.aggregate(pipeline).to_list(days)
+    return [{"date": r["_id"], "new_users": r["count"]} for r in result]
 
 
 @router.get("/analytics/order-status")
