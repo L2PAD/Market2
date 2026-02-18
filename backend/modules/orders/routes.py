@@ -121,11 +121,14 @@ async def create_order(
         if not product:
             continue
         
+        # Handle both 'name' and 'title' field names
+        product_name = product.get("name") or product.get("title", "Unknown Product")
+        
         order_items.append(OrderItem(
             product_id=product["id"],
             quantity=cart_item["quantity"],
             price=product["price"],
-            name=product["name"]
+            name=product_name
         ))
         subtotal += product["price"] * cart_item["quantity"]
         
