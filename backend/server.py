@@ -3574,7 +3574,17 @@ Crawl-delay: 1
 
 # ============= INITIALIZE APP =============
 
+# Import production-ready modular routers
+from modules.orders.routes import router as orders_v2_router
+from modules.payments.routes import router as payments_v2_router
+
+# Include legacy api_router
 app.include_router(api_router)
+
+# Include production-ready modular routers with /api prefix
+# These provide state machine, optimistic locking, and Fondy integration
+app.include_router(orders_v2_router, prefix="/api/v2", tags=["Orders V2 (Production)"])
+app.include_router(payments_v2_router, prefix="/api/v2", tags=["Payments V2 (Fondy)"])
 
 app.add_middleware(
     CORSMiddleware,
