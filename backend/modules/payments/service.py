@@ -93,7 +93,8 @@ class PaymentsService:
         if not order:
             raise ValueError("ORDER_NOT_FOUND")
         
-        payment = order.get("payment", {})
+        # Handle case where payment is explicitly None
+        payment = order.get("payment") or {}
         
         return {
             "order_id": order_id,
